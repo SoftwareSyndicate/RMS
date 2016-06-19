@@ -9,7 +9,7 @@ var CONFIG = merge(config.base, config[process.env.npm_package_config_branch] ||
 
 var PATH = './static';
 if (process.env.NODE_ENV === 'production') {
-  PATH = './dist';
+  PATH = './public';
 }
 
 module.exports = {
