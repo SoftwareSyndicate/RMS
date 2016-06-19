@@ -1,0 +1,49 @@
+// core
+$max-width: 89%;
+
+$small-screen: 480px !default;
+$medium-screen: 640px !default;
+$large-screen: 860px !default;
+
+// colors
+$color-highlight: #607EEB;
+$color-highlight-background: #fff;
+$color-background-color: #f5f6fa;
+$color-chart-area-1: #A9B9D3;
+$color-text-light: rgba(0, 0, 0, .4);
+$color-text-normal: rgba(0, 0, 0, .6);
+$color-text-dark: rgba(0, 0, 0, .8);
+$color-text-gray: rgb(129,133,174);
+$color-component-body: white;
+$color-blue: #607EEB;
+$color-blue-secondary: #7790ee;
+$color-green: #1AE56B;
+$color-gray: #A9B9D3;
+$color-component-header-light-gray: rgba(248, 249, 252, 1);
+$color-purple: #607EEB; // rgb(195,45,247);
+$color-border: rgb(229,230,240);
+$color-body-gray: rgb(248, 249, 251);
+$color-icons: rgba(0, 0, 0, .3);
+
+$color-input-error: transparentize(red, .1);
+$color-input-success: green;
+
+// components
+$component-margin: 1.5em;
+$component-background-color: white;
+
+// border
+$default-border: 2px solid rgba(0, 0, 0, .1);
+
+$color-background: rgba(20, 29, 37, .1);
+
+
+$color-sub-container: rgba(20, 29, 37, .3);
+
+$color-primary: #eeff33;
+$color-text-primary: rgba(255, 255, 255, .93);
+
+
+//Navbar
+$color-navbar-background: #e74c3c;
+$navbar-height: 60px;

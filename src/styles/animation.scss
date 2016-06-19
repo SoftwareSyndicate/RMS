@@ -1,0 +1,34 @@
+/* Click Confirmation */
+/* Marin */
+.cbutton--effect-marin::after {
+  box-shadow: inset 0 0 0 3px rgba(111,148,182,0.05);
+}
+
+.cbutton--effect-marin.cbutton--click::after {
+  -webkit-animation: anim-effect-marin 0.5s ease-out forwards;
+  animation: anim-effect-marin 0.5s ease-out forwards;
+}
+
+@-webkit-keyframes anim-effect-marin {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    box-shadow: inset 0 0 0 3px rgba(111,148,182,0.8);
+    opacity: 0;
+    -webkit-transform: scale3d(0.75, 0.75, 1);
+    transform: scale3d(0.75, 0.75, 1);
+  }
+}
+
+@keyframes anim-effect-marin {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    box-shadow: inset 0 0 0 3px rgba(111,148,182,0.8);
+    opacity: 0;
+    -webkit-transform: scale3d(0.75, 0.75, 1);
+    transform: scale3d(0.75, 0.75, 1);
+  }
+}

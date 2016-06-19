@@ -1,6 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import Notifications from './NotificationService'
 
+//Pages
+import SignUpPage from 'components/signUpPage/signUpPage'
 
 class RouterService {
   constructor(){
@@ -12,12 +15,27 @@ class RouterService {
     var router = new Router();
 
     router.map({
-      // landing
-      '/': {
-        name: 'landing',
-        hideNav: true,
+      '/signUp': {
+        name: 'signUp',
+        component: SignUpPage,
         auth: false
+      },
+      '/setters': {
+        name: 'setters',
+        component: SignUpPage,
+        auth: true
+      },
+      '/walls': {
+        name: 'walls',
+        component: SignUpPage,
+        auth: true
+      },
+      '/gym': {
+        name: 'gym',
+        component: SignUpPage,
+        auth: true
       }
+
     });
 
     router.beforeEach(function(transition){
@@ -28,6 +46,12 @@ class RouterService {
     router.afterEach(function(transition){
       Notifications.notify('Router.afterTransition', transition);
     });
+
+
+    router.redirect({
+      '*': '/signUp'
+    });
+
 
     return router;
   }
