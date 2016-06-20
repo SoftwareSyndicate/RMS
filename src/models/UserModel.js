@@ -3,8 +3,14 @@ import Notifications from 'services/NotificationService'
 
 class UserModel {
   constructor(){
-    this.currentUser = firebase.auth().currentUser;
-    console.log("currentUser: ", this.currentUser);
+    firebase.auth().onAuthStateChanged(user => {
+      if(user){
+        this.currentUser = user;
+        Notifications.notify("UserModel.userLogin", this.currentUser);
+      } else {
+        this.currentUser = null;
+      }
+    });
 
     this.googleAuthProvider = new firebase.auth.GoogleAuthProvider();
     this.facebookAuthProvider = new firebase.auth.FacebookAuthProvider();
