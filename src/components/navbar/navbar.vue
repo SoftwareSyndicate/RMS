@@ -34,11 +34,13 @@
 
    notifs(){
      return {
-
+       "UserModel.userLogin": "onUserLogin",
+       "Navbar.setItems": "setNavItems"
      }
    },
    methods: {
      initNavItems(){
+       this.navItems = [];
        if(this.currentUser){
          this.navItems.push(
            {
@@ -58,8 +60,21 @@
            }
          );
        } else {
-
+         this.navItems.push({
+           display: "Sign Up",
+           route: "signUp",
+           auth: "none"
+         })
        }
+     },
+
+     onUserLogin(e, user){
+       this.currentUser = UserModel.currentUser;
+       this.initNavItems();
+     },
+
+     setNavItems(e, items){
+       this.navItems = items;
      }
    }
  });

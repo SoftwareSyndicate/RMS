@@ -3,12 +3,18 @@
     <div class="form-container">
       <h2>Sign In</h2>
       <form>
-        <input type="email" placeholder="Email"/>
-        <input type="password" placeholder="Password"/>
-        <div class="btn btn-primary">Submit</div>
+        <input type="email" placeholder="Email" v-model="email"/>
+        <input type="password" placeholder="Password" v-model="password"/>
+        <div class="third-party-login-container">
+          <div class="img-container">
+            <img src="/images/facebook_login.png" @click="signInWithFacebook()" class="facebook"/>
+          </div>
+          <div class="img-container">
+            <img src="/images/google_login.png" @click="signInWithGoogle()" class="google"/>
+          </div>
+        </div>
+        <div class="btn btn-primary" @click="signInWithEmail()">Submit</div>
       </form>
-
-      <div class="btn btn-facebook">Sign in with Facebook</div>
     </div>
   </div>
 </template>
@@ -24,7 +30,8 @@
    },
    data(){
      return {
-
+       email: "",
+       password: ""
      }
    },
    created(){
@@ -37,8 +44,18 @@
      }
    },
    methods: {
+     signInWithEmail(){
+       UserModel.signInWithEmail(this.email, this.password).then(results => {
+         
+       });
+     },
+
      signInWithFacebook(){
        UserModel.signUpWithFacebook();
+     },
+
+     signInWithGoogle(){
+       UserModel.signUpWithGoogle();
      }
    }
  });
@@ -57,7 +74,7 @@
 
    .form-container {
      padding: 3em;
-     margin-top: 20%;
+     margin-top: 6em;
      background-color: $color-sub-container;
 
      color: $color-text-secondary;
@@ -77,14 +94,23 @@
        }
 
        .btn {
-         margin: auto;
+         margin-left: auto;
        }
      }
 
-     .facebook {
+     .third-party-login-container {
+       display: flex;
 
+
+       .img-container {
+
+         img {
+           width:  auto;
+           max-height: 50px;
+           cursor: pointer;
+         }
+       }
      }
-
    }
  }
 

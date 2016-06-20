@@ -29,3 +29,13 @@
   }
 }
 
+
+.btn-google {
+  color: white;
+  background-color: #3cba54;
+
+  &:hover {
+    background-color: darken(#3cba54, 3%);
+  }
+}
+

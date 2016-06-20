@@ -13,6 +13,10 @@ class UserModel {
   signInWithEmail(email, password){
     return firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
       return error;
+    }).then(results => {
+      this.currentUser = firebase.auth().currentUser;
+      Notifications.notify("UserModel.userLogin", this.currentUser);
+      return results;
     });
   }
 
@@ -26,7 +30,7 @@ class UserModel {
   }
 
   //Sign Up
-  signUpWithEmail(firstName, lastName, email, password){
+  signUpWithEmail(email, password){
     return firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
       return error;
     });
