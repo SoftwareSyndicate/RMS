@@ -1,13 +1,17 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Notifications from './NotificationService'
+import Notifications from 'services/NotificationService'
+import UserModel from 'models/UserModel'
 
 //Pages
+import SignInPage from 'components/signInPage/signInPage'
 import SignUpPage from 'components/signUpPage/signUpPage'
+import SettersPage from 'components/settersPage/settersPage'
+import WallsPage from 'components/wallsPage/wallsPage'
+import GymPage from 'components/gymPage/gymPage'
 
 class RouterService {
   constructor(){
-    // install router
     Vue.use(Router);
   }
 
@@ -15,6 +19,11 @@ class RouterService {
     var router = new Router();
 
     router.map({
+      '/signIn': {
+        name: 'signUp',
+        component: SignInPage,
+        auth: false
+      },
       '/signUp': {
         name: 'signUp',
         component: SignUpPage,
@@ -22,25 +31,29 @@ class RouterService {
       },
       '/setters': {
         name: 'setters',
-        component: SignUpPage,
+        component: SettersPage,
         auth: true
       },
       '/walls': {
         name: 'walls',
-        component: SignUpPage,
+        component: WallsPage,
         auth: true
       },
       '/gym': {
         name: 'gym',
-        component: SignUpPage,
+        component: GymPage,
         auth: true
       }
 
     });
 
     router.beforeEach(function(transition){
-      Notifications.notify('Router.beforeTransition', transition);
-      transition.next();
+      if(transition.to.auth && !UserModel.currentUser){
+        transition.redirect("/signIn");
+      } else {
+        Notifications.notify('Router.beforeTransition', transition);
+        transition.next();
+      }
     });
 
     router.afterEach(function(transition){
@@ -49,7 +62,7 @@ class RouterService {
 
 
     router.redirect({
-      '*': '/signUp'
+      '*': '/gym'
     });
 
 

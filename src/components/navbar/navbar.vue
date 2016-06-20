@@ -4,7 +4,7 @@
       <div class="logo">
         RMS
       </div>
-      <div class="list" v-show="!currentUser">
+      <div class="list">
         <div class="item" v-for="item in navItems" v-link="{name: item.route}">
           {{item.display}}
         </div>
@@ -39,7 +39,7 @@
    },
    methods: {
      initNavItems(){
-       if(!this.currentUser){
+       if(this.currentUser){
          this.navItems.push(
            {
              display: "Setters",
@@ -83,10 +83,9 @@
 
    .navbar-wrapper {
      display: flex;
-     flex-grow: 1;
      align-items: center;
-     margin-right: 10%;
-     margin-left: 10%;
+     width: $max-width;
+     margin: auto;
 
      .logo {
        font-weight: 300;

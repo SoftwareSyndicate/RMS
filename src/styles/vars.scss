@@ -38,12 +38,16 @@ $default-border: 2px solid rgba(0, 0, 0, .1);
 $color-background: rgba(20, 29, 37, .1);
 
 
-$color-sub-container: rgba(20, 29, 37, .3);
+$color-sub-container: white;
 
 $color-primary: #eeff33;
 $color-text-primary: rgba(255, 255, 255, .93);
-
+$color-text-secondary: rgba(0, 0, 0, .93);
 
 //Navbar
 $color-navbar-background: #e74c3c;
 $navbar-height: 60px;
+
+//Buttons
+$button-color-primary: white;
+$button-background-color-primary: #607EEB;

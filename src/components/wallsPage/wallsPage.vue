@@ -1,11 +1,6 @@
 <template>
-  <div class="sign-up-page">
-    <div class="form-container">
-      <form>
-        <input type="email"/>
-        <input type="password"/>
-      </form>
-    </div>
+  <div class="walls-page">
+    walls page
   </div>
 </template>
 
@@ -14,7 +9,7 @@
  import UserModel from 'models/UserModel'
 
  export default BaseComponent.extend({
-   name: 'SignUpPage',
+   name: 'WallsPage',
    components: {
 
    },
@@ -33,12 +28,9 @@
      }
    },
    methods: {
-     signUpWithFacebook(){
-       UserModel.signUpWithFacebook();
-     }
+
    }
  });
-
 
 </script>
 
@@ -46,11 +38,8 @@
 <style lang="sass">
  @import '../../styles/main.scss';
 
- .sign-up-page {
-   .form-container {
-     background-color: $color-sub-container;
+ .walls-page {
 
-   }
  }
 
 </style>

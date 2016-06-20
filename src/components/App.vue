@@ -46,8 +46,10 @@
    color: $color-text-primary;
 
    #wrapper {
+     display: flex;
      padding-top: $navbar-height;
-
+     width: $max-width;
+     margin: auto;
    }
  }
 

@@ -1,0 +1,31 @@
+@import "./vars";
+
+.btn {
+  font-size: 1em;
+  padding: 1em 3em 1em 3em;
+  cursor: pointer;
+
+  &:hover {
+
+  }
+}
+
+.btn-primary {
+  color: $button-color-primary;
+  background-color: $button-background-color-primary;
+
+  &:hover {
+    background-color: darken($button-background-color-primary, 3%);
+  }
+}
+
+
+.btn-facebook {
+  color: white;
+  background-color: #3b5998;
+
+  &:hover {
+    background-color: darken(#3b5998, 3%);
+  }
+}
+

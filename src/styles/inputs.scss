@@ -1,11 +1,12 @@
 @import "vars";
 
-$input-padding: .2em 0em .2em 1.2em;
+$input-padding: 16px 0em 16px 16px;
 
 body {
   #wrapper,
   .base-modal {
     input[type] {
+      font-size: 16px;
       border-radius: 3px;
       padding: $input-padding;
       color: $color-text-dark;
