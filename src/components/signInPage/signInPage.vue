@@ -5,7 +5,7 @@
       <form>
         <input type="email" placeholder="Email" v-model="email"/>
         <input type="password" placeholder="Password" v-model="password"/>
-        <div class="btn btn-primary" @click="signInWithEmail()">Sign In with Email</div>
+        <div class="btn btn-primary" @click="signInWithEmail()">Sign in with Email</div>
       </form>
       <div class="seperator-container">
         <div class="seperator"></div>

@@ -5,16 +5,21 @@
       <form>
         <input type="email" placeholder="Email" v-model="email"/>
         <input type="password" placeholder="Password" v-model="password"/>
-        <div class="third-party-login-container">
-          <div class="img-container">
-            <img src="/images/facebook_login.png" @click="signUpWithFacebook()" class="facebook"/>
-          </div>
-          <div class="img-container">
-            <img src="/images/google_login.png" @click="signUpWithGoogle()" class="google"/>
-          </div>
-        </div>
-        <div class="btn btn-primary" @click="signUpWithEmail()">Submit</div>
+        <div class="btn btn-primary" @click="signUpWithEmail()">Sign up with Email</div>
       </form>
+      <div class="seperator-container">
+        <div class="seperator"></div>
+        <span>or</span>
+        <div class="seperator"></div>
+      </div>
+      <div class="third-party-login-container">
+        <div class="facebook" @click="signUpWithFacebook()">
+          <p>Sign up with Facebook</p>
+        </div>
+        <div class="google" @click="signUpWithGoogle()">
+          <p>Sign up with Google</p>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -55,11 +60,11 @@
        });
      },
 
-     signInWithFacebook(){
+     signUpWithFacebook(){
        UserModel.signUpWithFacebook();
      },
 
-     signInWithGoogle(){
+     signUpWithGoogle(){
        UserModel.signUpWithGoogle();
      }
    }
@@ -99,22 +104,69 @@
        }
 
        .btn {
-         margin-left: auto;
+         flex-basis: 100%;
+         width: 100%;
+       }
+     }
+
+     .seperator-container {
+       margin-top: 20px;
+       margin-bottom: 20px;
+       display: flex;
+
+       span {
+         padding-left: 10px;
+         padding-right: 10px;
+         color: rgba(0, 0, 0, .6);
+       }
+
+       .seperator {
+         margin: 10px 0px 10px 0px;
+         width: 100%;
+         height: 1px;
+         background-color: rgba(0, 0, 0, .2);
        }
      }
 
      .third-party-login-container {
        display: flex;
+       flex-wrap: wrap;
 
+       .facebook {
+         margin-bottom: 10px;
+         display: flex;
+         flex-basis: 100%;
+         height: 52px;
+         color: white;
+         background-color: #3b5998;
+         background-image: url("/images/facebook-20-20.svg");
+         background-repeat: no-repeat;
+         background-position: 20px 50%;
+         align-items: center;
+         justify-content: center;
 
-       .img-container {
-
-         img {
-           width:  auto;
-           max-height: 50px;
-           cursor: pointer;
+         &:hover {
+           background-color: darken(#3b5998, 4%);
          }
        }
+
+       .google {
+         display: flex;
+         flex-basis: 100%;
+         height: 52px;
+         color: white;
+         background-color: #3cba54;
+         background-image: url("/images/google-20-20.svg");
+         background-repeat: no-repeat;
+         background-position: 20px 50%;
+         align-items: center;
+         justify-content: center;
+
+         &:hover {
+           background-color: darken(#3cba54, 4%);
+         }
+       }
+
      }
    }
  }
