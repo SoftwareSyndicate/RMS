@@ -1,9 +1,13 @@
 @import "./vars";
 
 .btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 52px !important;
   font-size: 1em;
-  padding: 1em 3em 1em 3em;
   cursor: pointer;
+  text-align: center;
 
   &:hover {
 

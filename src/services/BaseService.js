@@ -4,7 +4,7 @@ import Notifications from 'services/NotificationService'
 
 class BaseService {
   constructor(){
-
+    this.db = firebase.database();
   }
 
 }

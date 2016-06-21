@@ -1,20 +1,25 @@
 <template>
   <div class="sign-in-page">
-    <div class="form-container">
+    <div class="component form-container">
       <h2>Sign In</h2>
       <form>
         <input type="email" placeholder="Email" v-model="email"/>
         <input type="password" placeholder="Password" v-model="password"/>
-        <div class="third-party-login-container">
-          <div class="img-container">
-            <img src="/images/facebook_login.png" @click="signInWithFacebook()" class="facebook"/>
-          </div>
-          <div class="img-container">
-            <img src="/images/google_login.png" @click="signInWithGoogle()" class="google"/>
-          </div>
-        </div>
-        <div class="btn btn-primary" @click="signInWithEmail()">Submit</div>
+        <div class="btn btn-primary" @click="signInWithEmail()">Sign In with Email</div>
       </form>
+      <div class="seperator-container">
+        <div class="seperator"></div>
+        <span>or</span>
+        <div class="seperator"></div>
+      </div>
+      <div class="third-party-login-container">
+        <div class="facebook">
+          <img src="/images/facebook-20-20.svg" @click="signInWithFacebook()"/>
+        </div>
+        <div class="google">
+          <img src="/images/google-20-20.svg" @click="signInWithFacebook()"/>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -46,7 +51,7 @@
    methods: {
      signInWithEmail(){
        UserModel.signInWithEmail(this.email, this.password).then(results => {
-         
+
        });
      },
 
@@ -94,12 +99,41 @@
        }
 
        .btn {
-         margin-left: auto;
+         flex-basis: 100%;
+         width: 100%;
+       }
+     }
+
+     .seperator-container {
+       margin-top: 20px;
+       margin-bottom: 20px;
+       display: flex;
+
+       span {
+         padding-left: 10px;
+         padding-right: 10px;
+         color: rgba(0, 0, 0, .6);
+       }
+
+       .seperator {
+         margin: 10px 0px 10px 0px;
+         width: 100%;
+         height: 1px;
+         background-color: rgba(0, 0, 0, .2);
        }
      }
 
      .third-party-login-container {
        display: flex;
+
+       .facebook {
+
+         img {
+           width:  auto;
+           max-height: 50px;
+           cursor: pointer;
+         }
+       }
 
 
        .img-container {
