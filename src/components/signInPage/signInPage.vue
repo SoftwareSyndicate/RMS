@@ -13,11 +13,11 @@
         <div class="seperator"></div>
       </div>
       <div class="third-party-login-container">
-        <div class="facebook">
-          <img src="/images/facebook-20-20.svg" @click="signInWithFacebook()"/>
+        <div class="facebook" @click="signInWithFacebook()">
+          <p>Sign in with Facebook</p>
         </div>
-        <div class="google">
-          <img src="/images/google-20-20.svg" @click="signInWithFacebook()"/>
+        <div class="google" @click="signInWithGoogle()">
+          <p>Sign in with Google</p>
         </div>
       </div>
     </div>
@@ -125,25 +125,43 @@
 
      .third-party-login-container {
        display: flex;
+       flex-wrap: wrap;
 
        .facebook {
+         margin-bottom: 10px;
+         display: flex;
+         flex-basis: 100%;
+         height: 52px;
+         color: white;
+         background-color: #3b5998;
+         background-image: url("/images/facebook-20-20.svg");
+         background-repeat: no-repeat;
+         background-position: 20px 50%;
+         align-items: center;
+         justify-content: center;
 
-         img {
-           width:  auto;
-           max-height: 50px;
-           cursor: pointer;
+         &:hover {
+           background-color: darken(#3b5998, 4%);
          }
        }
 
+       .google {
+         display: flex;
+         flex-basis: 100%;
+         height: 52px;
+         color: white;
+         background-color: #3cba54;
+         background-image: url("/images/google-20-20.svg");
+         background-repeat: no-repeat;
+         background-position: 20px 50%;
+         align-items: center;
+         justify-content: center;
 
-       .img-container {
-
-         img {
-           width:  auto;
-           max-height: 50px;
-           cursor: pointer;
+         &:hover {
+           background-color: darken(#3cba54, 4%);
          }
        }
+
      }
    }
  }
