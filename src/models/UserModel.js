@@ -6,6 +6,7 @@ class UserModel {
     firebase.auth().onAuthStateChanged(user => {
       if(user){
         this.currentUser = user;
+        console.log(this.currentUser);
         Notifications.notify("UserModel.userLogin", this.currentUser);
       } else {
         this.currentUser = null;

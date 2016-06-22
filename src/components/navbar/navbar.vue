@@ -5,9 +5,12 @@
         RMS
       </div>
       <div class="list">
-        <div class="item" v-for="item in navItems" v-link="{name: item.route}">
+        <div class="item" v-for="item in navItems" v-link="{name: item.route}" v-bind:class="{'active': item.route === currentRoute}">
           {{item.display}}
         </div>
+      </div>
+      <div class="user-icon" v-link="{name: 'profile'}" v-bind:class="{'active': 'profile' === currentRoute}">
+        <i class="material-icons">person</i>
       </div>
     </div>
   </div>
@@ -25,7 +28,8 @@
    data(){
      return {
        currentUser: UserModel.currentUser,
-       navItems: []
+       navItems: [],
+       currentRoute: this.$route.name
      }
    },
    created(){
@@ -35,11 +39,13 @@
    notifs(){
      return {
        "UserModel.userLogin": "onUserLogin",
-       "Navbar.setItems": "setNavItems"
+       "Navbar.setItems": "setNavItems",
+       "Router.afterTransition": "initNavItems"
      }
    },
    methods: {
      initNavItems(){
+       this.currentRoute = this.$route.name;
        this.navItems = [];
        if(this.currentUser){
          this.navItems.push(
@@ -100,7 +106,8 @@
      display: flex;
      align-items: center;
      width: $max-width;
-     margin: auto;
+     margin-left: auto;
+     margin-right: auto;
 
      .logo {
        font-weight: 300;
@@ -120,6 +127,37 @@
          align-items: center;
          padding-right: 20px;
          padding-left: 20px;
+
+
+         &.active {
+           background-color: darken($color-navbar-background, 3%);
+         }
+
+         &:hover {
+           background-color: darken($color-navbar-background, 3%);
+         }
+       }
+     }
+
+     .user-icon {
+       cursor: pointer;
+       display: flex;
+       align-items: center;
+       height: 100%;
+       padding-left: 22px;
+       padding-right: 22px;
+
+       &:hover {
+         background-color: darken($color-navbar-background, 3%);
+       }
+
+       &.active {
+         background-color: darken($color-navbar-background, 3%);
+       }
+
+       i {
+         height: 24px;
+         font-size: 24px;
        }
      }
    }

@@ -34,6 +34,11 @@ class RouterService {
         component: SettersPage,
         auth: true
       },
+      '/profile': {
+        name: 'profile',
+        component: SettersPage,
+        auth: true
+      },
       '/walls': {
         name: 'walls',
         component: WallsPage,
