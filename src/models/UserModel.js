@@ -3,11 +3,12 @@ import Notifications from 'services/NotificationService'
 
 class UserModel {
   constructor(){
+    this.currentUser = firebase.auth().currentUser;
     firebase.auth().onAuthStateChanged(user => {
       if(user){
         this.currentUser = user;
         console.log(this.currentUser);
-        Notifications.notify("UserModel.userLogin", this.currentUser);
+        Notifications.notify("UserModel.signIn", this.currentUser);
       } else {
         this.currentUser = null;
       }
@@ -22,14 +23,15 @@ class UserModel {
       return error;
     }).then(results => {
       this.currentUser = firebase.auth().currentUser;
-      Notifications.notify("UserModel.userLogin", this.currentUser);
+      Notifications.notify("UserModel.signIn", this.currentUser);
       return results;
     });
   }
 
   signOut(){
-    return firebase.auth().signOut().then(function() {
+    return firebase.auth().signOut().then(results => {
       this.currentUser = null;
+      Notifications.notify("UserModel.signOut");
       return true;
     }, function(error) {
       return error;

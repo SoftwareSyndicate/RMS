@@ -9,7 +9,7 @@
           {{item.display}}
         </div>
       </div>
-      <div class="user-icon" v-link="{name: 'profile'}" v-bind:class="{'active': 'profile' === currentRoute}">
+      <div class="user-icon" v-link="{name: 'profile'}" v-bind:class="{'active': 'profile' === currentRoute}" v-if="currentUser">
         <i class="material-icons">person</i>
       </div>
     </div>
@@ -38,7 +38,8 @@
 
    notifs(){
      return {
-       "UserModel.userLogin": "onUserLogin",
+       "UserModel.signIn": "onUserUpdated",
+       "UserModel.signOut": "onUserUpdated",
        "Navbar.setItems": "setNavItems",
        "Router.afterTransition": "initNavItems"
      }
@@ -60,9 +61,9 @@
              auth: "setter"
            },
            {
-             display: "Gym",
-             route: "gym",
-             auth: "setter"
+             display: "Gyms",
+             route: "gyms",
+             auth: "admin"
            }
          );
        } else {
@@ -74,7 +75,7 @@
        }
      },
 
-     onUserLogin(e, user){
+     onUserUpdated(e, user){
        this.currentUser = UserModel.currentUser;
        this.initNavItems();
      },
@@ -99,6 +100,7 @@
    width: 100%;
    position: fixed;
    height: $navbar-height;
+   color: $color-text-primary;
    background-color: $color-navbar-background;
 
 

@@ -6,6 +6,7 @@ $medium-screen: 640px !default;
 $large-screen: 860px !default;
 
 // colors
+$color-background:  #f5f6fa;
 $color-highlight: #607EEB;
 $color-highlight-background: #fff;
 $color-background-color: #f5f6fa;
@@ -13,17 +14,13 @@ $color-chart-area-1: #A9B9D3;
 $color-text-light: rgba(0, 0, 0, .4);
 $color-text-normal: rgba(0, 0, 0, .6);
 $color-text-dark: rgba(0, 0, 0, .8);
-$color-text-gray: rgb(129,133,174);
-$color-component-body: white;
-$color-blue: #607EEB;
-$color-blue-secondary: #7790ee;
-$color-green: #1AE56B;
-$color-gray: #A9B9D3;
-$color-component-header-light-gray: rgba(248, 249, 252, 1);
-$color-purple: #607EEB; // rgb(195,45,247);
-$color-border: rgb(229,230,240);
-$color-body-gray: rgb(248, 249, 251);
-$color-icons: rgba(0, 0, 0, .3);
+
+// pallette
+$color-1: #FF9F55;
+$color-2: #FF8B55;
+$color-3: #FF7E55;
+$color-4: #FADAA3;
+$color-5: #FF7055;
 
 $color-input-error: transparentize(red, .1);
 $color-input-success: green;
@@ -34,20 +31,16 @@ $component-background-color: white;
 
 // border
 $default-border: 2px solid rgba(0, 0, 0, .1);
-
-$color-background:  #f5f6fa;
-
-
 $color-sub-container: white;
 
-$color-primary: #eeff33;
-$color-text-primary: rgba(255, 255, 255, .93);
-$color-text-secondary: rgba(0, 0, 0, .93);
+//Text
+$color-text-primary: rgba(255, 255, 255, .95);
+$color-text-secondary: rgba(0, 0, 0, .95);
 
 //Navbar
-$color-navbar-background: #9b59b6;
+$color-navbar-background: $color-1;
 $navbar-height: 60px;
 
 //Buttons
 $button-color-primary: white;
-$button-background-color-primary:  #9b59b6;
+$button-background-color-primary:  $color-5;

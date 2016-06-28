@@ -7,7 +7,6 @@
 
 <script>
  import BaseComponent from 'base/baseComponent.vue'
-
  import Navbar from 'components/navbar/navbar'
 
  var App = BaseComponent.extend({
@@ -25,6 +24,7 @@
      }
    },
    created(){
+
    },
    methods: {
    }
@@ -43,7 +43,7 @@
    background-color: $color-background;
    font-family: lato;
    font-weight: 300;
-   color: $color-text-primary;
+   color: $color-text-secondary;
 
    #wrapper {
      display: flex;

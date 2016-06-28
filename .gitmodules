@@ -1,0 +1,6 @@
+[submodule "SBP"]
+	path = SBP
+	url = ../SBP
+[submodule "src/SBP"]
+	path = src/SBP
+	url = https://github.com/SoftwareSyndicate/SBP

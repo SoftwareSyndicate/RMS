@@ -8,7 +8,6 @@ import RouterService from './services/RouterService.js'
 import Filters from './filters/filters.js'
 import App from './components/App.vue'
 
-
 import Chart from 'chart.js'
 import chartConfig from './libs/chartConfig.js'
 
@@ -17,4 +16,15 @@ Vue.config.debug = false
 
 // install Router
 var router = RouterService.initRoutes();
-router.start(App, '#app');
+
+
+//TODO REMOVE THIS
+let loaded = false;
+firebase.auth().onAuthStateChanged(user => {
+  if(!loaded){
+    router.start(App, '#app');
+    loaded = true;
+  }
+});
+
+

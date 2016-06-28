@@ -6,9 +6,11 @@ import UserModel from 'models/UserModel'
 //Pages
 import SignInPage from 'components/signInPage/signInPage'
 import SignUpPage from 'components/signUpPage/signUpPage'
-import SettersPage from 'components/settersPage/settersPage'
+import ProfilePage from 'components/profilePage/profilePage'
 import WallsPage from 'components/wallsPage/wallsPage'
+import WallPage from 'components/wallPage/wallPage'
 import GymPage from 'components/gymPage/gymPage'
+import GymsPage from 'components/gymsPage/gymsPage'
 
 class RouterService {
   constructor(){
@@ -20,7 +22,7 @@ class RouterService {
 
     router.map({
       '/signIn': {
-        name: 'signUp',
+        name: 'signIn',
         component: SignInPage,
         auth: false
       },
@@ -31,30 +33,43 @@ class RouterService {
       },
       '/setters': {
         name: 'setters',
-        component: SettersPage,
-        auth: true
+        component: ProfilePage,
+        auth: "setter"
       },
       '/profile': {
         name: 'profile',
-        component: SettersPage,
-        auth: true
+        component: ProfilePage,
+        auth: "setter"
       },
       '/walls': {
         name: 'walls',
         component: WallsPage,
-        auth: true
+        auth: "setter"
       },
-      '/gym': {
+      '/walls/:id': {
+        name: 'wall',
+        component: WallPage,
+        auth: "setter"
+      },
+      '/gyms': {
+        name: 'gyms',
+        component: GymsPage,
+        auth: "admin"
+      },
+      '/gyms/:id': {
         name: 'gym',
         component: GymPage,
-        auth: true
+        auth: "setter"
       }
 
     });
 
     router.beforeEach(function(transition){
+      console.log(UserModel.currentUser);
       if(transition.to.auth && !UserModel.currentUser){
         transition.redirect("/signIn");
+      } else if(!transition.to.auth && UserModel.currentUser){
+        transition.redirect("/gym");
       } else {
         Notifications.notify('Router.beforeTransition', transition);
         transition.next();

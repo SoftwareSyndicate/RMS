@@ -1,6 +1,6 @@
 <template>
   <div class="gym-page">
-    gym page
+
   </div>
 </template>
 

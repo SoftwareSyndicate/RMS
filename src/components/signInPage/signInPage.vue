@@ -6,6 +6,7 @@
         <input type="email" placeholder="Email" v-model="email"/>
         <input type="password" placeholder="Password" v-model="password"/>
         <div class="btn btn-primary" @click="signInWithEmail()">Sign in with Email</div>
+        <div class="error" v-if="error">Invalid Credentials</div>
       </form>
       <div class="seperator-container">
         <div class="seperator"></div>
@@ -36,7 +37,8 @@
    data(){
      return {
        email: "",
-       password: ""
+       password: "",
+       error: null
      }
    },
    created(){
@@ -50,8 +52,13 @@
    },
    methods: {
      signInWithEmail(){
+       this.error = false;
        UserModel.signInWithEmail(this.email, this.password).then(results => {
-
+         if(results.code){
+           this.error = true;
+         } else {
+           this.$router.go({"name": "gym"});
+         }
        });
      },
 
@@ -78,6 +85,7 @@
    justify-content: center;
 
    .form-container {
+     width: 50%;
      padding: 3em;
      margin-top: 6em;
      background-color: $color-sub-container;
@@ -102,6 +110,15 @@
          flex-basis: 100%;
          width: 100%;
        }
+
+       .error {
+         padding-top: 1.5em;
+         flex-basis: 100%;
+         width: 100%;
+         color: red;
+         text-align: center;
+       }
+
      }
 
      .seperator-container {
