@@ -1,7 +1,9 @@
 <template>
   <div class="gyms-page">
-    <gym-list :gyms=gyms></gym-list>
     <div class="btn btn-primary add-gym-button" @click.stop="createGym()">Create New Gym<i class="material-icons">add_to_queue</i></div>
+    <div class="gym-list-container">
+      <gym-list :gyms=gyms></gym-list>
+    </div>
   </div>
 </template>
 
@@ -36,22 +38,12 @@
    },
    methods: {
      onGymsUpdated(e){
-       console.log("GymModel.gym");
-       console.log("GymModel.gym");
        this.gyms = GymModel.gyms;
      },
 
      createGym(){
-       console.log("create gym");
-       let now = new Date().getTime();
-       let gym = {
-         name: "Austin Bouldering Project",
-         created_at: now,
-         updated_at: now
-       }
-       GymModel.createGym(gym).then(results => {
-         console.log("results:", results);
-
+       GymModel.createGym(this.name).then(results => {
+         this.gyms = GymModel.gyms;
        });
      }
    }
@@ -68,6 +60,18 @@
    flex-wrap: wrap;
    flex-grow: 1;
    margin-top: 4em;
+
+   .btn {
+     margin-left: auto;
+     margin-bottom: 2em;
+   }
+
+   .gym-list-container {
+     display: flex;
+     flex-wrap: wrap;
+     flex-grow: 1;
+     flex-basis: 100%;
+   }
  }
 
 </style>

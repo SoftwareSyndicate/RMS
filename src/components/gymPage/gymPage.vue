@@ -1,18 +1,18 @@
 <template>
   <div class="gym-page">
-    <gym-list></gym-list>
+
   </div>
 </template>
 
 <script>
  import BaseComponent from 'base/baseComponent.vue'
- import UserModel from 'models/UserModel'
- import GymList from 'components/gymList/gymList'
+ import GymModel from 'models/GymModel'
+
 
  export default BaseComponent.extend({
    name: 'GymPage',
    components: {
-     GymList: GymList
+
    },
    data(){
      return {
@@ -20,16 +20,29 @@
      }
    },
    created(){
-
+     this.getResources();
    },
 
    notifs(){
      return {
-
+       "GymModel.currentGymUpdated": 'onGymUpdated'
      }
    },
-   methods: {
 
+   beforeDestroy(){
+
+   },
+
+   methods: {
+     onGymUpdated(){
+       this.gym = GymModel.currentGym;
+       this.notifications.notify("Navbar.setHeader", this.gym.name);
+     },
+
+     getResources(){
+       console.log(this.$route);
+       GymModel.watchGym(this.$route.params.id);
+     }
    }
  });
 

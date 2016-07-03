@@ -1,6 +1,5 @@
 <template>
-  <div class="gym-list-item">
-    gym name
+  <div class="gym-list-item" v-link="{name: 'gym', params: {id: gym.id}}">
     {{gym.name}}
   </div>
 </template>
@@ -46,10 +45,18 @@
  @import '../../styles/main.scss';
 
  .gym-list-item {
+   padding: 1em;
+   margin-bottom: 1em;
+   flex-basis: 100%;
    display: flex;
    flex-wrap: wrap;
    flex-grow: 1;
-   margin-top: 4em;
+   border: $default-border;
+   background-color: $color-sub-container;
+
+   &:hover {
+     background-color: darken($color-sub-container, 4%);
+   }
  }
 
 </style>

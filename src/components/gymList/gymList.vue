@@ -25,8 +25,7 @@
      }
    },
    created(){
-     console.log("gym list");
-     console.log(this.gyms);
+
    },
    ready(){
      this.notifications.notify("Navbar.setHeader", "Gyms");
@@ -60,11 +59,10 @@
 <style lang="sass">
  @import '../../styles/main.scss';
 
- .gyms-page {
+ .gym-list {
    display: flex;
    flex-wrap: wrap;
    flex-grow: 1;
-   margin-top: 4em;
  }
 
 </style>
