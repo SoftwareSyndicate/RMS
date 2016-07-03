@@ -1,28 +1,31 @@
 <template>
-  <div class="gyms-page">
-    <gym-list :gyms=gyms></gym-list>
-    <div class="btn btn-primary add-gym-button" @click.stop="createGym()">Create New Gym<i class="material-icons">add_to_queue</i></div>
+  <div class="gym-list">
+    <gym-list-item :gym="gym" v-for="gym in gyms"></gym-list-item>
   </div>
 </template>
 
 <script>
  import BaseComponent from 'base/baseComponent.vue'
- import UserModel from 'models/UserModel'
- import GymModel from 'models/GymModel'
- import GymList from 'components/gymList/gymList'
+ import GymListItem from 'components/GymListItem/GymListItem'
 
  export default BaseComponent.extend({
    name: 'GymsPage',
    components: {
-     GymList: GymList
+     GymListItem: GymListItem
+   },
+   props: {
+     gyms: {
+       type: Array,
+       default: []
+     }
    },
    data(){
      return {
-       gyms: GymModel.gyms
+
      }
    },
    created(){
-     console.log("this.gyms");
+     console.log("gym list");
      console.log(this.gyms);
    },
    ready(){
@@ -31,16 +34,10 @@
 
    notifs(){
      return {
-       "GymModel.gymsUpdated": 'onGymsUpdated'
+
      }
    },
    methods: {
-     onGymsUpdated(e){
-       console.log("GymModel.gym");
-       console.log("GymModel.gym");
-       this.gyms = GymModel.gyms;
-     },
-
      createGym(){
        console.log("create gym");
        let now = new Date().getTime();

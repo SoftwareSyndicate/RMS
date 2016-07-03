@@ -2,10 +2,11 @@
   <div class="navbar">
     <div class="navbar-wrapper">
       <div class="logo">
-        RMS
+        {{header}}
       </div>
       <div class="list">
         <div class="item" v-for="item in navItems" v-link="{name: item.route}" v-bind:class="{'active': item.route === currentRoute}">
+          <i class="material-icons">{{item.icon}}</i>
           {{item.display}}
         </div>
       </div>
@@ -27,6 +28,7 @@
    },
    data(){
      return {
+       header: "RMS",
        currentUser: UserModel.currentUser,
        navItems: [],
        currentRoute: this.$route.name
@@ -41,29 +43,37 @@
        "UserModel.signIn": "onUserUpdated",
        "UserModel.signOut": "onUserUpdated",
        "Navbar.setItems": "setNavItems",
+       "Navbar.setHeader": "setHeader",
        "Router.afterTransition": "initNavItems"
      }
    },
    methods: {
+     setHeader(e, header){
+       this.header = header;
+     },
+
      initNavItems(){
        this.currentRoute = this.$route.name;
        this.navItems = [];
        if(this.currentUser){
          this.navItems.push(
            {
-             display: "Setters",
-             route: "setters",
-             auth: "admin"
-           },
-           {
              display: "Walls",
              route: "walls",
-             auth: "setter"
+             auth: "setter",
+             icon: "dns"
+           },
+           {
+             display: "Setters",
+             route: "setters",
+             auth: "admin",
+             icon: "supervisor_account"
            },
            {
              display: "Gyms",
              route: "gyms",
-             auth: "admin"
+             auth: "admin",
+             icon: "business"
            }
          );
        } else {
@@ -130,13 +140,18 @@
          padding-right: 20px;
          padding-left: 20px;
 
+         i {
+           font-size: 20px;
+           margin-right: 8px;
+         }
+
 
          &.active {
-           background-color: darken($color-navbar-background, 3%);
+           background-color: darken($color-navbar-background, 6%);
          }
 
          &:hover {
-           background-color: darken($color-navbar-background, 3%);
+           background-color: darken($color-navbar-background, 6%);
          }
        }
      }
@@ -150,11 +165,11 @@
        padding-right: 22px;
 
        &:hover {
-         background-color: darken($color-navbar-background, 3%);
+         background-color: darken($color-navbar-background, 6%);
        }
 
        &.active {
-         background-color: darken($color-navbar-background, 3%);
+         background-color: darken($color-navbar-background, 6%);
        }
 
        i {

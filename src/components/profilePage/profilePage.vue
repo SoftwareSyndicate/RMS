@@ -7,7 +7,8 @@
       </div>
       <h3 class="name" v-if="profile.displayName">{{profile.displayName}}</h3>
       <h3 class="name" v-else>Setter</h3>
-      <h3 class="joined">Joined: {{profle.created_at}}</h3>
+      <h3 class="email">{{profile.email}}</h3>
+      <h3 class="joined">Joined: {{profile.created_at}}</h3>
       <div class="btn btn-primary" @click="signOut()">sign out</div>
     </div>
     <div class="info">
@@ -34,6 +35,9 @@
      console.log(this.profile);
    },
 
+   ready(){
+     this.notifications.notify("Navbar.setHeader", "Profile");
+   },
    notifs(){
      return {
 
@@ -80,6 +84,13 @@
        font-size: 2em;
        font-weight: 300;
        margin-bottom: .2em;
+     }
+
+     .email {
+       flex-basis: 100%;
+       font-size: 1em;
+       font-weight: 300;
+       margin-bottom: .5em;
      }
 
      .joined {

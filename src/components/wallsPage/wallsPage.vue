@@ -1,5 +1,6 @@
 <template>
   <div class="walls-page">
+    walls
     <!-- <wall-list :walls="walls"></wall-list> -->
   </div>
 </template>
@@ -22,6 +23,9 @@
    },
    created(){
 
+   },
+   ready(){
+     this.notifications.notify("Navbar.setHeader", "Walls");
    },
 
    notifs(){

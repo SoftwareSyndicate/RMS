@@ -65,7 +65,6 @@ class RouterService {
     });
 
     router.beforeEach(function(transition){
-      console.log(UserModel.currentUser);
       if(transition.to.auth && !UserModel.currentUser){
         transition.redirect("/signIn");
       } else if(!transition.to.auth && UserModel.currentUser){

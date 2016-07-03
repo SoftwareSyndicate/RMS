@@ -1,18 +1,20 @@
 <template>
-  <div class="gym-page">
-    <gym-list></gym-list>
+  <div class="gym-list-item">
+    gym name
+    {{gym.name}}
   </div>
 </template>
 
 <script>
  import BaseComponent from 'base/baseComponent.vue'
- import UserModel from 'models/UserModel'
- import GymList from 'components/gymList/gymList'
 
  export default BaseComponent.extend({
-   name: 'GymPage',
-   components: {
-     GymList: GymList
+   name: 'GymListItem',
+   props: {
+     gym: {
+       type: Object,
+       default: {}
+     }
    },
    data(){
      return {
@@ -20,6 +22,10 @@
      }
    },
    created(){
+     console.log("gym list item");
+     console.log(this.gym);
+   },
+   ready(){
 
    },
 
@@ -39,8 +45,11 @@
 <style lang="sass">
  @import '../../styles/main.scss';
 
- .gym-page {
-
+ .gym-list-item {
+   display: flex;
+   flex-wrap: wrap;
+   flex-grow: 1;
+   margin-top: 4em;
  }
 
 </style>
