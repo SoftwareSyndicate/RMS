@@ -6,6 +6,8 @@ import UserModel from 'models/UserModel'
 //Pages
 import SignInPage from 'components/signInPage/signInPage'
 import SignUpPage from 'components/signUpPage/signUpPage'
+import UserPage from 'components/userPage/userPage'
+import UsersPage from 'components/usersPage/usersPage'
 import ProfilePage from 'components/profilePage/profilePage'
 import WallsPage from 'components/wallsPage/wallsPage'
 import WallPage from 'components/wallPage/wallPage'
@@ -31,15 +33,15 @@ class RouterService {
         component: SignUpPage,
         auth: false
       },
-      '/setters': {
-        name: 'setters',
-        component: ProfilePage,
-        auth: "setter"
+      '/users': {
+        name: 'users',
+        component: UsersPage,
+        auth: "admin"
       },
-      '/profile': {
+      '/users/:id': {
         name: 'profile',
-        component: ProfilePage,
-        auth: "setter"
+        component: UserPage,
+        auth: "admin"
       },
       '/walls': {
         name: 'walls',
@@ -68,7 +70,7 @@ class RouterService {
       if(transition.to.auth && !UserModel.currentUser){
         transition.redirect("/signIn");
       } else if(!transition.to.auth && UserModel.currentUser){
-        transition.redirect("/gym");
+        transition.redirect("/gyms");
       } else {
         Notifications.notify('Router.beforeTransition', transition);
         transition.next();
@@ -81,7 +83,7 @@ class RouterService {
 
 
     router.redirect({
-      '*': '/gym'
+      '*': '/gyms'
     });
 
 

@@ -64,8 +64,8 @@
              icon: "dns"
            },
            {
-             display: "Setters",
-             route: "setters",
+             display: "Users",
+             route: "users",
              auth: "admin",
              icon: "supervisor_account"
            },

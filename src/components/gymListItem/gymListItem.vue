@@ -21,8 +21,7 @@
      }
    },
    created(){
-     console.log("gym list item");
-     console.log(this.gym);
+
    },
    ready(){
 

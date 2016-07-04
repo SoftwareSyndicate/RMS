@@ -8,10 +8,9 @@ class GymModel {
   }
 
   addListeners(){
-    let gymRef = firebase.database().ref('gyms');
-    gymRef.on('value', data => {
+    this.allGymsRef = firebase.database().ref('gyms');
+    this.allGymsRef.on('value', data => {
       this.gyms = [];
-
       let i = 0;
       for(var key in data.val()){
         this.gyms.push(data.val()[key]);

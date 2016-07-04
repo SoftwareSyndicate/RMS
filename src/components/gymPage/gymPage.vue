@@ -1,13 +1,12 @@
 <template>
   <div class="gym-page">
-
+    <div class="btn btn-primary add-gym-button" @click.stop="createGym()">Make Current Gym<i class="material-icons">business</i></div>
   </div>
 </template>
 
 <script>
  import BaseComponent from 'base/baseComponent.vue'
  import GymModel from 'models/GymModel'
-
 
  export default BaseComponent.extend({
    name: 'GymPage',
@@ -53,6 +52,10 @@
  @import '../../styles/main.scss';
 
  .gym-page {
+   display: flex;
+   flex-wrap: wrap;
+   flex-grow: 1;
+   margin-top: 4em;
 
  }
 
