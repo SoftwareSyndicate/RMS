@@ -1,7 +1,9 @@
 <template>
   <div class="walls-page">
     <div class="btn btn-primary add-gym-button" @click.stop="createWall()">Create New Wall<i class="material-icons">dns</i></div>
-    <wall-list :walls="walls"></wall-list>
+    <div class="wall-list-container">
+      <wall-list :walls="walls"></wall-list>
+    </div>
   </div>
 </template>
 
@@ -41,7 +43,7 @@
        if(UserModel.currentUser.currentGymId){
          WallModel.createWall("F.S.1", UserModel.currentUser.currentGymId);
        } else {
-         WallModel.createWall("F.S.1", "-KLi8WWAMzuH1k4mlkbj");
+         WallModel.createWall("North Slab", "-KLi8WWAMzuH1k4mlkbj");
        }
      },
 
@@ -76,6 +78,37 @@
    .btn {
      margin-left: auto;
      margin-bottom: 1em;
+   }
+
+   .wall-list-container {
+     flex-basis: 100%;
+     display: flex;
+     flex-wrap: wrap;
+     flex-grow: 1;
+
+     .wall-list {
+       flex-grow: 1;
+       flex-wrap: wrap;
+       display: flex;
+       justify-content: space-between;
+
+       @media (max-width: $large-screen) {
+
+       }
+
+     }
+
+     .wall-list-item {
+       flex-basis: 100%;
+       flex-grow: 1;
+
+       @media (min-width: $large-screen) {
+         flex-grow: 0;
+         flex-basis: 47%;
+
+       }
+
+     }
    }
 
  }

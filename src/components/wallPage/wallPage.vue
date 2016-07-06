@@ -7,6 +7,7 @@
 <script>
  import BaseComponent from 'base/baseComponent.vue'
  import UserModel from 'models/UserModel'
+ import WallModel from 'models/WallModel'
 
  export default BaseComponent.extend({
    name: 'WallsPage',
@@ -15,20 +16,27 @@
    },
    data(){
      return {
-       walls: []
+       wall: null
      }
    },
    created(){
-
+     this.getResources();
    },
 
    notifs(){
      return {
-
+       "WallModel.currentWallUpdated": 'onWallUpdated'
      }
    },
    methods: {
+     onWallUpdated(){
+       this.wall = WallModel.currentWall;
+       this.notifications.notify("Navbar.setHeader", this.wall.name);
+     },
 
+     getResources(){
+       WallModel.watchWall(this.$route.params.id);
+     }
    }
  });
 
