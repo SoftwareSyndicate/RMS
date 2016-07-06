@@ -43,8 +43,8 @@
        "UserModel.signIn": "onUserUpdated",
        "UserModel.signOut": "onUserUpdated",
        "Navbar.setItems": "setNavItems",
-       "Navbar.setHeader": "setHeader",
-       "Router.afterTransition": "initNavItems"
+       "Router.afterTransition": "initNavItems",
+       "Navbar.setHeader": "setHeader"
      }
    },
    methods: {

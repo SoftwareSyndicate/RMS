@@ -19,7 +19,7 @@ class WallModel {
   }
 
   getWallsByGymId(id){
-    this.currentWallsRef = firebase.database().ref('walls').orderByKey().equalTo(id);
+    this.currentWallsRef = firebase.database().ref('walls').orderByChild("gymId").equalTo(id);
     this.currentWallsRef.on('value', data => {
       this.walls = [];
       for(var key in data.val()){

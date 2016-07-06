@@ -22,6 +22,10 @@
      this.getResources();
    },
 
+   ready(){
+
+   },
+
    notifs(){
      return {
        "GymModel.currentGymUpdated": 'onGymUpdated'
@@ -55,7 +59,12 @@
    display: flex;
    flex-wrap: wrap;
    flex-grow: 1;
-   margin-top: 4em;
+   margin-top: $page-margin-top;
+
+   .btn {
+     margin-left: auto;
+     margin-bottom: 2em;
+   }
 
  }
 
