@@ -38,7 +38,6 @@
    },
    methods: {
      createGym(){
-       console.log("create gym");
        let now = new Date().getTime();
        let gym = {
          name: "Austin Bouldering Project",

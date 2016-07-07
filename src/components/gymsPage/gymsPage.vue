@@ -1,6 +1,6 @@
 <template>
   <div class="gyms-page">
-    <div class="btn btn-primary add-gym-button" @click.stop="createGym()">Create New Gym<i class="material-icons">add_to_queue</i></div>
+    <div class="btn btn-primary add-gym-button" @click.stop="createGym()">Add Gym<i class="material-icons">add_box</i></div>
     <div class="gym-list-container">
       <gym-list :gyms=gyms></gym-list>
     </div>
@@ -24,8 +24,7 @@
      }
    },
    created(){
-     console.log("this.gyms");
-     console.log(this.gyms);
+
    },
    ready(){
      this.notifications.notify("Navbar.setHeader", "Gyms");
@@ -64,6 +63,7 @@
    .btn {
      margin-left: auto;
      margin-bottom: 2em;
+     min-width: 8em;
    }
 
    .gym-list-container {

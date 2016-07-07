@@ -1,6 +1,6 @@
 <template>
   <div class="walls-page">
-    <div class="btn btn-primary add-gym-button" @click.stop="createWall()">Create New Wall<i class="material-icons">dns</i></div>
+    <div class="btn btn-primary add-gym-button" @click.stop="createWall()">Add Wall<i class="material-icons">add_box</i></div>
     <div class="wall-list-container">
       <wall-list :walls="walls"></wall-list>
     </div>
@@ -78,6 +78,7 @@
    .btn {
      margin-left: auto;
      margin-bottom: 1em;
+     min-width: 8em;
    }
 
    .wall-list-container {

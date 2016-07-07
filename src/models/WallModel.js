@@ -30,11 +30,9 @@ class WallModel {
     this.currentWallsRef = firebase.database().ref('walls').orderByChild("gym_id").equalTo(id);
     this.currentWallsRef.on('value', data => {
       this.walls = [];
-      console.log(data.val());
       for(var key in data.val()){
         this.walls.push(this.parseWall(data.val()[key]))
       }
-      console.log("WALLS", this.walls);
       Notifications.notify("WallModel.wallsUpdated")
     });
   }
