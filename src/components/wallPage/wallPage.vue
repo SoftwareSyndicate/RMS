@@ -10,6 +10,7 @@
 <script>
  import BaseComponent from 'base/baseComponent.vue'
  import UserModel from 'models/UserModel'
+ import GymModel from 'models/GymModel'
  import WallModel from 'models/WallModel'
  import RouteModel from 'models/RouteModel'
 
@@ -22,7 +23,8 @@
    },
    data(){
      return {
-       wall: null
+       wall: {},
+       routes: []
      }
    },
    created(){
@@ -31,12 +33,14 @@
 
    notifs(){
      return {
-       "WallModel.currentWallUpdated": 'onWallUpdated'
+       "WallModel.currentWallUpdated": 'onWallUpdated',
+       "RouteModel.routesUpdated": 'onRoutesUpdated'
      }
    },
    methods: {
      createRoute(){
-       
+       //TODO remove this, all users should have a current Gym on Reg
+       RouteModel.createRoute("-KLi8WWAMzuH1k4mlkbj", this.wall.id);
      },
 
      onWallUpdated(){
@@ -44,8 +48,14 @@
        this.notifications.notify("Navbar.setHeader", this.wall.name);
      },
 
+     onRoutesUpdated(){
+       console.log(this.routes);
+       this.routes = RouteModel.routes;
+     },
+
      getResources(){
        WallModel.watchWall(this.$route.params.id);
+       RouteModel.getRoutesByWallId(this.$route.params.id);
      }
    }
  });

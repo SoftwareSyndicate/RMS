@@ -39,7 +39,7 @@
    methods: {
      createWall(){
        console.log("createWall");
-
+       //TODO remove this, all users should have a current Gym on Reg
        if(UserModel.currentUser.currentGymId){
          WallModel.createWall("F.S.1", UserModel.currentUser.currentGymId);
        } else {

@@ -1,24 +1,22 @@
 <template>
-  <div class="route-list">
-    route list yo
-    <route-list-item :route="route" v-for="route in routes"></route-list-item>
+  <div class="route-list-item">
+    route list item
   </div>
 </template>
 
 <script>
  import BaseComponent from 'base/baseComponent.vue'
- import RouteListItem from 'components/routeListItem/routeListItem'
 
  export default BaseComponent.extend({
-   name: 'RouteList',
+   name: 'RouteListItem',
    props: {
-     routes: {
-       type: Array,
-       default: () => []
+     route: {
+       type: Object,
+       default: () => {}
      }
    },
    components: {
-     RouteListItem: RouteListItem
+
    },
    data(){
      return {
@@ -40,7 +38,7 @@
 <style lang="sass">
  @import '../../styles/vars.scss';
 
- .route-list {
+ .route-list-item {
 
  }
 

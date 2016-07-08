@@ -63,6 +63,17 @@ class UserModel {
       return error;
     });
   }
+
+  updateUser(user, updates){
+    return user.updateProfile(updates).then(() => {
+      this.currentUser = firebase.auth().currentUser;
+      Notifications.notify("UserModel.userUpdated");
+      console.log(this.currentUser);
+      return this.currentUser;
+    }, error => {
+      return error;
+    });
+  }
 }
 
 export default new UserModel();

@@ -16,29 +16,33 @@ class RouteModel {
     });
   }
 
-  getRoutesByWalld(id){
+  getRoutesByWallId(id){
+    console.log(id);
     this.routesRef = firebase.database().ref('routes').orderByChild("wall_id").equalTo(id);
     this.routesRef.on('value', data => {
+
       this.routes = [];
       for(var key in data.val()){
         this.routes.push(this.parseRoute(data.val()[key]))
       }
+      console.log("FUCKING ROUTES: ", this.routes)
       Notifications.notify("RouteModel.routesUpdated")
     });
   }
 
-  parseRoutes(wall){
-    wall.last_set = new Date(wall.last_set);
-    wall.created_at = new Date(wall.created_at);
-    wall.updated_at = new Date(wall.updated_at);
-    return wall;
+  parseRoute(route){
+    route.last_set = new Date(route.last_set);
+    route.created_at = new Date(route.created_at);
+    route.updated_at = new Date(route.updated_at);
+    return route;
   }
 
-  createRoute(wallId, color="gray", grade="0", risk=0, intensity=0, complexity=0){
+  createRoute(gymId, wallId, color="gray", grade="0", risk=0, intensity=0, complexity=0, exposure=0){
     let newRouteKey = firebase.database().ref().child('routes').push().key;
     let now = new Date().getTime();
     let route = {
       id: newRouteKey,
+      gym_id: gymId,
       wall_id: wallId,
       created_at: now,
       updated_at: now,
@@ -46,7 +50,8 @@ class RouteModel {
       grade: grade,
       risk: risk,
       intensity: intensity,
-      complexity: complexity
+      complexity: complexity,
+      exposure: exposure
     };
 
     var updates = {};
