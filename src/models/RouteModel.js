@@ -46,6 +46,7 @@ class RouteModel {
       wall_id: wallId,
       created_at: now,
       updated_at: now,
+      status: 0,
       color: color,
       grade: grade,
       risk: risk,
@@ -59,6 +60,10 @@ class RouteModel {
     return firebase.database().ref().update(updates);
   }
 
+  deleteRoute(id){
+    let routesRef = firebase.database().ref('routes').orderByChild("id").equalTo(id);
+    routesRef.remove();
+  }
 }
 
 export default new RouteModel();

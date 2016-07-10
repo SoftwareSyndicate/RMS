@@ -1,6 +1,5 @@
 <template>
   <div class="route-list">
-    route list yo
     <route-list-item :route="route" v-for="route in routes"></route-list-item>
   </div>
 </template>
@@ -41,6 +40,7 @@
  @import '../../styles/vars.scss';
 
  .route-list {
+
 
  }
 

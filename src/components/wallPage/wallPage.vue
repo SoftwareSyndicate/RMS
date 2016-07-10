@@ -1,6 +1,6 @@
 <template>
   <div class="walls-page">
-    <div class="btn btn-primary add-route-button" @click.stop="createRoute()">Add Route<i class="material-icons">add_box</i></div>
+    <div class="btn btn-primary create add-route-button" @click.stop="createRoute()">Add Route<i class="material-icons">add_box</i></div>
     <div class="route-list-container">
       <route-list :routes=routes></route-list>
     </div>
@@ -72,6 +72,10 @@
 
    .route-list-container {
      flex-basis: 100%;
+   }
+
+   .btn {
+     margin-bottom: 1em;
    }
  }
 
