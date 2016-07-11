@@ -48,6 +48,7 @@ class RouteModel {
       updated_at: now,
       status: 0,
       color: color,
+      htmlColor: color,
       grade: grade,
       risk: risk,
       intensity: intensity,
@@ -61,8 +62,12 @@ class RouteModel {
   }
 
   deleteRoute(id){
-    let routesRef = firebase.database().ref('routes').orderByChild("id").equalTo(id);
-    routesRef.remove();
+    let routesRef = firebase.database().ref('routes/' + id);
+    return routesRef.remove().then(() => {
+      Notifications.notify("RouteModel.routesUpdated")
+    }).catch(error => {
+      return Promise.reject(error);
+    });
   }
 }
 

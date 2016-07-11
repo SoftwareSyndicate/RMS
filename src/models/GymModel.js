@@ -11,11 +11,10 @@ class GymModel {
     this.allGymsRef = firebase.database().ref('gyms');
     this.allGymsRef.on('value', data => {
       this.gyms = [];
-      let i = 0;
       for(var key in data.val()){
-        this.gyms.push(data.val()[key]);
-        this.gyms[i].id = key;
-        i++;
+        let gym = data.val()[key];
+        gym.id = key;
+        this.gyms.push(gym);
       }
       Notifications.notify("GymModel.gymsUpdated")
     });

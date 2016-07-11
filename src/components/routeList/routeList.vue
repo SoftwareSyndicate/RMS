@@ -1,6 +1,6 @@
 <template>
   <div class="route-list">
-    <route-list-item :route="route" v-for="route in routes"></route-list-item>
+    <route-list-item :route="route" v-for="route in routes" :delete-route="deleteRoute"></route-list-item>
   </div>
 </template>
 
@@ -14,7 +14,8 @@
      routes: {
        type: Array,
        default: () => []
-     }
+     },
+     deleteRoute: {}
    },
    components: {
      RouteListItem: RouteListItem

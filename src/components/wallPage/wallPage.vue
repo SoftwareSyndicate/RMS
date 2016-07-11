@@ -2,8 +2,10 @@
   <div class="walls-page">
     <div class="btn btn-primary create add-route-button" @click.stop="createRoute()">Add Route<i class="material-icons">add_box</i></div>
     <div class="route-list-container">
-      <route-list :routes=routes></route-list>
+      <route-list :routes=routes :delete-route="deleteRoute"></route-list>
     </div>
+
+    <color-select-modal :show.sync="showColorModal" :route.sync="currentRoute" :circuits="gym.circuits"></color-select-modal>
   </div>
 </template>
 
@@ -15,16 +17,23 @@
  import RouteModel from 'models/RouteModel'
 
  import RouteList from 'components/routeList/routeList'
+ import ColorSelectModal from 'components/colorSelectModal/colorSelectModal'
 
  export default BaseComponent.extend({
    name: 'WallsPage',
    components: {
-     RouteList: RouteList
+     RouteList: RouteList,
+     ColorSelectModal: ColorSelectModal
    },
    data(){
      return {
        wall: {},
-       routes: []
+       routes: [],
+       currentRoute: {},
+       showColorModal: false,
+       showStatusModal: false,
+       showRiceModal: false,
+       gym: {}
      }
    },
    created(){
@@ -33,14 +42,39 @@
 
    notifs(){
      return {
+       "RouteListItem.colorSelected": "onColorSelected",
+       "RouteListItem.statusSelected": "onStatusSelected",
+       "RouteListItem.riceSelected": "onRiceSelected",
        "WallModel.currentWallUpdated": 'onWallUpdated',
-       "RouteModel.routesUpdated": 'onRoutesUpdated'
+       "RouteModel.routesUpdated": 'onRoutesUpdated',
+       "GymModel.currentGymUpdated": 'onGymUpdated'
      }
    },
    methods: {
+     onColorSelected(e, route){
+       this.currentRoute = route;
+       this.showColorModal = true;
+     },
+     onStatusSelected(e, route){
+       this.currentRoute = route;
+
+     },
+     onRiceSelected(e, route){
+       this.currentRoute = route;
+     },
+
      createRoute(){
-       //TODO remove this, all users should have a current Gym on Reg
+       /* TODO remove this, all users should have a current Gym on Reg */
        RouteModel.createRoute("-KLi8WWAMzuH1k4mlkbj", this.wall.id);
+     },
+
+     deleteRoute(id){
+       RouteModel.deleteRoute(id);
+     },
+
+     onGymUpdated(){
+       this.gym = GymModel.currentGym;
+       console.log(this.gym);
      },
 
      onWallUpdated(){
@@ -54,6 +88,7 @@
      },
 
      getResources(){
+       GymModel.watchGym("-KLi8WWAMzuH1k4mlkbj");        /* TODO remove this */
        WallModel.watchWall(this.$route.params.id);
        RouteModel.getRoutesByWallId(this.$route.params.id);
      }

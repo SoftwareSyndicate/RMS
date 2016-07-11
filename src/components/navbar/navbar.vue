@@ -112,6 +112,7 @@
    height: $navbar-height;
    color: $color-text-primary;
    background-color: $color-navbar-background;
+   border-bottom: 2px solid darken($color-navbar-background, 4%);
 
 
    .navbar-wrapper {

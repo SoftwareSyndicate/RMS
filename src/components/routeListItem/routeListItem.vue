@@ -1,24 +1,26 @@
 <template>
   <div class="route-list-item component">
 
-    <div class="grade-container">
+    <div class="grade-container" @click.stop="colorSelected()">
       <div class="diamond">
-        <div class="diamond-background" v-bind:style="{'background-color': route.color}"></div>
+        <div class="diamond-background" v-bind:style="{'background-color': route.htmlColor}"></div>
         <div class="diamond-grade" v-bind:class="{'tenner': route.grade > 9}">
           {{route.grade}}
         </div>
       </div>
     </div>
 
-    <div class="status-container">
-      <div class="status" v-bind:class="{'two': route.status == 0}"></div>
+    <div class="status-container" @click.stop="statusSelected()">
+      <div class="status" v-bind:class="{'zero': route.status == 0,'one': route.status == 1, 'two': route.status == 2, 'three': route.status == 3 }"></div>
     </div>
 
     <div class="setter-container">
+      setter
       {{route.setter}}
     </div>
 
     <div class="rice-container">
+      rice
       {{route.rice}}
     </div>
 
@@ -28,7 +30,7 @@
 
 
     <div class="remove-container">
-      <div class="btn btn-primary delete-route-button delete" @click.stop="deleteRoute()">Delete<i class="material-icons">indeterminate_check_box</i></div>
+      <div class="btn btn-primary delete-route-button delete" @click.stop="deleteRoute(route.id)">Delete<i class="material-icons">indeterminate_check_box</i></div>
       <div class="route-list-container">
     </div>
 
@@ -44,7 +46,8 @@
      route: {
        type: Object,
        default: () => {}
-     }
+     },
+     deleteRoute: {}
    },
    components: {
 
@@ -55,12 +58,12 @@
      }
    },
    created(){
-     console.log(this.route);
+
    },
 
    methods: {
-     deleteRoute(){
-
+     colorSelected(){
+       this.notifications.notify("RouteListItem.colorSelected", this.route);
      }
    }
  });
