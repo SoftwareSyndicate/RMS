@@ -1,6 +1,6 @@
 <template>
   <div class="route-list">
-    <route-list-item :route="route" v-for="route in routes" :delete-route="deleteRoute"></route-list-item>
+    <route-list-item :route.sync="route" v-for="route in routes" :delete-route="deleteRoute"></route-list-item>
   </div>
 </template>
 
@@ -13,7 +13,8 @@
    props: {
      routes: {
        type: Array,
-       default: () => []
+       default: () => [],
+       twoWay: true
      },
      deleteRoute: {}
    },

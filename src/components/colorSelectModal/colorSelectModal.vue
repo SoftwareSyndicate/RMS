@@ -6,7 +6,7 @@
         <div class="diamond-container">
           <div class="circuit" v-for="circuit in circuits">
             <div class="diamond" v-for="grade in ((circuit.end_range + 1) - circuit.start_range)" @click="selectGrade(circuit, (circuit.end_range - grade))">
-              <div class="diamond-background" v-bind:style="{'background-color': circuit.color}"></div>
+              <div class="diamond-background" v-bind:style="{'background-color': circuit.color}" v-bind:class="{'current': route.grade == (circuit.end_range - grade) && circle.color == route.color}"></div>
               <div class="diamond-grade" v-bind:class="{'tenner': (circuit.end_range - grade) > 9}">
                 {{circuit.end_range - grade}}
               </div>
@@ -56,7 +56,8 @@
        this.route.grade = grade;
        this.route.htmlColor = circuit.color;
        this.show = false;
-       console.log(this.route);
+       this.notifications.notify("ColorSelectModal.routeUpdated", this.route);
+       /* console.log(this.route); */
      }
    }
  });
@@ -88,7 +89,7 @@
      display: flex;
      flex-wrap: wrap;
      flex-grow: 1;
-     width: 50%;
+     width: 70%;
      margin: 0px auto;
      padding: 2em 3em;
      background-color: #fff;
@@ -114,6 +115,13 @@
 
          .diamond {
 
+           .diamond-background {
+
+             &.current {
+               display: none;
+               box-shadow: none;
+             }
+           }
          }
        }
      }

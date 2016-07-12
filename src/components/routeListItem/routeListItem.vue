@@ -45,7 +45,8 @@
    props: {
      route: {
        type: Object,
-       default: () => {}
+       default: () => {},
+       twoWay: true
      },
      deleteRoute: {}
    },

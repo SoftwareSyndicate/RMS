@@ -2,7 +2,7 @@
   <div class="walls-page">
     <div class="btn btn-primary create add-route-button" @click.stop="createRoute()">Add Route<i class="material-icons">add_box</i></div>
     <div class="route-list-container">
-      <route-list :routes=routes :delete-route="deleteRoute"></route-list>
+      <route-list :routes.sync=routes :delete-route="deleteRoute"></route-list>
     </div>
 
     <color-select-modal :show.sync="showColorModal" :route.sync="currentRoute" :circuits="gym.circuits"></color-select-modal>
@@ -42,6 +42,7 @@
 
    notifs(){
      return {
+       "ColorSelectModal.routeUpdated": "onRouteUpdated",
        "RouteListItem.colorSelected": "onColorSelected",
        "RouteListItem.statusSelected": "onStatusSelected",
        "RouteListItem.riceSelected": "onRiceSelected",
@@ -72,9 +73,12 @@
        RouteModel.deleteRoute(id);
      },
 
+     onRouteUpdated(e, route){
+       RouteModel.updateRoute(route);
+     },
+
      onGymUpdated(){
        this.gym = GymModel.currentGym;
-       console.log(this.gym);
      },
 
      onWallUpdated(){

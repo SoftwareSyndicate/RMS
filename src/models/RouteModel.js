@@ -16,6 +16,21 @@ class RouteModel {
     });
   }
 
+  updateRoutes(){
+    var updates = {};
+
+    this.routes.forEach(route => {
+      console.log(route);
+      /* updates['/routes/' + route.id] = route; */
+    });
+  }
+
+  updateRoute(route){
+    var updates = {};
+    updates['/routes/' + route.id] = route;
+    return firebase.database().ref().update(updates);
+  }
+
   getRoutesByWallId(id){
     console.log(id);
     this.routesRef = firebase.database().ref('routes').orderByChild("wall_id").equalTo(id);
