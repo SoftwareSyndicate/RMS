@@ -2,8 +2,7 @@
   <div class="route-list-item component">
 
     <div class="grade-container" @click.stop="colorSelected()">
-      <div class="diamond">
-        <div class="diamond-background" v-bind:style="{'background-color': route.htmlColor}"></div>
+      <div class="diamond" v-bind:style="{'background-color': route.htmlColor}">
         <div class="diamond-grade" v-bind:class="{'tenner': route.grade > 9}">
           {{route.grade}}
         </div>
@@ -86,33 +85,6 @@
      display: flex;
      flex-basis: 20%;
      flex-grow: 1;
-
-     .diamond {
-       position: relative;
-       .diamond-background {
-         position: absolute;
-         width: 2em;
-         height: 2em;
-         transform: rotate(45deg);
-         transform-origin: 0 100%;
-         background-color: red;
-         top: -2em;
-       }
-
-       .diamond-grade {
-         font-weight: normal;
-         font-size: .9em;
-         color: white;
-         position: absolute;
-         top: -.72em;
-         right: -1.88em;
-
-       }
-
-       .tenner {
-         right: -2.12em;
-       }
-     }
    }
 
    .status-container {

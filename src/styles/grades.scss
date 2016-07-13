@@ -1,27 +1,22 @@
-.diamond {
-  position: relative;
-  width: 50px;
-  height: 50px;
+$diamond-height: 40px;
 
-  .diamond-background {
-    position: absolute;
-    width: 2em;
-    height: 2em;
-    transform: rotate(45deg);
-    transform-origin: 0 100%;
-    background-color: red;
-    top: -.5em !important;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
-  }
+.diamond {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: $diamond-height;
+  height: $diamond-height;
+  transform: rotate(45deg);
+  width: $diamond-height;
+  height: $diamond-height;
+  background-color: red;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
 
   .diamond-grade {
+    transform: rotate(-45deg);
     font-weight: normal;
-    font-size: .9em;
+    font-size: $diamond-height / 2;
     color: white;
-    position: absolute;
-    top: 1.05em !important;
-    left: 1.28em !important;
-
   }
 
   .tenner {
