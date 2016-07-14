@@ -1,7 +1,9 @@
 <template>
-  <navbar></navbar>
-  <div id="wrapper">
-    <router-view class="view" transition transition-mode="out-in"></router-view>
+  <div>
+    <navbar></navbar>
+    <div id="wrapper">
+      <router-view class="view" transition transition-mode="out-in"></router-view>
+    </div>
   </div>
 </template>
 

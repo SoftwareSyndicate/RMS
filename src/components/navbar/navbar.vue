@@ -40,8 +40,7 @@
 
    notifs(){
      return {
-       "UserModel.signIn": "onUserUpdated",
-       "UserModel.signOut": "onUserUpdated",
+       "UserModel.userUpdated": "onUserUpdated",
        "Navbar.setItems": "setNavItems",
        "Router.afterTransition": "initNavItems",
        "Navbar.setHeader": "setHeader"
