@@ -67,9 +67,9 @@ class RouterService {
     });
 
     router.beforeEach(function(transition){
-      if(transition.to.auth && !UserModel.currentUser){
+      if(transition.to.auth && !UserModel.firebaseUser){
         transition.redirect("/signIn");
-      } else if(!transition.to.auth && UserModel.currentUser){
+      } else if(!transition.to.auth && UserModel.firebaseUser){
         transition.redirect("/gyms");
       } else {
         Notifications.notify('Router.beforeTransition', transition);
