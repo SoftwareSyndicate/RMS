@@ -1,4 +1,18 @@
 {
-  ".read": true,
-  ".write": true
+    "rules": {
+        ".read": true,
+        ".write": true,
+        "users": {
+            "$uid": {
+                ".read": "$uid === auth.uid",
+                ".write": "$uid === auth.uid"
+            }
+        },
+        "walls": {
+            ".indexOn": ["gym_id", "id", "uid"]
+        },
+        "routes": {
+            ".indexOn": ["gym_id", "wall_id", "id"]
+        }
+    }
 }
