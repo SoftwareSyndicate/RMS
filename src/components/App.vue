@@ -39,7 +39,6 @@
 <style lang="sass">
  @import "../styles/main";
 
-
  body {
    margin: 0;
    background-color: $color-background;

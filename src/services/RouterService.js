@@ -13,6 +13,7 @@ import WallsPage from 'components/wallsPage/wallsPage'
 import WallPage from 'components/wallPage/wallPage'
 import GymPage from 'components/gymPage/gymPage'
 import GymsPage from 'components/gymsPage/gymsPage'
+import NotificationsPage from 'components/notificationsPage/notificationsPage'
 
 class RouterService {
   constructor(){
@@ -56,6 +57,11 @@ class RouterService {
       '/gyms': {
         name: 'gyms',
         component: GymsPage,
+        auth: "admin"
+      },
+      '/notifications': {
+        name: 'notifications',
+        component: NotificationsPage,
         auth: "admin"
       },
       '/gyms/:id': {

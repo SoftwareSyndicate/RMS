@@ -73,6 +73,12 @@
              route: "gyms",
              auth: "admin",
              icon: "business"
+           },
+           {
+             display: "Notifications",
+             route: "notifications",
+             auth: "admin",
+             icon: "add_alert"
            }
          );
        } else {

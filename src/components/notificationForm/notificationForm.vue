@@ -1,22 +1,22 @@
 <template>
-  <div class="gym-list">
-    <gym-list-item :gym="gym" v-for="gym in gyms"></gym-list-item>
+  <div class="notification-form">
+    notification FORM
   </div>
 </template>
 
 <script>
  import BaseComponent from 'base/baseComponent.vue'
- import GymListItem from 'components/GymListItem/GymListItem'
+ import TextNotificationItem from 'components/notificationItems/textNotificationItem'
 
  export default BaseComponent.extend({
-   name: 'GymsPage',
+   name: 'NotificationForm',
    components: {
-     GymListItem: GymListItem
+     TextNotificationItem: TextNotificationItem
    },
    props: {
-     gyms: {
-       type: Array,
-       default: []
+     notif: {
+       type: Object,
+       default: () => []
      }
    },
    data(){
