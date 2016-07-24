@@ -11,7 +11,7 @@
  import TextNotificationItem from 'components/notificationItems/textNotificationItem'
 
  export default BaseComponent.extend({
-   name: 'GymsPage',
+   name: 'NotificationList',
    components: {
      TextNotificationItem: TextNotificationItem
    },

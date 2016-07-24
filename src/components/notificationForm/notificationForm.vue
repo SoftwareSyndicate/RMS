@@ -1,5 +1,5 @@
 <template>
-  <div class="notification-form">
+  <div class="notification-form component">
     notification FORM
   </div>
 </template>
@@ -16,7 +16,7 @@
    props: {
      notif: {
        type: Object,
-       default: () => []
+       default: () => {}
      }
    },
    data(){
@@ -37,18 +37,7 @@
      }
    },
    methods: {
-     createGym(){
-       let now = new Date().getTime();
-       let gym = {
-         name: "Austin Bouldering Project",
-         created_at: now,
-         updated_at: now
-       }
-       GymModel.createGym(gym).then(results => {
-         console.log("results:", results);
 
-       });
-     }
    }
  });
 
@@ -58,10 +47,11 @@
 <style lang="sass">
  @import '../../styles/main.scss';
 
- .gym-list {
+ .notification-form {
    display: flex;
    flex-wrap: wrap;
    flex-grow: 1;
+   padding: 1em;
  }
 
 </style>

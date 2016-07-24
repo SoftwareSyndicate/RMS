@@ -41,27 +41,19 @@ class NotificationModel {
     return route;
   }
 
-  createRoute(gymId, wallId, color="gray", grade="0", risk=0, intensity=0, complexity=0, exposure=0){
-    let newRouteKey = firebase.database().ref().child('routes').push().key;
+  createNotification(author, body){
+    let newNotificationKey = firebase.database().ref().child('notifications').push().key;
     let now = new Date().getTime();
-    let route = {
-      id: newRouteKey,
-      gym_id: gymId,
+    let notification = {
+      id: newNotificationKey,
       wall_id: wallId,
       created_at: now,
       updated_at: now,
-      status: 0,
-      color: color,
-      htmlColor: color,
-      grade: grade,
-      risk: risk,
-      intensity: intensity,
-      complexity: complexity,
-      exposure: exposure
+      author: author
     };
 
     var updates = {};
-    updates['/routes/' + newRouteKey] = route;
+    updates['/notifications/' + newNotificationKey] = notification;
     return firebase.database().ref().update(updates);
   }
 

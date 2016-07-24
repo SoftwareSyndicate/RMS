@@ -1,9 +1,11 @@
 <template>
   <div class="notifications-page">
-    <div class="notification-form">
+    <div class="notification-form-container">
+      <h4>Share a new update with your members</h4>
       <notification-form :notif="newNotif"></notification-form>
     </div>
     <div class="notification-list-container">
+      <h4>Latest updates</h4>
       <notification-list :notifs="notifs"></notification-list>
     </div>
   </div>
@@ -25,19 +27,20 @@
    },
    data(){
      return {
-       notifs: {
-         type: Array,
-         default: () => []
-       },
-       
+       notifs: [],
+       newNotifs: {}
      }
    },
    created(){
      console.log(this.profile);
+     $("#wrapper").width("100%");
    },
 
    ready(){
      this.notifications.notify("Navbar.setHeader", "Notifications");
+   },
+   beforeDestroy(){
+     $("#wrapper").width("90%");
    },
    notifs(){
      return {
@@ -45,9 +48,8 @@
      }
    },
    methods: {
-     signOut(){
-       UserModel.signOut();
-       this.$router.go({"name": "signIn"});
+     createNotification(){
+
      }
    }
  });
@@ -60,18 +62,35 @@
 
  .notifications-page {
    display: flex;
-   flex-wrap: wrap;
    flex-grow: 1;
-   margin-top: $page-margin-top;
 
-   .notification-form {
-     display: flex;
-     flex-basis: 70%;
+   h4 {
+     flex-basis: 100%;
+     font-weight: 300;
+     font-size: 1.3em;
+     margin-bottom: 1em;
+     padding-bottom: .6em;
+     border-bottom: $default-thin-border;
    }
 
-   .notification-list {
+   .notification-form-container {
+     background-color: white;
      display: flex;
-     flex-basis: 70%;
+     flex-wrap: wrap;
+     flex-basis: 65%;
+     padding: 3em 3em 3em 3em;
+     /* height: calc(100vh - 64px); */
+
+     .notification-form {
+
+     }
+   }
+
+   .notification-list-container {
+     display: flex;
+     flex-basis: 35%;
+     flex-wrap: wrap;
+     padding: 3em 3em 3em 3em;
 
    }
 
