@@ -42,7 +42,7 @@
  body {
    margin: 0;
    background-color: $color-background;
-   font-family: lato;
+   font-family: 'Yantramanav', sans-serif;
    font-weight: 300;
    color: $color-text-secondary;
 

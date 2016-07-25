@@ -6,7 +6,6 @@
       </div>
       <div class="list">
         <div class="item" v-for="item in navItems" v-link="{name: item.route}" v-bind:class="{'active': item.route === currentRoute}">
-          <i class="material-icons">{{item.icon}}</i>
           {{item.display}}
         </div>
       </div>

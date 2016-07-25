@@ -2,7 +2,7 @@
   <div class="notifications-page">
     <div class="notification-form-container">
       <h4>Share a new update with your members</h4>
-      <notification-form :notif="newNotif"></notification-form>
+      <notification-form :notif="newNotif" :create-notification="createNotification"></notification-form>
     </div>
     <div class="notification-list-container">
       <h4>Latest updates</h4>
@@ -28,7 +28,10 @@
    data(){
      return {
        notifs: [],
-       newNotifs: {}
+       newNotif: {
+         type: "text",
+         text: ""
+       }
      }
    },
    created(){
@@ -48,8 +51,8 @@
      }
    },
    methods: {
-     createNotification(){
-
+     createNotification(notification){
+       
      }
    }
  });
@@ -87,7 +90,7 @@
    }
 
    .notification-list-container {
-     display: flex;
+     display: block;
      flex-basis: 35%;
      flex-wrap: wrap;
      padding: 3em 3em 3em 3em;
