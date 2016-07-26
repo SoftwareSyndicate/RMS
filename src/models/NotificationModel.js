@@ -14,12 +14,13 @@ class NotificationModel {
     });
   }
 
-  createNotification(authorId, type="text", text="", link="", wallId=""){
+  createNotification(authorId, gymId="-KLi8WWAMzuH1k4mlkbj", type="text", text="", link="", wallId=""){
     let newNotificationKey = firebase.database().ref().child('notifications').push().key;
     let now = new Date().getTime();
     let notification = {
       id: newNotificationKey,
       author_id: authorId,
+      gym_id:  gymId, //TODO kill default value passed ^
       created_at: now,
       updated_at: now,
       type: type,
