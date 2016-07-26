@@ -19,18 +19,10 @@ Vue.config.debug = false
 // install Router
 var router = RouterService.initRoutes();
 
-
 //TODO REMOVE THIS SOMEHOW
 let loaded = false;
 Notifications.listenFor("UserModel.userUpdated", () => {
   if(!loaded){
-    router.start(App, '#app');
-    loaded = true;
-  }
-});
-
-firebase.auth().onAuthStateChanged(user => {
-  if(!loaded && !user){
     router.start(App, '#app');
     loaded = true;
   }
