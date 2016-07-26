@@ -28,6 +28,7 @@
      this.getResources();
    },
    ready(){
+     this.notifications.notify('NavTabs.setActiveTab', "walls");
      this.notifications.notify("Navbar.setHeader", "Walls");
    },
 

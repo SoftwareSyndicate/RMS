@@ -1,8 +1,10 @@
-import Notifications from 'services/NotificationService'
+import Notifications from '../services/NotificationService'
 
 class RouteModel {
   constructor(){
     this.routes = [];
+    this.sentRoutes = [];
+    this.gymRoutes = [];
   }
 
   addListeners(){
@@ -16,12 +18,14 @@ class RouteModel {
     });
   }
 
-  updateRoutes(){
-    var updates = {};
-
-    this.routes.forEach(route => {
-      console.log(route);
-      /* updates['/routes/' + route.id] = route; */
+  watchAllRoutesInGym(gymId){
+    this.routesRef = firebase.database().ref('routes').orderByChild("gym_id").equalTo(gymId);
+    this.routesRef.on('value', data => {
+      this.routes = [];
+      for(var key in data.val()){
+        this.routes.push(data.val()[key]);
+      }
+      Notifications.notify("RouteModel.routesUpdated");
     });
   }
 

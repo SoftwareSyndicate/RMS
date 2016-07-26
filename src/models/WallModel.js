@@ -1,10 +1,9 @@
-import Notifications from 'services/NotificationService'
+import Notifications from '../services/NotificationService'
 
 class WallModel {
   constructor(){
     this.currentWall = null;
     this.walls = [];
-    this.addListeners();
   }
 
   addListeners(){
@@ -19,10 +18,24 @@ class WallModel {
   }
 
   watchWall(id){
-    this.gymRef = firebase.database().ref('walls/' + id);
-    this.gymRef.on('value', data => {
+    this.wallRef = firebase.database().ref('walls/' + id);
+    this.wallRef.on('value', data => {
       this.currentWall = data.val();
       Notifications.notify("WallModel.currentWallUpdated")
+    });
+  }
+
+  watchAllWallsInGym(gymId){
+    this.wallsRef = firebase.database().ref('walls').orderByChild("gym_id").equalTo(gymId);
+    this.wallsRef.on('value', data => {
+      this.walls = [];
+      for(var key in data.val()){
+        let wall = data.val()[key];
+        wall.routes = [];
+        wall.last_set = new Date(wall.last_set);
+        this.walls.push(wall);
+      }
+      Notifications.notify("WallModel.wallsUpdated");
     });
   }
 
@@ -31,6 +44,7 @@ class WallModel {
     this.currentWallsRef.on('value', data => {
       this.walls = [];
       for(var key in data.val()){
+        data.val()[key].last_set = new Date(data.val()[key].last_set);
         this.walls.push(this.parseWall(data.val()[key]))
       }
       Notifications.notify("WallModel.wallsUpdated")
