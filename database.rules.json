@@ -6,7 +6,8 @@
             "$uid": {
                 ".read": "$uid === auth.uid",
                 ".write": "$uid === auth.uid"
-            }
+            },
+            ".indexOn": ["uid"]
         },
         "walls": {
             ".indexOn": ["gym_id", "id", "uid"]
