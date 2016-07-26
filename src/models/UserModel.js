@@ -1,5 +1,5 @@
 import UserService from '../services/UserService.js'
-import Notifications from 'services/NotificationService'
+import Notifications from '../services/NotificationService'
 
 class UserModel {
   constructor(){
