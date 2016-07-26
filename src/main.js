@@ -11,6 +11,7 @@ import App from './components/App.vue'
 
 import Chart from 'chart.js'
 import chartConfig from './libs/chartConfig.js'
+import Notifications from './services/NotificationService.js'
 
 Vue.config.warnExpressionErrors = false
 Vue.config.debug = false
@@ -19,10 +20,17 @@ Vue.config.debug = false
 var router = RouterService.initRoutes();
 
 
-//TODO REMOVE THIS
+//TODO REMOVE THIS SOMEHOW
 let loaded = false;
-firebase.auth().onAuthStateChanged(user => {
+Notifications.listenFor("UserModel.userUpdated", () => {
   if(!loaded){
+    router.start(App, '#app');
+    loaded = true;
+  }
+});
+
+firebase.auth().onAuthStateChanged(user => {
+  if(!loaded && !user){
     router.start(App, '#app');
     loaded = true;
   }

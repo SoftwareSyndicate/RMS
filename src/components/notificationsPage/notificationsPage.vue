@@ -2,7 +2,7 @@
   <div class="notifications-page">
     <div class="notification-form-container">
       <h4>Share a new update with your members</h4>
-      <notification-form :notif="newNotif" :create-notification="createNotification"></notification-form>
+      <notification-form :notif="newNotif" :create-notification="createNotification" :user="currentUser"></notification-form>
     </div>
     <div class="notification-list-container">
       <h4>Latest updates</h4>
@@ -31,12 +31,13 @@
        newNotif: {
          type: "text",
          text: ""
-       }
+       },
+       currentUser: UserModel.currentUser
      }
    },
    created(){
-     console.log(this.profile);
      $("#wrapper").width("100%");
+     console.log(this.currentUser);
    },
 
    ready(){
@@ -52,7 +53,8 @@
    },
    methods: {
      createNotification(notification){
-       
+       console.log(notification);
+       NotificationModel.createNotification(this.currentUser.id, notification.type, notification.text, notification.link, notification.wallId);
      }
    }
  });

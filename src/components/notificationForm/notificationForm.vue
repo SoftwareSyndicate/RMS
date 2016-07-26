@@ -5,7 +5,7 @@
 
       </div>
       <div class="user-dropdown">
-
+        {{user.first_name + " " + user.last_name}}
       </div>
       <div class="date">
         {{currentDateString}}
@@ -19,8 +19,8 @@
         <div class="form-icon" v-bind:class="{'active': notif.type == 'text'}" @click="notif.type = 'text'">
           <i class="material-icons">text_format</i>
         </div>
-        <div class="form-icon" v-bind:class="{'active': notif.type == 'camera'}" @click="notif.type = 'camera'">
-          <i class="material-icons">camera_alt</i>
+        <div class="form-icon" v-bind:class="{'active': notif.type == 'video'}" @click="notif.type = 'video'">
+          <i class="material-icons">videocam</i>
         </div>
         <div class="form-icon" v-bind:class="{'active': notif.type == 'photo'}" @click="notif.type = 'photo'">
           <i class="material-icons">insert_photo</i>
@@ -50,7 +50,11 @@
        type: Object,
        default: () => {}
      },
-     createNotification: {}
+     createNotification: {},
+     user: {
+       type: Object,
+       default: () => {}
+     }
    },
    data(){
      return {

@@ -3,7 +3,7 @@ import Notifications from 'services/NotificationService'
 
 class UserModel {
   constructor(){
-    this.currentUser = firebase.auth().currentUser;
+    this.currentUser = null;
     firebase.auth().onAuthStateChanged(user => {
       if(user){
         this.firebaseUser = user;
@@ -35,8 +35,7 @@ class UserModel {
   watchCurrentUser(uid){
     this.currentUserRef = firebase.database().ref("users").orderByChild("uid").equalTo(uid);
     this.currentUserRef.on('value', data => {
-      this.currentUser = data.val();
-      console.log("currentUser: ", this.currentUser);
+      this.currentUser = data.val()[Object.keys(data.val())[0]];
       Notifications.notify("UserModel.userUpdated", this.currentUser);
     });
   }
