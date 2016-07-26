@@ -1,5 +1,5 @@
 <template>
-  <div class="color-select-modal" v-show="show">
+  <div class="color-select-modal" v-show="show" transition="modal">
     <div class="modal-wrapper" @click="show = false">
       <div class="modal-container" @click.stop="">
         <h2>Circuit Select</h2>
@@ -145,15 +145,17 @@
     * these styles.
     */
 
-   .modal-enter, .modal-leave {
+   &.modal-enter, &.modal-leave {
      opacity: 0;
    }
 
-   .modal-enter .modal-container,
-   .modal-leave .modal-container {
+   &.modal-enter &.modal-container,
+   &.modal-leave &.modal-container {
      -webkit-transform: scale(1.1);
      transform: scale(1.1);
    }
+
+
  }
 
 </style>

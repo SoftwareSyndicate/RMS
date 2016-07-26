@@ -1,22 +1,24 @@
 <template>
-  <div class="gym-list">
-    <gym-list-item :gym="gym" v-for="gym in gyms"></gym-list-item>
+  <div class="notification-list">
+    notifications list
+    <div v-for="notif in notifs">
+      <text-notification-item  v-if="notif.type == 'text''" :notification="notif"></text-notification-item>
   </div>
 </template>
 
 <script>
  import BaseComponent from 'base/baseComponent.vue'
- import GymListItem from 'components/GymListItem/GymListItem'
+ import TextNotificationItem from 'components/notificationItems/textNotificationItem'
 
  export default BaseComponent.extend({
-   name: 'GymsPage',
+   name: 'NotificationList',
    components: {
-     GymListItem: GymListItem
+     TextNotificationItem: TextNotificationItem
    },
    props: {
-     gyms: {
+     notifs: {
        type: Array,
-       default: []
+       default: () => []
      }
    },
    data(){

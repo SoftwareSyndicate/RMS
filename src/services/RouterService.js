@@ -13,6 +13,7 @@ import WallsPage from 'components/wallsPage/wallsPage'
 import WallPage from 'components/wallPage/wallPage'
 import GymPage from 'components/gymPage/gymPage'
 import GymsPage from 'components/gymsPage/gymsPage'
+import NotificationsPage from 'components/notificationsPage/notificationsPage'
 
 class RouterService {
   constructor(){
@@ -58,6 +59,11 @@ class RouterService {
         component: GymsPage,
         auth: "admin"
       },
+      '/notifications': {
+        name: 'notifications',
+        component: NotificationsPage,
+        auth: "admin"
+      },
       '/gyms/:id': {
         name: 'gym',
         component: GymPage,
@@ -67,9 +73,9 @@ class RouterService {
     });
 
     router.beforeEach(function(transition){
-      if(transition.to.auth && !UserModel.currentUser){
+      if(transition.to.auth && !UserModel.firebaseUser){
         transition.redirect("/signIn");
-      } else if(!transition.to.auth && UserModel.currentUser){
+      } else if(!transition.to.auth && UserModel.firebaseUser){
         transition.redirect("/gyms");
       } else {
         Notifications.notify('Router.beforeTransition', transition);

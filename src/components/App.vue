@@ -1,7 +1,9 @@
 <template>
-  <navbar></navbar>
-  <div id="wrapper">
-    <router-view class="view" transition transition-mode="out-in"></router-view>
+  <div>
+    <navbar></navbar>
+    <div id="wrapper">
+      <router-view class="view" transition transition-mode="out-in"></router-view>
+    </div>
   </div>
 </template>
 
@@ -37,11 +39,10 @@
 <style lang="sass">
  @import "../styles/main";
 
-
  body {
    margin: 0;
    background-color: $color-background;
-   font-family: lato;
+   font-family: 'Yantramanav', sans-serif;
    font-weight: 300;
    color: $color-text-secondary;
 
