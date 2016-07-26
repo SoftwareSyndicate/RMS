@@ -11,6 +11,7 @@
  import BaseComponent from 'base/baseComponent.vue'
  import UserModel from 'models/UserModel'
  import WallModel from 'models/WallModel'
+ import RouteModel from 'models/RouteModel'
 
  import WallList from '../../SBP/src/components/wallList/wallList.vue'
 
@@ -25,16 +26,18 @@
      }
    },
    created(){
-     this.getResources();
+
    },
    ready(){
-     this.notifications.notify('NavTabs.setActiveTab', "walls");
      this.notifications.notify("Navbar.setHeader", "Walls");
+     this.walls = WallModel.walls;
+     this.parseRoutes();
    },
 
    notifs(){
      return {
-       "WallModel.wallsUpdated": "onWallsUpdated"
+       "WallModel.wallsUpdated": "onWallsUpdated",
+       "RouteModel.routesUpdated": "parseRoutes"
      }
    },
    methods: {
@@ -48,18 +51,20 @@
        }
      },
 
-     onWallsUpdated(){
+     onWallsUpdated(e){
        this.walls = WallModel.walls;
+       this.parseRoutes();
      },
 
-     getResources(){
-       //TODO remove this, all users should have a current Gym on Reg
-       if(UserModel.currentUser.currentGymId){
-         WallModel.getWallsByGymId(UserModel.currentUser.currentGymId);
-       } else {
-         WallModel.getWallsByGymId("-KLi8WWAMzuH1k4mlkbj");
-       }
-
+     parseRoutes(){
+       this.walls.forEach(wall => {
+         wall.routes = [];
+         RouteModel.routes.forEach(route => {
+           if(route.wall_id === wall.id){
+             wall.routes.push(route);
+           }
+         });
+       });
      }
    }
  });

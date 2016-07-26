@@ -39,6 +39,21 @@ class WallModel {
     });
   }
 
+  watchAllWalls(){
+    this.wallsRef = firebase.database().ref('walls');
+    this.wallsRef.on('value', data => {
+      this.walls = [];
+      for(var key in data.val()){
+        let wall = data.val()[key];
+        wall.routes = [];
+        wall.last_set = new Date(wall.last_set);
+        this.walls.push(wall);
+      }
+      Notifications.notify("WallModel.wallsUpdated");
+    });
+  }
+
+
   getWallsByGymId(id){
     this.currentWallsRef = firebase.database().ref('walls').orderByChild("gym_id").equalTo(id);
     this.currentWallsRef.on('value', data => {

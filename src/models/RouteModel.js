@@ -29,6 +29,20 @@ class RouteModel {
     });
   }
 
+  watchAllRoutes(){
+    this.routesRef = firebase.database().ref('routes').orderByChild("gym_id");
+    this.routesRef.on('value', data => {
+      this.routes = [];
+      for(var key in data.val()){
+        this.routes.push(data.val()[key]);
+      }
+      Notifications.notify("RouteModel.routesUpdated");
+      console.log(Notifications);
+      console.log("UPDATED");
+    });
+  }
+
+
   updateRoute(route){
     var updates = {};
     updates['/routes/' + route.id] = route;

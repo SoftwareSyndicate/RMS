@@ -8,6 +8,9 @@
 </template>
 
 <script>
+ import WallModel from 'models/WallModel'
+ import RouteModel from 'models/RouteModel'
+
  import BaseComponent from 'base/baseComponent.vue'
  import Navbar from 'components/navbar/navbar'
 
@@ -26,9 +29,13 @@
      }
    },
    created(){
-
+     this.getResources();
    },
    methods: {
+     getResources(){
+       WallModel.watchAllWalls();
+       RouteModel.watchAllRoutes();
+     }
    }
  });
 
