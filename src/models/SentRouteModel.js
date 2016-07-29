@@ -1,61 +1,50 @@
 import Notifications from '../services/NotificationService'
 
-class RouteModel {
+class SentRouteModel {
   constructor(){
+    this.NAME = "SentRouteModel";
+    this.FIREBASE_NAME = "sent_routes";
     this.routes = [];
-    this.sentRoutes = [];
-    this.gymRoutes = [];
-  }
-
-  addListeners(){
-    let wallsRef = firebase.database().ref('walls');
-    wallsRef.on('value', data => {
-      this.routes = [];
-      for(var key in data.val()){
-        this.routes.push(data.val()[key])
-      }
-      Notifications.notify("RouteModel.routesUpdated")
-    });
   }
 
   watchAllRoutesInGym(gymId){
-    this.routesRef = firebase.database().ref('routes').orderByChild("gym_id").equalTo(gymId);
+    this.routesRef = firebase.database().ref(this.FIREBASE_NAME).orderByChild("gym_id").equalTo(gymId);
     this.routesRef.on('value', data => {
       this.routes = [];
       for(var key in data.val()){
         this.routes.push(data.val()[key]);
       }
-      Notifications.notify("RouteModel.routesUpdated");
+      Notifications.notify(this.NAME + ".routesUpdated");
     });
   }
 
   watchAllRoutes(){
-    this.routesRef = firebase.database().ref('routes').orderByChild("gym_id");
+    this.routesRef = firebase.database().ref(this.FIREBASE_NAME).orderByChild("gym_id");
     this.routesRef.on('value', data => {
       this.routes = [];
       for(var key in data.val()){
         this.routes.push(data.val()[key]);
       }
-      Notifications.notify("RouteModel.routesUpdated");
+      Notifications.notify(this.NAME + ".routesUpdated");
     });
   }
 
 
   updateRoute(route){
     var updates = {};
-    updates['/routes/' + route.id] = route;
+    updates['/' + this.FIREBASE_NAME + '/' + route.id] = route;
     return firebase.database().ref().update(updates);
   }
 
   getRoutesByWallId(id){
-    this.routesRef = firebase.database().ref('routes').orderByChild("wall_id").equalTo(id);
+    this.routesRef = firebase.database().ref(this.FIREBASE_NAME).orderByChild("wall_id").equalTo(id);
     this.routesRef.on('value', data => {
 
       this.routes = [];
       for(var key in data.val()){
         this.routes.push(this.parseRoute(data.val()[key]))
       }
-      Notifications.notify("RouteModel.routesUpdated")
+      Notifications.notify(this.NAME + ".routesUpdated");
     });
   }
 
@@ -67,7 +56,7 @@ class RouteModel {
   }
 
   createRoute(gymId, wallId, color="gray", grade="0", risk=0, intensity=0, complexity=0, exposure=0){
-    let newRouteKey = firebase.database().ref().child('routes').push().key;
+    let newRouteKey = firebase.database().ref().child(this.FIREBASE_NAME).push().key;
     let now = new Date().getTime();
     let route = {
       id: newRouteKey,
@@ -86,14 +75,14 @@ class RouteModel {
     };
 
     var updates = {};
-    updates['/routes/' + newRouteKey] = route;
+    updates['/' + this.FIREBASE_NAME + '/' + newRouteKey] = route;
     return firebase.database().ref().update(updates);
   }
 
   deleteRoute(id){
-    let routesRef = firebase.database().ref('routes/' + id);
+    let routesRef = firebase.database().ref(this.FIREBASE_NAME + '/' + id);
     return routesRef.remove().then(() => {
-      Notifications.notify("RouteModel.routesUpdated")
+      Notifications.notify(this.NAME + ".routesUpdated");
     }).catch(error => {
       return Promise.reject(error);
     });
