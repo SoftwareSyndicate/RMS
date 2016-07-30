@@ -18,6 +18,17 @@ class SentRouteModel {
     });
   }
 
+  watchAllRoutesByUserId(userId){
+    this.routesRef = firebase.database().ref(this.FIREBASE_NAME).orderByChild("user_id").equalTo(gymId);
+    this.routesRef.on('value', data => {
+      this.routes = [];
+      for(var key in data.val()){
+        this.routes.push(data.val()[key]);
+      }
+      Notifications.notify(this.NAME + ".routesUpdated");
+    });
+  }
+
   watchAllRoutes(){
     this.routesRef = firebase.database().ref(this.FIREBASE_NAME).orderByChild("gym_id");
     this.routesRef.on('value', data => {
