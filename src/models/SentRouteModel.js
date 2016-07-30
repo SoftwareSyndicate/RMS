@@ -89,4 +89,4 @@ class SentRouteModel {
   }
 }
 
-export default new RouteModel();
+export default new SentRouteModel();
