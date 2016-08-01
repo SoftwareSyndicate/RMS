@@ -14,6 +14,9 @@
         },
         "routes": {
             ".indexOn": ["gym_id", "wall_id", "id"]
+        },
+        "sent_routes": {
+            ".indexOn": ["gym_id", "route_id", "user_id", "id"]
         }
     }
 }

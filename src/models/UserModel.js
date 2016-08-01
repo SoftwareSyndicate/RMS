@@ -45,8 +45,8 @@ class UserModel {
     return firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
       return error;
     }).then(results => {
-      this.currentUser = firebase.auth().currentUser;
-
+      this.currentUser = {};
+      this.watchCurrentUser(firebase.auth().currentUser.uid);
       Notifications.notify("UserModel.signIn", this.currentUser);
       return results;
     });
