@@ -29,6 +29,7 @@ class WallModel {
     this.wallsRef = firebase.database().ref('walls').orderByChild("gym_id").equalTo(gymId);
     this.wallsRef.on('value', data => {
       this.walls = [];
+      this._walls = data;
       for(var key in data.val()){
         let wall = data.val()[key];
         wall.routes = [];
@@ -89,6 +90,10 @@ class WallModel {
     var updates = {};
     updates['/walls/' + newWallKey] = wall;
     return firebase.database().ref().update(updates);
+  }
+
+  getWallById(id){
+    return firebase.database().ref(`walls/${id}`).once('value');
   }
 
 }
