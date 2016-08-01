@@ -62,7 +62,9 @@ module.exports = {
       libs: 'src/libs',
       models: 'src/models',
       services: 'src/services',
-      styles: 'src/styles'
+      styles: 'src/styles',
+      'rms-models': 'src/models',
+      'rms-services': 'src/services'
     },
     extensions: ['', '.js', '.vue', '.scss']
   }

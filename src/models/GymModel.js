@@ -4,16 +4,14 @@ class GymModel {
   constructor(){
     this.currentGym = null;
     this.gyms = [];
-    this.addListeners();
   }
 
-  addListeners(){
+  watchAllGyms(){
     this.allGymsRef = firebase.database().ref('gyms');
     this.allGymsRef.on('value', data => {
       this.gyms = [];
       for(var key in data.val()){
         let gym = data.val()[key];
-        gym.id = key;
         this.gyms.push(gym);
       }
       Notifications.notify("GymModel.gymsUpdated")

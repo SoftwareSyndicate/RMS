@@ -30,8 +30,7 @@
    },
    ready(){
      this.notifications.notify("Navbar.setHeader", "Walls");
-     this.walls = WallModel.walls;
-     this.parseRoutes();
+     this.onWallsUpdated();
    },
 
    notifs(){
@@ -57,6 +56,8 @@
      },
 
      parseRoutes(){
+       console.log("parse routes");
+       console.log(RouteModel.routes);
        this.walls.forEach(wall => {
          wall.routes = [];
          RouteModel.routes.forEach(route => {

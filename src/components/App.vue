@@ -8,8 +8,11 @@
 </template>
 
 <script>
+ import UserModel from 'models/UserModel'
+ import GymModel from 'models/GymModel'
  import WallModel from 'models/WallModel'
  import RouteModel from 'models/RouteModel'
+
 
  import BaseComponent from 'base/baseComponent.vue'
  import Navbar from 'components/navbar/navbar'
@@ -21,6 +24,8 @@
    },
    data(){
      return {
+       loaded: true,
+       resourcesLoaded: false
      }
    },
    notifs(){
@@ -29,12 +34,23 @@
      }
    },
    created(){
-     this.getResources();
+     if(UserModel.currentUser){
+       this.getResources();
+     }
+   },
+   notifs(){
+     return {
+       'UserModel.userUpdated': 'getResources'
+     }
    },
    methods: {
      getResources(){
-       WallModel.watchAllWalls();
-       RouteModel.watchAllRoutes();
+       if(!this.resourcesLoaded){
+         WallModel.watchAllWalls();
+         RouteModel.watchAllRoutes();
+         GymModel.watchAllGyms();
+         this.resourcesLoaded = true;
+       }
      }
    }
  });
