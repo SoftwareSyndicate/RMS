@@ -29,6 +29,20 @@ class SentRouteModel {
     });
   }
 
+  watchAllRoutesByUserId(userId){
+    this.routesRef = firebase.database().ref(this.FIREBASE_NAME).orderByChild("user_id").equalTo(userId);
+    this.routesRef.on('value', data => {
+      this.routes = [];
+      for(var key in data.val()){
+        this.routes.push(data.val()[key]);
+      }
+      /* console.log(this.NAME + "routesUpdated");
+         console.log(this.routes); */
+      Notifications.notify(this.NAME + ".routesUpdated");
+    });
+  }
+
+
   watchAllRoutes(){
     this.routesRef = firebase.database().ref(this.FIREBASE_NAME).orderByChild("gym_id");
     this.routesRef.on('value', data => {
@@ -66,34 +80,26 @@ class SentRouteModel {
     return route;
   }
 
-  createRoute(gymId, wallId, color="gray", grade="0", risk=0, intensity=0, complexity=0, exposure=0){
-    let newRouteKey = firebase.database().ref().child(this.FIREBASE_NAME).push().key;
+  createSentRoute(routeId, userId){
+    let newKey = firebase.database().ref().child(this.FIREBASE_NAME).push().key;
     let now = new Date().getTime();
-    let route = {
-      id: newRouteKey,
-      gym_id: gymId,
-      wall_id: wallId,
+    let sentRoute = {
+      id: newKey,
+      route_id: routeId,
+      user_id: userId,
       created_at: now,
       updated_at: now,
-      status: 0,
-      color: color,
-      htmlColor: color,
-      grade: grade,
-      risk: risk,
-      intensity: intensity,
-      complexity: complexity,
-      exposure: exposure
     };
 
     var updates = {};
-    updates['/' + this.FIREBASE_NAME + '/' + newRouteKey] = route;
+    updates['/' + this.FIREBASE_NAME + '/' + newKey] = sentRoute;
     return firebase.database().ref().update(updates);
   }
 
-  deleteRoute(id){
-    let routesRef = firebase.database().ref(this.FIREBASE_NAME + '/' + id);
-    return routesRef.remove().then(() => {
-      Notifications.notify(this.NAME + ".routesUpdated");
+  deleteSentRoute(id){
+    let ref = firebase.database().ref(this.FIREBASE_NAME + '/' + id);
+    return ref.remove().then(() => {
+
     }).catch(error => {
       return Promise.reject(error);
     });
