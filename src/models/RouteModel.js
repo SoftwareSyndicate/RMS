@@ -5,6 +5,7 @@ class RouteModel {
     this.routes = [];
     this.sentRoutes = [];
     this.gymRoutes = [];
+    this._routesByWall = {};
   }
 
   addListeners(){
@@ -22,8 +23,17 @@ class RouteModel {
     this.routesRef = firebase.database().ref('routes').orderByChild("gym_id").equalTo(gymId);
     this.routesRef.on('value', data => {
       this.routes = [];
-      for(var key in data.val()){
-        this.routes.push(data.val()[key]);
+      this._routes = data;
+      let _data = data.val();
+      for(var key in _data){
+        let rt = _data[key];
+        this.routes.push(rt);
+
+        // set routes by wall
+        if(!this._routesByWall.hasOwnProperty(rt.wall_id)){
+          this._routesByWall[rt.wall_id] = [];
+        }
+        this._routesByWall[rt.wall_id].push(rt);
       }
       Notifications.notify("RouteModel.routesUpdated");
     });

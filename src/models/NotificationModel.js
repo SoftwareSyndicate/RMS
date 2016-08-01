@@ -1,4 +1,4 @@
-import Notifications from 'services/NotificationService'
+import Notifications from 'rms-services/NotificationService'
 
 class NotificationModel {
   constructor(){
@@ -47,6 +47,13 @@ class NotificationModel {
     }).catch(error => {
       return Promise.reject(error);
     });
+  }
+
+  getNotifications(gymId = '-KLi8WWAMzuH1k4mlkbj'){
+    let notifRef = firebase.database().ref('notifications').orderByChild('gym_id').equalTo(gymId);
+    notifRef.on('value', (data)=>{
+      Notifications.notify('NotificationModel.notificationsUpdated', data.exportVal());
+    })
   }
 }
 
