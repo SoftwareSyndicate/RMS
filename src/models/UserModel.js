@@ -18,6 +18,8 @@ class UserModel {
   }
 
   createUser(uid, firstName, lastName){
+    console.log(firstName);
+    console.log(lastName);
     let newUserKey = firebase.database().ref().child('users').push().key;
     let now = new Date().getTime();
     let user = {
