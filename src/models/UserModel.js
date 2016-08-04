@@ -18,9 +18,6 @@ class UserModel {
   }
 
   createUser(uid, firstName, lastName){
-    console.log("createUser");
-    console.log(firstName);
-    console.log(lastName);
     let newUserKey = firebase.database().ref().child('users').push().key;
     let now = new Date().getTime();
     let user = {
@@ -98,7 +95,6 @@ class UserModel {
     return user.updateProfile(updates).then(() => {
       this.currentUser = firebase.auth().currentUser;
       Notifications.notify("UserModel.userUpdated");
-      console.log(this.currentUser);
       return this.currentUser;
     }, error => {
       return error;
