@@ -171,7 +171,7 @@
 </script>
 
 
-<style lang="sass">
+<style lang="scss">
  @import '../../styles/main.scss';
 
  .walls-page {

@@ -103,7 +103,7 @@
 </script>
 
 
-<style lang="sass">
+<style lang="scss">
  @import "../../styles/vars";
  @import "../../styles/animation";
 

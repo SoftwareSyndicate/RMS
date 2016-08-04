@@ -83,7 +83,7 @@
 </script>
 
 
-<style lang="sass">
+<style lang="scss">
  @import '../../styles/vars.scss';
 
  .notification-form {

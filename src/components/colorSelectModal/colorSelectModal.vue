@@ -66,7 +66,7 @@
 </script>
 
 
-<style lang="sass">
+<style lang="scss">
  @import '../../styles/vars.scss';
  @import '../../styles/grades.scss';
 
