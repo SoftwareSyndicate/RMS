@@ -17,11 +17,16 @@ class UserModel {
     this.facebookAuthProvider = new firebase.auth.FacebookAuthProvider();
   }
 
-  createUser(uid){
+  createUser(uid, firstName, lastName){
+    console.log("createUser");
+    console.log(firstName);
+    console.log(lastName);
     let newUserKey = firebase.database().ref().child('users').push().key;
     let now = new Date().getTime();
     let user = {
       uid: uid,
+      first_name: firstName,
+      last_name: lastName,
       id: newUserKey,
       created_at: now,
       updated_at: now
@@ -65,6 +70,7 @@ class UserModel {
   //Sign Up
   signUpWithEmail(email, password){
     return firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+
       return error;
     });
   }
