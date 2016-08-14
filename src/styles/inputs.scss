@@ -7,6 +7,18 @@ $input-padding-left: 16px;
 $input-padding-right: 0px;
 $input-border-size: 1px;
 
+input {
+  padding-left: 8px;
+  height: 34px;
+  width: 100%;
+  border-radius: 3px;
+  border: 1px solid transparent;
+  border-top: none;
+  border-bottom: 1px solid #DDD;
+  box-shadow: inset 0 1px 2px rgba(0,0,0,.39), 0 -1px 1px #FFF, 0 1px 0 #FFF;
+  background-color: white;
+}
+
 
 body {
   #wrapper,
@@ -16,7 +28,6 @@ body {
       border-radius: 3px;
       padding: $input-padding;
       color: $color-text-dark;
-      background-color: $color-background-color;
       border: $input-border-size solid rgba(0, 0, 0, .05);
       margin: 0px;
       height: 50px - ($input-padding-top * 2) - ($input-border-size * 2);

@@ -1,5 +1,5 @@
 <template>
-  <div class="navbar">
+  <div class="navbar" :class="{'shadow': shadow}">
     <div class="navbar-wrapper">
       <div class="logo">
         {{header}}
@@ -30,13 +30,19 @@
        header: "RMS",
        currentUser: UserModel.currentUser,
        navItems: [],
-       currentRoute: this.$route.name
+       currentRoute: this.$route.name,
+       shadow: false
      }
    },
    created(){
-     this.initNavItems();
+
    },
 
+   ready(){
+     this.initNavItems();
+     $('body').on('wheel.navbar touchmove.navbar', this.onScroll());
+     this.onScroll()();
+   },
    notifs(){
      return {
        "UserModel.userUpdated": "onUserUpdated",
@@ -68,8 +74,8 @@
              icon: "supervisor_account"
            },
            {
-             display: "Gyms",
-             route: "gyms",
+             display: "Gym",
+             route: "gym",
              auth: "admin",
              icon: "business"
            },
@@ -96,6 +102,17 @@
 
      setNavItems(e, items){
        this.navItems = items;
+     },
+     onScroll(){
+       let self = this;
+       return function(){
+         let body = $(this);
+         if(body.scrollTop() > 5){
+           self.shadow = true;
+         } else {
+           self.shadow = false;
+         }
+       }
      }
    }
  });
@@ -108,6 +125,7 @@
  @import "../../styles/animation";
 
  .navbar {
+   z-index: 9;
    display: flex;
    flex-grow: 1;
    flex-basis: 100%;
@@ -117,7 +135,8 @@
    color: $color-text-primary;
    background-color: $color-navbar-background;
    border-bottom: 2px solid darken($color-navbar-background, 4%);
-
+   transition: all 300ms;
+   box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
 
    .navbar-wrapper {
      display: flex;
@@ -182,6 +201,10 @@
          font-size: 24px;
        }
      }
+   }
+
+   &:not(.shadow){
+     box-shadow: none !important;
    }
  }
 

@@ -46,13 +46,15 @@ class UserModel {
 
 
   signInWithEmail(email, password){
-    return firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
-      return error;
-    }).then(results => {
+    return firebase.auth().signInWithEmailAndPassword(email, password).then(results => {
+      console.log(results);
       this.currentUser = {};
       this.watchCurrentUser(firebase.auth().currentUser.uid);
       Notifications.notify("UserModel.signIn", this.currentUser);
       return results;
+    }, error => {
+      console.error(error);
+      return Promise.reject(error);
     });
   }
 

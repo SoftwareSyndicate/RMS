@@ -69,14 +69,14 @@ module.exports = {
       services: 'src/services',
       styles: 'src/styles',
       'rms-models': 'src/models',
-      'rms-services': 'src/services'
+      'rms-services': 'src/services',
+      'sbp-components': 'src/sbp/components'
     },
     extensions: ['', '.js', '.vue', '.scss']
   }
 }
 
 if (process.env.NODE_ENV === 'production') {
-  console.log("BUILDING CHRONOS");
   module.exports.plugins = [
     new webpack.DefinePlugin({
       'process.env': {

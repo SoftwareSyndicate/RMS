@@ -14,6 +14,9 @@ $color-chart-area-1: #A9B9D3;
 $color-text-light: rgba(0, 0, 0, .4);
 $color-text-normal: rgba(0, 0, 0, .6);
 $color-text-dark: rgba(0, 0, 0, .8);
+$color-base-orange: #f3501e;
+$gradient-background: linear-gradient(darken($color-base-orange, 3%), lighten($color-base-orange, 8%));
+
 
 // pallette
 $color-1: #FF9F55;

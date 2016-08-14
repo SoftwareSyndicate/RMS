@@ -4,8 +4,6 @@ import Notifications from 'services/NotificationService'
 import UserModel from 'models/UserModel'
 
 //Pages
-import SignInPage from 'components/signInPage/signInPage'
-import SignUpPage from 'components/signUpPage/signUpPage'
 import UserPage from 'components/userPage/userPage'
 import UsersPage from 'components/usersPage/usersPage'
 import ProfilePage from 'components/profilePage/profilePage'
@@ -14,6 +12,14 @@ import WallPage from 'components/wallPage/wallPage'
 import GymPage from 'components/gymPage/gymPage'
 import GymsPage from 'components/gymsPage/gymsPage'
 import NotificationsPage from 'components/notificationsPage/notificationsPage'
+
+
+//Sign In
+import SignInPage from 'components/signIn/signInPage.vue'
+
+//Sign Up
+import SignUpPage from 'components/signUp/signUpPage.vue'
+
 
 class RouterService {
   constructor(){
@@ -24,15 +30,17 @@ class RouterService {
     var router = new Router();
 
     router.map({
+      //Sign In
       '/signIn': {
         name: 'signIn',
         component: SignInPage,
-        auth: false
+        auth: false,
       },
+      //Sign Up
       '/signUp': {
         name: 'signUp',
         component: SignUpPage,
-        auth: false
+        auth: false,
       },
       '/users': {
         name: 'users',
