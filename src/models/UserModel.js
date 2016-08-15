@@ -70,9 +70,11 @@ class UserModel {
 
   //Sign Up
   signUpWithEmail(email, password){
-    return firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
-
-      return error;
+    return firebase.auth().createUserWithEmailAndPassword(email, password).then(results => {
+      return results;
+    }, error => {
+      console.error(error);
+      return Promise.reject(error);
     });
   }
 

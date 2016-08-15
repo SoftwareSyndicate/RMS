@@ -1,6 +1,16 @@
 <template>
-  <div class="walls-page">
-    <div class="btn btn-primary create add-route-button" @click.stop="createRoute()">Add Route<i class="material-icons">add_box</i></div>
+  <div class="wall-page">
+    <div class="header">
+      <div class="info">
+        <div class="total-routes">
+          Total: {{wall.routes.length}}
+        </div>
+        <div class="average-grade">
+          Avg: {{Math.round((totalGrade / wall.routes.length) * 10) / 10}}
+        </div>
+      </div>
+      <div class="btn btn-primary create add-route-button" @click.stop="createRoute()">Add Route<i class="material-icons">add_box</i></div>
+    </div>
     <div class="route-list-container">
       <route-list :routes.sync="wall.routes" :delete-route="deleteRoute"></route-list>
     </div>
@@ -30,6 +40,7 @@
        wall: {},
        routes: [],
        currentRoute: {},
+       totalGrade: 0,
        showColorModal: false,
        showStatusModal: false,
        showRiceModal: false,
@@ -54,13 +65,14 @@
    methods: {
      parseRoutes(){
        this.wall.routes = [];
+       this.totalGrade = 0;
        RouteModel.routes.forEach(route => {
          route.sent = false;
          route.grade = route.grade;
          route.actualColor = window.colorMappings[route.color];
          route.colorValue = this.findColorIndex(route.actualColor);
-
          if(route.wall_id === this.wall.id){
+           this.totalGrade += parseInt(route.grade);
            this.wall.routes.push(route);
          }
        });
@@ -174,17 +186,45 @@
 <style lang="scss">
  @import '../../styles/main.scss';
 
- .walls-page {
+ .wall-page {
    display: flex;
    flex-wrap: wrap;
+   flex-grow: 1;
+   margin-top: $page-margin-top;
+
 
    .route-list-container {
      flex-basis: 100%;
    }
 
-   .btn {
+   .header {
+     display: flex;
+     flex-grow: 1;
+     align-items: center;
      margin-bottom: 1em;
+
+     .info {
+       font-size: 2rem;
+       display: flex;
+       align-items: center;
+
+       .total-routes {
+         font-size: 2rem;
+         padding-right: 1rem;
+         border-right: $default-border;
+       }
+
+       .average-grade {
+         padding-left: 1rem;
+       }
+     }
+
+     .btn {
+       margin-left: auto;
+       min-width: 8em;
+     }
    }
+
  }
 
 </style>

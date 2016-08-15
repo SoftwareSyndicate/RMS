@@ -41,13 +41,12 @@
    },
    methods: {
      createWall(){
-       console.log("createWall");
-       //TODO remove this, all users should have a current Gym on Reg
-       if(UserModel.currentUser.currentGymId){
-         WallModel.createWall("F.S.1", UserModel.currentUser.currentGymId);
-       } else {
-         WallModel.createWall("North Slab", "-KLi8WWAMzuH1k4mlkbj");
-       }
+       /* TODO MODAL */
+       /* if(UserModel.currentUser.currentGymId){
+          WallModel.createWall("F.S.1", UserModel.currentUser.currentGymId);
+          } else {
+          WallModel.createWall("North Slab", "-KLi8WWAMzuH1k4mlkbj");
+          } */
      },
 
      onWallsUpdated(e){
@@ -56,8 +55,6 @@
      },
 
      parseRoutes(){
-       console.log("parse routes");
-       console.log(RouteModel.routes);
        this.walls.forEach(wall => {
          wall.routes = [];
          RouteModel.routes.forEach(route => {

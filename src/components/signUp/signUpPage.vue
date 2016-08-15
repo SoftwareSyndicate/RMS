@@ -1,39 +1,65 @@
 <template>
   <div class="sign-up-page">
-    sign up
+    <div class="sign-up-form-container">
+      <sign-up-form :email.sync="email" :password.sync="password" :sign-up="signUp" :first-name.sync="firstName" :last-name.sync="lastName"></sign-up-form>
+      <p class="error-message" v-if="error">{{errorMessage}}</p>
+    </div>
   </div>
 </template>
 
 <script>
  import BaseComponent from 'base/baseComponent.vue'
  import UserModel from 'models/UserModel'
+ import SignUpForm from 'components/signUp/signUpForm'
 
  export default BaseComponent.extend({
    name: 'SignUpPage',
    components: {
-
+     SignUpForm
    },
    data(){
      return {
-       profile: UserModel.currentUser
+       firstName: "",
+       lastName: "",
+       email: "",
+       password: "",
+       error: false,
+       errorMessage: ""
      }
    },
    created(){
-     console.log(this.profile);
+
    },
 
    ready(){
-     this.notifications.notify("Navbar.setHeader", "User");
-   },
-   notifs(){
-     return {
+     this.notifications.notify("Navbar.setHeader", "Sign Up");
+     let navItems = [{
+       display: "Sign In",
+       route: "signIn",
+       auth: "none"
+     }];
 
-     }
+     this.notifications.notify("Navbar.setItems", navItems);
    },
    methods: {
-     signOut(){
-       UserModel.signOut();
-       this.$router.go({"name": "signIn"});
+     signUp(){
+       this.error = false;
+       if(this.firstName === "" || this.lastName === "" || this.email === "" || this.password === ""){
+         this.error = true;
+         this.errorMessage = "All fields required";
+       } else {
+         UserModel.signUpWithEmail(this.email, this.password).then(results => {
+           UserModel.firebaseUser = firebase.auth().currentUser;
+           UserModel.createUser(UserModel.firebaseUser.uid, this.firstName, this.lastName).then(results => {
+             UserModel.watchCurrentUser(UserModel.firebaseUser.uid);
+             this.$router.go({name: 'profile'});
+           }, error => {
+           })
+         }, error => {
+           this.error = true;
+           this.errorMessage = error.message;
+         });
+       }
      }
    }
  });
@@ -48,54 +74,17 @@
    display: flex;
    flex-wrap: wrap;
    flex-grow: 1;
+   justify-content: center;
    margin-top: $page-margin-top;
+   text-align: center;
 
-   .person {
-     display: flex;
-     flex-wrap: wrap;
-     justify-content: center;
-     flex-basis: 40%;
-
-     .img-container {
-       display: flex;
-       flex-basis: 100%;
-       padding-bottom: 1em;
-
-       img {
-         height: 150px;
-       }
-     }
-
-     .name {
-       flex-basis: 100%;
-       font-size: 2em;
-       font-weight: 300;
-       margin-bottom: .2em;
-     }
-
-     .email {
-       flex-basis: 100%;
-       font-size: 1em;
-       font-weight: 300;
-       margin-bottom: .5em;
-     }
-
-     .joined {
-       flex-basis: 100%;
-       font-size: 1em;
-       font-weight: 300;
-       margin-bottom: 1.5em;
-     }
-
-     .btn {
-       margin-right: auto;
-     }
+   .sign-up-form-container {
+     margin-top: 4rem;
+     width: 40%;
    }
 
-   .info {
-     display: flex;
-     flex-basis: 60%;
-     flex-grow: 1;
+   .error-message {
+     color: #FC575E;
    }
  }
 

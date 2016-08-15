@@ -9,7 +9,7 @@ $button-border-size: 2px;
 .btn {
   line-height: 1em;
   font-weight: 100;
-  font-size: 14px;
+  font-size: 16px;
   padding-top: $button-padding-top;
   padding-bottom: $button-padding-bottom;
   padding-left: $button-padding-left;
@@ -23,6 +23,7 @@ $button-border-size: 2px;
   text-align: center;
   border: $button-border-size solid rgba(0, 0, 0, .03);
   height: 50px - ($button-padding-top * 2) - ($button-border-size * 2);
+  box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
 
   .material-icons {
     padding-right: 16px;
@@ -30,7 +31,7 @@ $button-border-size: 2px;
   }
 
   &:hover {
-
+    box-shadow: none;
   }
 }
 
@@ -39,9 +40,9 @@ $button-border-size: 2px;
   background-color: $button-background-color-primary;
 
   &:hover {
-    background-color: darken($button-background-color-primary, 2%);
-    border: 2px solid rgba(0, 0, 0, .08);
-    box-shadow: inset 0 0 5px rgba(0, 0, 0, .08);
+    background-color: darken($button-background-color-primary, 5%);
+    border: $button-border-size solid rgba(0, 0, 0, .04);
+    box-shadow: 0 1px 2px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
   }
 
   &:active {
