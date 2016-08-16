@@ -48,7 +48,7 @@
        if(!this.resourcesLoaded){
          WallModel.watchAllWalls();
          RouteModel.watchAllRoutes();
-         GymModel.watchAllGyms();
+         GymModel.watchGym("-KLi8WWAMzuH1k4mlkbj");
          this.resourcesLoaded = true;
        }
      }

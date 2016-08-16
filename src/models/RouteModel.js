@@ -87,7 +87,7 @@ class RouteModel {
       updated_at: now,
       status: 0,
       color: color,
-      htmlColor: color,
+      htmlColor: "rgba(209, 209, 209, 0.8)",
       grade: grade,
       risk: risk,
       intensity: intensity,

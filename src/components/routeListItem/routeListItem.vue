@@ -64,6 +64,9 @@
    methods: {
      colorSelected(){
        this.notifications.notify("RouteListItem.colorSelected", this.route);
+     },
+     statusSelected(){
+       this.notifications.notify("RouteListItem.statusSelected", this.route);
      }
    }
  });

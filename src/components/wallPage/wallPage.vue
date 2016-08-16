@@ -16,6 +16,7 @@
     </div>
 
     <color-select-modal :show.sync="showColorModal" :route.sync="currentRoute" :circuits="gym.circuits"></color-select-modal>
+    <status-select-modal :show.sync="showStatusModal" :route.sync="currentRoute"></status-select-modal>
   </div>
 </template>
 
@@ -28,12 +29,14 @@
 
  import RouteList from 'components/routeList/routeList'
  import ColorSelectModal from 'components/colorSelectModal/colorSelectModal'
+ import StatusSelectModal from 'components/statusSelectModal/statusSelectModal'
 
  export default BaseComponent.extend({
    name: 'WallsPage',
    components: {
      RouteList: RouteList,
-     ColorSelectModal: ColorSelectModal
+     ColorSelectModal: ColorSelectModal,
+     StatusSelectModal: StatusSelectModal
    },
    data(){
      return {
@@ -49,11 +52,13 @@
    },
    created(){
      this.onWallsUpdated();
+     this.gym = GymModel.currentGym;
    },
 
    notifs(){
      return {
        "ColorSelectModal.routeUpdated": "onRouteUpdated",
+       "StatusSelectModal.routeUpdated": "onRouteUpdated",
        "RouteListItem.colorSelected": "onColorSelected",
        "RouteListItem.statusSelected": "onStatusSelected",
        "RouteListItem.riceSelected": "onRiceSelected",
@@ -85,7 +90,7 @@
      },
      onStatusSelected(e, route){
        this.currentRoute = route;
-
+       this.showStatusModal = true;
      },
      onRiceSelected(e, route){
        this.currentRoute = route;

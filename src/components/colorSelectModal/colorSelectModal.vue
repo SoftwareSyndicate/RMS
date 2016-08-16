@@ -58,7 +58,6 @@
        this.route.htmlColor = circuit.color;
        this.show = false;
        this.notifications.notify("ColorSelectModal.routeUpdated", this.route);
-       /* console.log(this.route); */
      }
    }
  });

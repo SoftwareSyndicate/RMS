@@ -1,6 +1,6 @@
 <template>
   <div class="gym-page">
-    <div class="btn btn-primary add-gym-button" @click.stop="createGym()">Make Current Gym<i class="material-icons">business</i></div>
+
   </div>
 </template>
 
