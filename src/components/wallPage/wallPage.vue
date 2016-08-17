@@ -17,6 +17,7 @@
 
     <color-select-modal :show.sync="showColorModal" :route.sync="currentRoute" :circuits="gym.circuits"></color-select-modal>
     <status-select-modal :show.sync="showStatusModal" :route.sync="currentRoute"></status-select-modal>
+    <rice-select-modal :show.sync="showRiceModal" :route.sync="currentRoute"></rice-select-modal>
   </div>
 </template>
 
@@ -30,13 +31,15 @@
  import RouteList from 'components/routeList/routeList'
  import ColorSelectModal from 'components/colorSelectModal/colorSelectModal'
  import StatusSelectModal from 'components/statusSelectModal/statusSelectModal'
+ import RiceSelectModal from 'components/riceSelectModal/riceSelectModal'
 
  export default BaseComponent.extend({
    name: 'WallsPage',
    components: {
      RouteList: RouteList,
      ColorSelectModal: ColorSelectModal,
-     StatusSelectModal: StatusSelectModal
+     StatusSelectModal: StatusSelectModal,
+     RiceSelectModal: RiceSelectModal
    },
    data(){
      return {
@@ -59,6 +62,7 @@
      return {
        "ColorSelectModal.routeUpdated": "onRouteUpdated",
        "StatusSelectModal.routeUpdated": "onRouteUpdated",
+       "RiceSelectModal.routeUpdated": "onRouteUpdated",
        "RouteListItem.colorSelected": "onColorSelected",
        "RouteListItem.statusSelected": "onStatusSelected",
        "RouteListItem.riceSelected": "onRiceSelected",
@@ -94,11 +98,11 @@
      },
      onRiceSelected(e, route){
        this.currentRoute = route;
+       this.showRiceModal = true;
      },
 
      createRoute(){
-       /* TODO remove this, all users should have a current Gym on Reg */
-       RouteModel.createRoute("-KLi8WWAMzuH1k4mlkbj", this.wall.id);
+       RouteModel.createRoute(window.gymId, this.wall.id);
      },
 
      deleteRoute(id){

@@ -39,3 +39,5 @@ window.colorMappings = {
   purple: "rgba(183,22,229,0.8)",
   black: "rgba(33,33,33,0.9)"
 }
+
+window.gymId = "-KLi8WWAMzuH1k4mlkbj";

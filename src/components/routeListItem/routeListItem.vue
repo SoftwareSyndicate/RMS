@@ -18,9 +18,23 @@
       {{route.setter}}
     </div>
 
-    <div class="rice-container">
-      rice
-      {{route.rice}}
+    <div class="rice-container" @click.stop="riceSelected()">
+      <div class="rice risk">
+        R
+        <span>{{route.risk}}</span>
+      </div>
+      <div class="rice intensity">
+        I
+        <span>{{route.intensity}}</span>
+      </div>
+      <div class="rice complexity">
+        C
+        <span>{{route.complexity}}</span>
+      </div>
+      <div class="rice exposure">
+        E
+        <span>{{route.exposure}}</span>
+      </div>
     </div>
 
     <div class="notes-container">
@@ -30,9 +44,7 @@
 
     <div class="remove-container">
       <div class="btn btn-primary delete-route-button delete" @click.stop="deleteRoute(route.id)">Delete<i class="material-icons">indeterminate_check_box</i></div>
-      <div class="route-list-container">
     </div>
-
   </div>
 </template>
 
@@ -67,7 +79,11 @@
      },
      statusSelected(){
        this.notifications.notify("RouteListItem.statusSelected", this.route);
+     },
+     riceSelected(){
+       this.notifications.notify("RouteListItem.riceSelected", this.route);
      }
+
    }
  });
 
@@ -140,6 +156,19 @@
      display: flex;
      flex-basis: 20%;
      flex-grow: 1;
+     justify-content: space-around;
+     cursor: pointer;
+
+     .rice {
+       display: flex;
+       flex-wrap: wrap;
+       justify-content: center;
+
+       span {
+         text-align: center;
+         flex-basis: 100%;
+       }
+     }
 
    }
 
