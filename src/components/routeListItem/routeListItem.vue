@@ -41,7 +41,6 @@
       <input type="text" placeholder="Notes" v-model="route.notes"/>
     </div>
 
-
     <div class="remove-container">
       <div class="btn btn-primary delete-route-button delete" @click.stop="deleteRoute(route.id)">Delete<i class="material-icons">indeterminate_check_box</i></div>
     </div>
@@ -102,13 +101,13 @@
 
    .grade-container {
      display: flex;
-     flex-basis: 20%;
+     flex-basis: 15%;
      flex-grow: 1;
    }
 
    .status-container {
      display: flex;
-     flex-basis: 20%;
+     flex-basis: 15%;
      flex-grow: 1;
 
      .status {
@@ -184,10 +183,11 @@
 
    .remove-container {
      display: flex;
-     flex-basis: 30%;
+     flex-basis: 20%;
      flex-grow: 1;
 
      .btn {
+       flex-grow: 1;
        margin-bottom: 0px;
      }
    }
