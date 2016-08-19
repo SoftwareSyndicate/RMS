@@ -50,7 +50,7 @@
        } else {
          UserModel.signUpWithEmail(this.email, this.password).then(results => {
            UserModel.firebaseUser = firebase.auth().currentUser;
-           UserModel.createUser(UserModel.firebaseUser.uid, this.firstName, this.lastName).then(results => {
+           UserModel.createUser(UserModel.firebaseUser.uid, this.firstName, this.lastName, true).then(results => {
              UserModel.watchCurrentUser(UserModel.firebaseUser.uid);
              this.$router.go({name: 'profile'});
            }, error => {

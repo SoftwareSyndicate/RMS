@@ -14,8 +14,7 @@
     </div>
 
     <div class="setter-container">
-      setter
-      {{route.setter}}
+      <setter-select :route.sync="route" :setters="setters"></setter-select>
     </div>
 
     <div class="rice-container" @click.stop="riceSelected()">
@@ -49,6 +48,7 @@
 
 <script>
  import BaseComponent from 'base/baseComponent.vue'
+ import SetterSelect from 'components/setterSelect/setterSelect'
 
  export default BaseComponent.extend({
    name: 'RouteListItem',
@@ -61,7 +61,7 @@
      deleteRoute: {}
    },
    components: {
-
+     SetterSelect: SetterSelect
    },
    data(){
      return {

@@ -49,6 +49,7 @@
          WallModel.watchAllWalls();
          RouteModel.watchAllRoutes();
          GymModel.watchGym(window.gymId);
+         UserModel.watchAllSetters();
          this.resourcesLoaded = true;
        }
      }

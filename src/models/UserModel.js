@@ -17,9 +17,7 @@ class UserModel {
     this.facebookAuthProvider = new firebase.auth.FacebookAuthProvider();
   }
 
-  createUser(uid, firstName, lastName){
-    console.log(firstName);
-    console.log(lastName);
+  createUser(uid, firstName, lastName, setter=false){
     let newUserKey = firebase.database().ref().child('users').push().key;
     let now = new Date().getTime();
     let user = {
@@ -28,7 +26,8 @@ class UserModel {
       last_name: lastName,
       id: newUserKey,
       created_at: now,
-      updated_at: now
+      updated_at: now,
+      setter: setter
     };
 
     var updates = {};
@@ -44,6 +43,18 @@ class UserModel {
     });
   }
 
+  watchAllSetters(){
+    this.currentUserRef = firebase.database().ref("users").orderByChild("setter").equalTo(true);
+    this.currentUserRef.on('value', data => {
+      this.setters = [];
+      for(var key in data.val()){
+        let setter = data.val()[key];
+        setter.setRoutes = [];
+        this.setters.push(setter);
+      }
+      Notifications.notify("UserModel.settersUpdated");
+    });
+  }
 
   signInWithEmail(email, password){
     return firebase.auth().signInWithEmailAndPassword(email, password).then(results => {
