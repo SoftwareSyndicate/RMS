@@ -61,6 +61,10 @@ $button-border-size: 2px;
     background-color: $color-6;
   }
 
+  &.reset {
+    background-color: $color-3;
+  }
+
   &.delete {
     background-color: $color-5;
   }

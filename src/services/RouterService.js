@@ -41,8 +41,8 @@ class RouterService {
         component: SignUpPage,
         auth: false,
       },
-      '/users': {
-        name: 'users',
+      '/setters': {
+        name: 'setters',
         component: UsersPage,
         auth: "admin"
       },

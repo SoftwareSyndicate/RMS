@@ -41,7 +41,7 @@
     </div>
 
     <div class="remove-container">
-      <div class="btn btn-primary delete-route-button delete" @click.stop="deleteRoute(route.id)">Delete<i class="material-icons">indeterminate_check_box</i></div>
+      <div class="btn btn-primary delete-route-button delete" @click.stop="deleteRoute(route.id)"><i class="material-icons">indeterminate_check_box</i></div>
     </div>
   </div>
 </template>
@@ -56,6 +56,11 @@
      route: {
        type: Object,
        default: () => {},
+       twoWay: true
+     },
+     setters: {
+       type: Array,
+       default: () => [],
        twoWay: true
      },
      deleteRoute: {}
@@ -95,20 +100,16 @@
  .route-list-item {
    display: flex;
    align-items: center;
-
+   justify-content: space-between;
    padding: .5em 2em .5em 2em;
    margin-bottom: 10px;
 
    .grade-container {
      display: flex;
-     flex-basis: 15%;
-     flex-grow: 1;
    }
 
    .status-container {
      display: flex;
-     flex-basis: 15%;
-     flex-grow: 1;
 
      .status {
        height: 20px;
@@ -145,18 +146,14 @@
 
    .setter-container {
      display: flex;
-
      flex-basis: 20%;
-     flex-grow: 1;
-
    }
 
    .rice-container {
      display: flex;
-     flex-basis: 20%;
-     flex-grow: 1;
      justify-content: space-around;
      cursor: pointer;
+     flex-basis: 15%;
 
      .rice {
        display: flex;
@@ -175,20 +172,16 @@
      padding-right: .5em;
      padding-left: .5em;
      display: flex;
-     flex-basis: 20%;
-     flex-grow: 1;
-
    }
-
 
    .remove-container {
      display: flex;
-     flex-basis: 20%;
-     flex-grow: 1;
 
      .btn {
-       flex-grow: 1;
        margin-bottom: 0px;
+       i {
+         padding: 0;
+       }
      }
    }
  }

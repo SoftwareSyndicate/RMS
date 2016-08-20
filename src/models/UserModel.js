@@ -52,6 +52,8 @@ class UserModel {
         setter.setRoutes = [];
         this.setters.push(setter);
       }
+      console.log("SETTERS");
+      console.log(this.setters);
       Notifications.notify("UserModel.settersUpdated");
     });
   }

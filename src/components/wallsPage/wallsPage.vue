@@ -1,9 +1,10 @@
 <template>
   <div class="walls-page">
-    <div class="btn btn-primary add-gym-button" @click.stop="createWall()">Add Wall<i class="material-icons">add_box</i></div>
+    <div class="btn btn-primary add-gym-button" @click.stop="openCreateWallModal()">Add Wall<i class="material-icons">add_box</i></div>
     <div class="wall-list-container">
       <wall-list :walls="walls"></wall-list>
     </div>
+    <create-wall-modal :show.sync="showCreateWallModal" :cb="createWall"></create-wall-modal>
   </div>
 </template>
 
@@ -13,16 +14,19 @@
  import WallModel from 'models/WallModel'
  import RouteModel from 'models/RouteModel'
 
- import WallList from '../../SBP/src/components/wallList/wallList.vue'
+ import WallList from '../../SBP/src/components/wallList/wallList'
+ import CreateWallModal from '../createWallModal/createWallModal'
 
  export default BaseComponent.extend({
    name: 'WallsPage',
    components: {
-     WallList: WallList
+     WallList: WallList,
+     CreateWallModal: CreateWallModal
    },
    data(){
      return {
-       walls: []
+       walls: [],
+       showCreateWallModal: false,
      }
    },
    created(){
@@ -40,13 +44,12 @@
      }
    },
    methods: {
-     createWall(){
-       /* TODO MODAL */
-       /* if(UserModel.currentUser.currentGymId){
-          WallModel.createWall("F.S.1", UserModel.currentUser.currentGymId);
-          } else {
-          WallModel.createWall("North Slab", "-KLi8WWAMzuH1k4mlkbj");
-          } */
+     createWall(name){
+       WallModel.createWall(name, window.gymId);
+     },
+
+     openCreateWallModal(){
+       this.showCreateWallModal = true;
      },
 
      onWallsUpdated(e){

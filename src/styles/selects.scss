@@ -1,0 +1,58 @@
+select {
+  font-size: 16px;
+  display: flex;
+  position: relative;
+  flex-grow: 1;
+  flex-wrap: wrap;
+  min-height: 30px;
+  border: 2px solid rgba(0, 0, 0, .03);
+  min-height: 30px;
+  align-items: center;
+  padding: 5px 10px 5px 10px;
+
+  &:after {
+    content: " \25BE";
+    margin-left: auto;
+  }
+
+
+  &:focus {
+    .option-container {
+      display: flex;
+    }
+  }
+  &:active {
+    .option-container {
+      display: flex;
+    }
+  }
+
+
+  .option-container {
+    position: absolute;
+    background: white;
+    display: none;
+    flex-grow: 1;
+    flex-wrap: wrap;
+
+    &.selected {
+      display: flex;
+    }
+
+    &:focus {
+      display: flex;
+    }
+    &:active {
+      display: flex;
+    }
+    .option {
+      flex-basis: 100%;
+      flex-grow: 1;
+      display: flex;
+
+      &.selected {
+
+      }
+    }
+  }
+}

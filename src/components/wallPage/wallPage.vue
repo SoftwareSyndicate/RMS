@@ -9,10 +9,13 @@
           Avg: {{Math.round((totalGrade / wall.routes.length) * 10) / 10}}
         </div>
       </div>
-      <div class="btn btn-primary create add-route-button" @click.stop="createRoute()">Add Route<i class="material-icons">add_box</i></div>
+      <div class="right">
+        <div class="btn btn-primary reset" @click.stop="openReset()"><i class="material-icons">repeat</i></div>
+        <div class="btn btn-primary create add-route-button" @click.stop="createRoute()"><i class="material-icons">add_box</i></div>
+      </div>
     </div>
     <div class="route-list-container">
-      <route-list :routes.sync="wall.routes" :delete-route="deleteRoute"></route-list>
+      <route-list :routes.sync="wall.routes" :setters.sync="setters" :delete-route="deleteRoute"></route-list>
     </div>
 
     <color-select-modal :show.sync="showColorModal" :route.sync="currentRoute" :circuits="gym.circuits"></color-select-modal>
@@ -45,6 +48,7 @@
      return {
        wall: {},
        routes: [],
+       setters: [],
        currentRoute: {},
        totalGrade: 0,
        showColorModal: false,
@@ -56,6 +60,7 @@
    created(){
      this.onWallsUpdated();
      this.gym = GymModel.currentGym;
+     this.setters = UserModel.setters;
    },
 
    notifs(){
@@ -68,7 +73,8 @@
        "RouteListItem.riceSelected": "onRiceSelected",
        "WallModel.wallsUpdated": 'onWallsUpdated',
        "RouteModel.routesUpdated": 'parseRoutes',
-       "GymModel.currentGymUpdated": 'onGymUpdated'
+       "GymModel.currentGymUpdated": 'onGymUpdated',
+       "UserModel.settersUpdated": 'onSettersUpdated'
      }
    },
    methods: {
@@ -115,6 +121,10 @@
 
      onGymUpdated(){
        this.gym = GymModel.currentGym;
+     },
+
+     onSettersUpdated(){
+       this.setters = UserModel.setters;
      },
 
      onWallsUpdated(){
@@ -228,9 +238,19 @@
        }
      }
 
-     .btn {
+     .right {
        margin-left: auto;
-       min-width: 8em;
+       display: flex;
+       .btn {
+
+         i {
+           padding: 0;
+         }
+       }
+
+       .reset {
+         margin-right: 2rem;
+       }
      }
    }
 
