@@ -5,7 +5,7 @@
       <notification-form :notif="newNotif" :create-notification="createNotification" :user="currentUser"></notification-form>
     </div>
     <div class="notification-list-container">
-      <h4>Latest updates</h4>
+      <h4>Latest Notifications</h4>
       <notification-list :notifs="notifs"></notification-list>
     </div>
   </div>
@@ -36,11 +36,11 @@
      }
    },
    created(){
-     $("#wrapper").width("100%");
-     console.log(this.currentUser);
+     this.notifs = NotificationModel.notifications;
    },
 
    ready(){
+     $("#wrapper").width("100%");
      this.notifications.notify("Navbar.setHeader", "Notifications");
    },
    beforeDestroy(){
@@ -48,13 +48,22 @@
    },
    notifs(){
      return {
-
+       "NotificationModel.notificationsUpdated": "onNotificationsUpdated"
      }
    },
    methods: {
+     onNotificationsUpdated(e){
+       this.notifs = NotificationModel.notifications;
+       console.log(this.notifs);
+     },
+
      createNotification(notification){
-       console.log(notification);
-       NotificationModel.createNotification(this.currentUser.id, notification.type, notification.text, notification.link, notification.wallId);
+       NotificationModel.createNotification(this.currentUser.id, this.currentUser.first_name, this.currentUser.last_name, window.gymId,  notification.type, notification.text, notification.link, notification.video, notification.wallId);
+
+       this.newNotif = {
+         type: "text",
+         text: ""
+       }
      }
    }
  });

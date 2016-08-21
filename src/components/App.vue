@@ -12,7 +12,7 @@
  import GymModel from 'models/GymModel'
  import WallModel from 'models/WallModel'
  import RouteModel from 'models/RouteModel'
-
+ import NotificationModel from 'models/NotificationModel'
 
  import BaseComponent from 'base/baseComponent.vue'
  import Navbar from 'components/navbar/navbar'
@@ -50,6 +50,7 @@
          RouteModel.watchAllRoutes();
          GymModel.watchGym(window.gymId);
          UserModel.watchAllSetters();
+         NotificationModel.watchAllNotifications(window.gymId);
          this.resourcesLoaded = true;
        }
      }

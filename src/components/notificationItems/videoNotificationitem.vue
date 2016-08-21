@@ -1,6 +1,6 @@
 <template>
-  <div class="text-notification-item">
-    {{notification.text}}
+  <div class="video-notification-item">
+    <iframe :src="'https://www.youtube.com/embed/' + notification.video" frameborder="0"> </iframe>
   </div>
 </template>
 
@@ -8,7 +8,7 @@
  import BaseComponent from 'base/baseComponent.vue'
 
  export default BaseComponent.extend({
-   name: 'TextNotificationItem',
+   name: 'VideoNotificationItem',
    props: {
      notification: {
        type: Object,
@@ -43,7 +43,7 @@
 <style lang="scss">
  @import '../../styles/main.scss';
 
- .text-notification-item {
+ .video-notification-item {
    padding: 1em;
    margin-bottom: 1em;
    flex-basis: 100%;

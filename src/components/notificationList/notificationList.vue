@@ -1,19 +1,24 @@
 <template>
   <div class="notification-list">
-    notifications list
     <div v-for="notif in notifs">
-      <text-notification-item  v-if="notif.type == 'text''" :notification="notif"></text-notification-item>
+      <text-notification-item  v-if="notif.type == 'text'" :notification="notif"></text-notification-item>
+      <wall-notification-item  v-if="notif.type == 'wall'" :notification="notif"></wall-notification-item>
+      <video-notification-item  v-if="notif.type == 'video'" :notification="notif"></video-notification-item>
   </div>
 </template>
 
 <script>
  import BaseComponent from 'base/baseComponent.vue'
  import TextNotificationItem from 'components/notificationItems/textNotificationItem'
+ import WallNotificationItem from 'components/notificationItems/wallNotificationItem'
+ import VideoNotificationItem from 'components/notificationItems/videoNotificationItem'
 
  export default BaseComponent.extend({
    name: 'NotificationList',
    components: {
-     TextNotificationItem: TextNotificationItem
+     TextNotificationItem: TextNotificationItem,
+     WallNotificationItem: WallNotificationItem,
+     VideoNotificationItem: VideoNotificationItem
    },
    props: {
      notifs: {

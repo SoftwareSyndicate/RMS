@@ -14,18 +14,21 @@ class NotificationModel {
     });
   }
 
-  createNotification(authorId, gymId="-KLi8WWAMzuH1k4mlkbj", type="text", text="", link="", wallId=""){
+  createNotification(authorId, firstName, lastName, gymId="-KLi8WWAMzuH1k4mlkbj", type="text", text="", link="", video="", wallId=""){
     let newNotificationKey = firebase.database().ref().child('notifications').push().key;
     let now = new Date().getTime();
     let notification = {
       id: newNotificationKey,
       author_id: authorId,
-      gym_id:  gymId, //TODO kill default value passed ^
+      first_name: firstName,
+      last_name: lastName,
+      gym_id:  gymId,
       created_at: now,
       updated_at: now,
       type: type,
       text: text,
       link: link,
+      video: video,
       wall_id: wallId,
     };
 
@@ -40,8 +43,8 @@ class NotificationModel {
     return firebase.database().ref().update(updates);
   }
 
-  deleteRoute(id){
-    let routesRef = firebase.database().ref('routes/' + id);
+  deleteNotification(id){
+    let notificationRef = firebase.database().ref('notifications/' + id);
     return routesRef.remove().then(() => {
       Notifications.notify("RouteModel.routesUpdated")
     }).catch(error => {
@@ -49,8 +52,21 @@ class NotificationModel {
     });
   }
 
+  watchAllNotifications(gymId='-KLi8WWAMzuH1k4mlkbj'){
+    this.notifRef = firebase.database().ref('notifications').orderByChild('gym_id').equalTo(gymId);
+    this.notifRef.on('value', (data)=>{
+      this.notifications = [];
+      for(var key in data.val()){
+        let notif = data.val()[key];
+        this.notifications.push(notif);
+      }
+      console.log(this.notifications);
+      Notifications.notify('NotificationModel.notificationsUpdated', data.exportVal());
+    })
+  }
+
   getNotifications(gymId = '-KLi8WWAMzuH1k4mlkbj'){
-    let notifRef = firebase.database().ref('notifications').orderByChild('gym_id').equalTo(gymId);
+    this.notifRef = firebase.database().ref('notifications').orderByChild('gym_id').equalTo(gymId);
     notifRef.on('value', (data)=>{
       Notifications.notify('NotificationModel.notificationsUpdated', data.exportVal());
     })

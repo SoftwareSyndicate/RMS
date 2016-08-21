@@ -1,6 +1,6 @@
 <template>
-  <div class="text-notification-item">
-    {{notification.text}}
+  <div class="wall-notification-item">
+    {{notif.name}}
   </div>
 </template>
 
@@ -8,7 +8,7 @@
  import BaseComponent from 'base/baseComponent.vue'
 
  export default BaseComponent.extend({
-   name: 'TextNotificationItem',
+   name: 'WallNotificationItem',
    props: {
      notification: {
        type: Object,
@@ -43,7 +43,7 @@
 <style lang="scss">
  @import '../../styles/main.scss';
 
- .text-notification-item {
+ .wall-notification-item {
    padding: 1em;
    margin-bottom: 1em;
    flex-basis: 100%;
