@@ -76,7 +76,9 @@
 
  .notifications-page {
    display: flex;
+   flex-direction: row;
    flex-grow: 1;
+   align-items: flex-start;
 
    h4 {
      flex-basis: 100%;

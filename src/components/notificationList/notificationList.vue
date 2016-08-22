@@ -1,9 +1,10 @@
 <template>
   <div class="notification-list">
-    <div v-for="notif in notifs">
-      <text-notification-item  v-if="notif.type == 'text'" :notification="notif"></text-notification-item>
-      <wall-notification-item  v-if="notif.type == 'wall'" :notification="notif"></wall-notification-item>
-      <video-notification-item  v-if="notif.type == 'video'" :notification="notif"></video-notification-item>
+    <div class="notification-container" v-for="notif in notifs">
+      <text-notification-item  v-if="notif.type == 'text'" :notif="notif"></text-notification-item>
+      <wall-notification-item  v-if="notif.type == 'wall'" :notif="notif"></wall-notification-item>
+      <video-notification-item  v-if="notif.type == 'video'" :notif="notif"></video-notification-item>
+    </div>
   </div>
 </template>
 
@@ -44,18 +45,7 @@
      }
    },
    methods: {
-     createGym(){
-       let now = new Date().getTime();
-       let gym = {
-         name: "Austin Bouldering Project",
-         created_at: now,
-         updated_at: now
-       }
-       GymModel.createGym(gym).then(results => {
-         console.log("results:", results);
 
-       });
-     }
    }
  });
 
@@ -63,12 +53,17 @@
 
 
 <style lang="scss">
- @import '../../styles/main.scss';
 
- .gym-list {
+ .notification-list {
    display: flex;
    flex-wrap: wrap;
    flex-grow: 1;
+
+   .notification-container {
+     display: flex;
+     flex-basis: 100%;
+     margin-bottom: 1rem;
+   }
  }
 
 </style>

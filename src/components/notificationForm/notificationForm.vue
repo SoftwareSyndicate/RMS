@@ -13,6 +13,9 @@
     </div>
     <div class="form-body">
       <iframe v-if="notif.type === 'video' && hasVideo" :src="'https://www.youtube.com/embed/' + notif.video" frameborder="0"> </iframe>
+      <div class="wall-list-item-container" v-if="notif.type === 'wall'">
+        <wall-list-item  :wall="wall"></wall-list-item>
+      </div>
       <textarea placeholder="Type a message..." v-model="notif.text"></textarea>
     </div>
     <div class="form-footer">
@@ -35,7 +38,7 @@
       </div>
     </div>
 
-    <div class="video-select-modal" v-show="showVideoSelect" transition="modal">
+    <div class="modal" v-show="showVideoSelect" transition="modal">
       <div class="modal-wrapper" @click="showVideoSelect = false">
         <div class="modal-container" @click.stop="">
           <h2>Add Video URL</h2>
@@ -45,11 +48,27 @@
       </div>
     </div>
 
+    <div class="modal" v-show="showWallSelect" transition="modal">
+      <div class="modal-wrapper" @click="showWallSelect = false">
+        <div class="modal-container" @click.stop="">
+          <h2>Select Wall</h2>
+          <div class="walls-container">
+            <div class="btn" @click="saveWall(wall)" v-for="wall in walls">{{wall.name}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
   </div>
 </template>
 
 <script>
  import BaseComponent from 'base/baseComponent.vue'
+ import WallListItem from '../../SBP/src/components/wallList/wallListItem'
+
+ import WallModel from 'models/WallModel'
+ import RouteModel from 'models/RouteModel'
 
  export default BaseComponent.extend({
    name: 'NotificationForm',
@@ -64,9 +83,15 @@
        default: () => {}
      }
    },
+   components: {
+     WallListItem: WallListItem
+   },
    data(){
      return {
+       walls: [],
+       wall: {},
        showVideoSelect: false,
+       showWallSelect: false,
        currentDateString: "",
        videoURL: "",
        hasVideo: false
@@ -80,21 +105,49 @@
    ready(){
 
    },
-
+   notifs(){
+     return {
+       "WallModel.wallsUpdated": "onWallsUpdated",
+       "RouteModel.routesUpdated": "parseRoutes"
+     }
+   },
    methods: {
      changeType(type){
        this.notif.type = type;
 
        if(type === "video"){
          this.showVideoSelect = true;
+       } else if(type === "wall"){
+         this.showWallSelect = true;
        }
      },
 
      saveVideo(){
-       this.notif.video = this.videoURL.split("v=")[1]
-       console.log(this.notif);
+       this.notif.video = this.videoURL.split("v=")[1].split("?")[0].split("&")[0];
        this.hasVideo = true;
        this.showVideoSelect = false;
+     },
+
+     saveWall(wall){
+       this.wall = wall;
+       this.notif.wall = this.wall.id;
+       this.showWallSelect = false;
+     },
+
+     onWallsUpdated(e){
+       this.walls = WallModel.walls;
+       this.parseRoutes();
+     },
+
+     parseRoutes(){
+       this.walls.forEach(wall => {
+         wall.routes = [];
+         RouteModel.routes.forEach(route => {
+           if(route.wall_id === wall.id){
+             wall.routes.push(route);
+           }
+         });
+       });
      }
    }
  });
@@ -157,6 +210,12 @@
        resize: none;
      }
 
+     .wall-list-item-container {
+       flex-basis: 100%;
+       padding: 2rem;
+       border-bottom: $default-thin-border;
+     }
+
    }
 
    .form-footer {
@@ -206,7 +265,7 @@
      }
    }
 
-   .video-select-modal {
+   .modal {
      position: fixed;
      z-index: 9998;
      top: 0;
@@ -249,6 +308,17 @@
 
        .btn {
          margin-left: auto;
+       }
+
+       .walls-container {
+         display: flex;
+         flex-wrap: wrap;
+         align-items: center;
+         justify-content: space-between;
+
+         .btn {
+           margin: 10px;
+         }
        }
      }
 

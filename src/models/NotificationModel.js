@@ -16,7 +16,7 @@ class NotificationModel {
 
   createNotification(authorId, firstName, lastName, gymId="-KLi8WWAMzuH1k4mlkbj", type="text", text="", link="", video="", wallId=""){
     let newNotificationKey = firebase.database().ref().child('notifications').push().key;
-    let now = new Date().getTime();
+    let now = new Date();
     let notification = {
       id: newNotificationKey,
       author_id: authorId,

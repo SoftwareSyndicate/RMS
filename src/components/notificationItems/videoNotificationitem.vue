@@ -1,6 +1,19 @@
 <template>
   <div class="video-notification-item">
-    <iframe :src="'https://www.youtube.com/embed/' + notification.video" frameborder="0"> </iframe>
+    <div class="notif-header">
+      <div class="author">
+        {{notif.first_name + " " + notif.last_name}}
+      </div>
+      <div class="date">
+        {{notif.created_at | timeSince}}
+      </div>
+    </div>
+    <div class="notif-body">
+      <iframe :src="'https://www.youtube.com/embed/' + notif.video" frameborder="0"> </iframe>
+      <div class="notif-text">
+        {{notif.text}}
+      </div>
+    </div>
   </div>
 </template>
 
@@ -10,7 +23,7 @@
  export default BaseComponent.extend({
    name: 'VideoNotificationItem',
    props: {
-     notification: {
+     notif: {
        type: Object,
        default: {}
      }
@@ -41,20 +54,47 @@
 
 
 <style lang="scss">
- @import '../../styles/main.scss';
 
  .video-notification-item {
-   padding: 1em;
-   margin-bottom: 1em;
    flex-basis: 100%;
    display: flex;
    flex-wrap: wrap;
-   flex-grow: 1;
-   border: $default-border;
-   background-color: $color-sub-container;
+   flex-basis: 100%;
+   border: 2px solid rgba(0, 0, 0, .1);
+   background-color: white;
 
-   &:hover {
-     background-color: darken($color-sub-container, 4%);
+   .notif-header {
+     padding: 1rem;
+     margin-bottom: 1rem;
+     display: flex;
+     flex-basis: 100%;
+     border-bottom: 2px solid rgba(0, 0, 0, .1);
+     justify-content: center;
+
+     .author {
+
+     }
+
+     .date {
+       margin-left: auto;
+     }
+   }
+
+   .notif-body {
+     padding: 1rem;
+     margin-bottom: 1rem;
+     display: flex;
+     flex-basis: 100%;
+     flex-wrap: wrap;
+
+     iframe {
+       flex-basis: 100%;
+       margin-bottom: 1rem;
+     }
+
+     .notif-text {
+       flex-basis: 100%;
+     }
    }
  }
 
