@@ -3,6 +3,7 @@
     <div class="notification-form-container">
       <h4>Share a new update with your members</h4>
       <notification-form :notif="newNotif" :create-notification="createNotification" :user="currentUser"></notification-form>
+      <div class="filler">&nbsp</div>
     </div>
     <div class="notification-list-container">
       <h4>Latest Notifications</h4>
@@ -95,10 +96,14 @@
      flex-wrap: wrap;
      flex-basis: 65%;
      padding: 3em 3em 3em 3em;
-     /* height: calc(100vh - 64px); */
+     height: 100%;
 
      .notification-form {
 
+     }
+
+     .filler {
+       height: 100%;
      }
    }
 

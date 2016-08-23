@@ -10,7 +10,7 @@
     </div>
     <div class="notif-body">
       <div class="wall-container">
-
+        <wall-list-item :wall="wall"></wall-list-item>
       </div>
       <div class="notif-text">
         {{notif.text}}
@@ -22,9 +22,16 @@
 
 <script>
  import BaseComponent from 'base/baseComponent.vue'
+ import WallListItem from '../../SBP/src/components/wallList/wallListItem'
+
+ import WallModel from 'models/WallModel'
+ import RouteModel from 'models/RouteModel'
 
  export default BaseComponent.extend({
    name: 'WallNotificationItem',
+   components: {
+     WallListItem: WallListItem
+   },
    props: {
      notif: {
        type: Object,
@@ -33,22 +40,44 @@
    },
    data(){
      return {
-
+       wall: {},
+       walls: []
      }
    },
    created(){
-
+     this.onWallsUpdated();
    },
+   notifs(){
+     return {
+       "WallModel.wallsUpdated": "onWallsUpdated",
+       "RouteModel.routesUpdated": "parseRoutes"
+     }
+   },
+
    ready(){
 
    },
 
-   notifs(){
-     return {
-
-     }
-   },
    methods: {
+     onWallsUpdated(e){
+       this.walls = WallModel.walls;
+       this.parseRoutes();
+     },
+
+     parseRoutes(){
+       this.walls.forEach(wall => {
+         if(this.notif.wall_id == wall.id){
+           wall.routes = [];
+           RouteModel.routes.forEach(route => {
+             if(route.wall_id === wall.id){
+               wall.routes.push(route);
+             }
+           });
+           this.wall = wall;
+           console.log(this.wall);
+         }
+       });
+     }
 
    }
  });
