@@ -112,6 +112,11 @@
      },
 
      deleteRoute(id){
+       for(var i = 0; i < this.routes.length; i++){
+         if(this.routes[i].id == id){
+           this.routes.splice(i, 1);
+         }
+       }
        RouteModel.deleteRoute(id);
      },
 

@@ -1,5 +1,5 @@
 <template>
-  <div class="rice-select-modal" v-show="show" transition="modal">
+  <div class="rice-select-modal" v-show="show"> <!-- transition="modal"> -->
     <div class="modal-wrapper" @click="show = false">
       <div class="modal-container" @click.stop="">
         <h2>R.I.C.E Select</h2>

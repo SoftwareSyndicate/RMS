@@ -1,5 +1,5 @@
 <template>
-  <div class="color-select-modal" v-show="show" transition="modal">
+  <div class="color-select-modal" v-show="show"> <!-- transition="modal"> -->
     <div class="modal-wrapper" @click="show = false">
       <div class="modal-container" @click.stop="">
         <h2>Circuit Select</h2>
