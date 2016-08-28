@@ -1,5 +1,12 @@
 <template>
   <div class="gym-page">
+    <div class="route-pie-chart-container">
+      <route-pie-chart :routes="routes"></route-pie-chart>
+    </div>
+
+    <div class="route-dist-container">
+      <!-- <route-dist :routes="routes"></route-dist> -->
+    </div>
 
   </div>
 </template>
@@ -7,28 +14,36 @@
 <script>
  import BaseComponent from 'base/baseComponent.vue'
  import GymModel from 'models/GymModel'
+ import RouteModel from 'models/RouteModel'
+
+ import RoutePieChart from '../../SBP/src/components/routePieChart/routePieChart.vue'
+ import RouteDist from '../../SBP/src/components/routeDist/routeDist'
 
  export default BaseComponent.extend({
    name: 'GymPage',
    components: {
-
+     RoutePieChart: RoutePieChart,
+     RouteDist: RouteDist
    },
    data(){
      return {
-
+       routes: []
      }
    },
    created(){
-     this.getResources();
+
    },
 
    ready(){
-
+     this.routes = RouteModel.routes;
+     this.gym = GymModel.currentGym;
+     this.notifications.notify("Navbar.setHeader", this.gym.name);
    },
 
    notifs(){
      return {
-       "GymModel.currentGymUpdated": 'onGymUpdated'
+       "GymModel.currentGymUpdated": 'onGymUpdated',
+       "RouteModel.routesUpdated": 'onRouteUpdated'
      }
    },
 
@@ -39,12 +54,13 @@
    methods: {
      onGymUpdated(){
        this.gym = GymModel.currentGym;
-       this.notifications.notify("Navbar.setHeader", this.gym.name);
+       if(this.gym){
+         this.notifications.notify("Navbar.setHeader", this.gym.name);
+       }
      },
 
-     getResources(){
-       console.log(this.$route);
-       GymModel.watchGym(this.$route.params.id);
+     onRoutesUpdated(){
+       this.routes = RouteModel.routes;
      }
    }
  });

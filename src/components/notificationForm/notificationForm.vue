@@ -103,7 +103,7 @@
      this.currentDateString = now.toLocaleDateString('en-US', options);
    },
    ready(){
-
+     this.onWallsUpdated();
    },
    notifs(){
      return {

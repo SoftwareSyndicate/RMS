@@ -53,7 +53,7 @@ class NotificationModel {
   }
 
   watchAllNotifications(gymId='-KLi8WWAMzuH1k4mlkbj'){
-    this.notifRef = firebase.database().ref('notifications').orderByChild('gym_id').equalTo(gymId);
+    this.notifRef = firebase.database().ref('notifications');//.orderByChild('gym_id').equalTo(gymId);
     this.notifRef.on('value', (data)=>{
       this.notifications = [];
       for(var key in data.val()){

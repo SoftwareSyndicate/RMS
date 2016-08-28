@@ -77,7 +77,6 @@
 
  .notifications-page {
    display: flex;
-   flex-direction: row;
    flex-grow: 1;
    align-items: flex-start;
 
@@ -99,7 +98,7 @@
      height: 100%;
 
      .notification-form {
-
+       flex-basis: 100%;
      }
 
      .filler {
