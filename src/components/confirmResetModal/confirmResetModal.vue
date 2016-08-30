@@ -38,8 +38,8 @@
 
    methods: {
      close(reset){
-       this.cb(reset);
        this.show = false;
+       this.cb(reset);
      }
    }
  });
