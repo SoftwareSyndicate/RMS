@@ -74,6 +74,27 @@ class WallModel {
     return wall;
   }
 
+  resetWall(wall){
+    /* update wall.last_set */
+    let now = new Date();
+    wall.last_set = now;
+    this.updateWall(wall);
+
+    /* copy routes */
+    let newRoutes = [];
+    wall.routes.forEach(route => {
+      let newRoute = Object.assign({}, route);
+      newRoutes.push(newRoute);
+    });
+    return newRoutes;
+  }
+
+  updateWall(wall){
+    var updates = {};
+    updates['/walls/' + wall.id] = wall;
+    return firebase.database().ref().update(updates);
+  }
+
   createWall(name, gymId){
     let newWallKey = firebase.database().ref().child('walls').push().key;
     let now = new Date().getTime();

@@ -10,7 +10,7 @@
         </div>
       </div>
       <div class="right">
-        <div class="btn btn-primary reset" @click.stop="openReset()"><i class="material-icons">repeat</i></div>
+        <div class="btn btn-primary reset" @click.stop="openConfirmResetModal()"><i class="material-icons">repeat</i></div>
         <div class="btn btn-primary create add-route-button" @click.stop="createRoute()"><i class="material-icons">add_box</i></div>
       </div>
     </div>
@@ -21,6 +21,7 @@
     <color-select-modal :show.sync="showColorModal" :route.sync="currentRoute" :circuits="gym.circuits"></color-select-modal>
     <status-select-modal :show.sync="showStatusModal" :route.sync="currentRoute"></status-select-modal>
     <rice-select-modal :show.sync="showRiceModal" :route.sync="currentRoute"></rice-select-modal>
+    <confirm-reset-modal :show.sync="showConfirmResetModal" :cb="resetWall"></confirm-reset-modal>
   </div>
 </template>
 
@@ -35,6 +36,7 @@
  import ColorSelectModal from 'components/colorSelectModal/colorSelectModal'
  import StatusSelectModal from 'components/statusSelectModal/statusSelectModal'
  import RiceSelectModal from 'components/riceSelectModal/riceSelectModal'
+ import ConfirmResetModal from 'components/confirmResetModal/confirmResetModal'
 
  export default BaseComponent.extend({
    name: 'WallsPage',
@@ -42,7 +44,8 @@
      RouteList: RouteList,
      ColorSelectModal: ColorSelectModal,
      StatusSelectModal: StatusSelectModal,
-     RiceSelectModal: RiceSelectModal
+     RiceSelectModal: RiceSelectModal,
+     ConfirmResetModal: ConfirmResetModal
    },
    data(){
      return {
@@ -54,6 +57,7 @@
        showColorModal: false,
        showStatusModal: false,
        showRiceModal: false,
+       showConfirmResetModal: false,
        gym: {}
      }
    },
@@ -145,6 +149,32 @@
 
      onRoutesUpdated(){
        this.routes = RouteModel.routes;
+     },
+
+     openConfirmResetModal(){
+       this.showConfirmResetModal = true;
+     },
+
+     resetWall(confirm){
+       if(confirm){
+         this.showLoadingAnimation();
+         let newRoutes = WallModel.resetWall(this.wall);
+         let now = new Date();
+         this.wall.routes.forEach(route => {
+           route.taken_down = now;
+           RouteModel.updateRoute(route);
+         });
+
+         this.wall.routes = [];
+
+         newRoutes.forEach(route => {
+           RouteModel.createRoute(route.gym_id, route.wall_id, route.color, route.grade, 0, 0, 0, 0, route.htmlColor);
+         });
+
+         setTimeout(()=> {
+           this.hideLoadingAnimation();
+         }, 5000);
+       }
      },
 
      sortRoutes(routes){

@@ -16,14 +16,14 @@
  import GymModel from 'models/GymModel'
  import RouteModel from 'models/RouteModel'
 
- import RoutePieChart from '../../SBP/src/components/routePieChart/routePieChart.vue'
- import RouteDist from '../../SBP/src/components/routeDist/routeDist'
+ /* import RoutePieChart from '../../SBP/src/components/routePieChart/routePieChart.vue'
+    import RouteDist from '../../SBP/src/components/routeDist/routeDist' */
 
  export default BaseComponent.extend({
    name: 'GymPage',
    components: {
-     RoutePieChart: RoutePieChart,
-     RouteDist: RouteDist
+     /* RoutePieChart: RoutePieChart,
+        RouteDist: RouteDist */
    },
    data(){
      return {

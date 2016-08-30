@@ -1,6 +1,7 @@
 <template>
   <div>
     <navbar></navbar>
+    <overlay></overlay>
     <div id="wrapper">
       <router-view class="view" transition transition-mode="out-in"></router-view>
     </div>
@@ -16,11 +17,13 @@
 
  import BaseComponent from 'base/baseComponent.vue'
  import Navbar from 'components/navbar/navbar'
+ import Overlay from 'components/overlay/overlay'
 
  var App = BaseComponent.extend({
    name: 'App',
    components: {
-     Navbar
+     Navbar,
+     Overlay
    },
    data(){
      return {

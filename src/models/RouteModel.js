@@ -39,13 +39,18 @@ class RouteModel {
     });
   }
 
-  watchAllRoutes(){
-    this.routesRef = firebase.database().ref('routes').orderByChild("gym_id");
+  watchAllRoutes(takenDown=false){
+    if(takenDown){
+      this.routesRef = firebase.database().ref('routes').orderByChild("gym_id");
+    } else {
+      this.routesRef = firebase.database().ref('routes').orderByChild("taken_down").equalTo(null);
+    }
     this.routesRef.on('value', data => {
       this.routes = [];
       for(var key in data.val()){
         this.routes.push(data.val()[key]);
       }
+      console.log(this.routes.length);
       Notifications.notify("RouteModel.routesUpdated");
     });
   }
@@ -76,7 +81,7 @@ class RouteModel {
     return route;
   }
 
-  createRoute(gymId, wallId, color="gray", grade="0", risk=0, intensity=0, complexity=0, exposure=0){
+  createRoute(gymId, wallId, color="gray", grade="0", risk=0, intensity=0, complexity=0, exposure=0, htmlColor="rgba(209, 209, 209, 0.8)"){
     let newRouteKey = firebase.database().ref().child('routes').push().key;
     let now = new Date().getTime();
     let route = {
@@ -87,7 +92,7 @@ class RouteModel {
       updated_at: now,
       status: 0,
       color: color,
-      htmlColor: "rgba(209, 209, 209, 0.8)",
+      htmlColor: htmlColor,
       grade: grade,
       risk: risk,
       intensity: intensity,
