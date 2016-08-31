@@ -9,7 +9,7 @@ class NotificationModel {
     var updates = {};
 
     this.routes.forEach(route => {
-      console.log(route);
+
       /* updates['/routes/' + route.id] = route; */
     });
   }
@@ -60,7 +60,6 @@ class NotificationModel {
         let notif = data.val()[key];
         this.notifications.push(notif);
       }
-      console.log(this.notifications);
       Notifications.notify('NotificationModel.notificationsUpdated', data.exportVal());
     })
   }

@@ -13,7 +13,7 @@
             ".indexOn": ["gym_id", "id", "uid"]
         },
         "routes": {
-            ".indexOn": ["gym_id", "wall_id", "id"]
+            ".indexOn": ["wall_id", "id", "taken_down"]
         },
         "sent_routes": {
             ".indexOn": ["gym_id", "route_id", "user_id", "id"]

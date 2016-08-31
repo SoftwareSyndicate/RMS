@@ -37,7 +37,9 @@
    ready(){
      this.routes = RouteModel.routes;
      this.gym = GymModel.currentGym;
-     this.notifications.notify("Navbar.setHeader", this.gym.name);
+     if(this.gym){
+       this.notifications.notify("Navbar.setHeader", this.gym.name);
+     }
    },
 
    notifs(){
@@ -54,9 +56,7 @@
    methods: {
      onGymUpdated(){
        this.gym = GymModel.currentGym;
-       if(this.gym){
-         this.notifications.notify("Navbar.setHeader", this.gym.name);
-       }
+       this.notifications.notify("Navbar.setHeader", this.gym.name);
      },
 
      onRoutesUpdated(){
