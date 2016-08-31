@@ -50,7 +50,6 @@ class RouteModel {
       for(var key in data.val()){
         this.routes.push(data.val()[key]);
       }
-      console.log(this.routes.length);
       Notifications.notify("RouteModel.routesUpdated");
     });
   }
