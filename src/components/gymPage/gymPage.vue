@@ -1,7 +1,7 @@
 <template>
   <div class="gym-page">
     <div class="route-pie-chart-container">
-      <route-pie-chart :routes="routes"></route-pie-chart>
+      <!-- <route-pie-chart :routes="routes"></route-pie-chart> -->
     </div>
 
     <div class="route-dist-container">

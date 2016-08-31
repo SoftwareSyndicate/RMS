@@ -10,7 +10,7 @@
     </div>
 
     <div class="status-container" @click.stop="statusSelected()">
-      <div class="status" v-bind:class="{'zero': route.status == 0,'one': route.status == 1, 'two': route.status == 2, 'three': route.status == 3 }"></div>
+      <div class="status" v-bind:class="{'zero': route.status == 0,'one': route.status == 1, 'two': route.status == 2, 'three': route.status == 3, 'four': route.status == 4 }"></div>
     </div>
 
     <div class="setter-container">
@@ -117,30 +117,33 @@
 
        &.zero {
          height: 40px;
-         border-left: solid 10px rgba(0, 0, 0, .8);
+         width:  40px;
+         border: solid 1px rgba(0, 0, 0, .1);
+         box-shadow: 0 1px 2px rgba(0, 0, 0, .1);
        }
 
        &.one {
+         height: 40px;
+         border-left: solid 10px rgba(0, 0, 0, .8);
+       }
+
+       &.two {
          height: 30px;
          width: 30px;
          border-left: solid 10px rgba(0, 0, 0, .8);
          border-bottom: solid 10px rgba(0, 0, 0, .8);
        }
 
-       &.two {
+       &.three {
          height: 30px;
          border-left: solid 10px rgba(0, 0, 0, .8);
          border-bottom: solid 10px rgba(0, 0, 0, .8);
          border-right: solid 10px rgba(0, 0, 0, .8);
        }
 
-       &.three {
-         border-left: solid 10px rgba(0, 0, 0, .8);
-         border-bottom: solid 10px rgba(0, 0, 0, .8);
-         border-right: solid 10px rgba(0, 0, 0, .8);
-         border-top: solid 10px rgba(0, 0, 0, .8);
+       &.four {
+         border: solid 10px rgba(0, 0, 0, .8);
        }
-
      }
    }
 
