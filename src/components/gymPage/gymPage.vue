@@ -1,5 +1,6 @@
 <template>
   <div class="gym-page">
+
     <div class="route-pie-chart-container">
       <!-- <route-pie-chart :routes="routes"></route-pie-chart> -->
     </div>
@@ -16,6 +17,8 @@
  import GymModel from 'models/GymModel'
  import RouteModel from 'models/RouteModel'
 
+ /* import SecondaryNav from 'components/secondaryNav/secondaryNav' */
+
  /* import RoutePieChart from '../../SBP/src/components/routePieChart/routePieChart.vue'
     import RouteDist from '../../SBP/src/components/routeDist/routeDist' */
 
@@ -31,21 +34,21 @@
      }
    },
    created(){
-
+     console.log("fuck");
    },
 
    ready(){
-     this.routes = RouteModel.routes;
-     this.gym = GymModel.currentGym;
-     if(this.gym){
-       this.notifications.notify("Navbar.setHeader", this.gym.name);
-     }
+     /* this.routes = RouteModel.routes;
+        this.gym = GymModel.currentGym;
+        if(this.gym){
+        this.notifications.notify("Navbar.setHeader", this.gym.name);
+        } */
    },
 
    notifs(){
      return {
-       "GymModel.currentGymUpdated": 'onGymUpdated',
-       "RouteModel.routesUpdated": 'onRouteUpdated'
+       /* "GymModel.currentGymUpdated": 'onGymUpdated',
+          "RouteModel.routesUpdated": 'onRouteUpdated' */
      }
    },
 

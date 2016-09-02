@@ -2,8 +2,10 @@
   <div class="navbar" :class="{'shadow': shadow}">
     <div class="navbar-wrapper">
       <div class="logo">
-        {{header}}
+        <img src="/images/rms-logo.png"/>
+        <span>RMS</span>
       </div>
+      <div class="app-name">{{header}}</div>
       <div class="list">
         <div class="item" v-for="item in navItems" v-link="{name: item.route}" v-bind:class="{'active': item.route === currentRoute}">
           {{item.display}}
@@ -27,7 +29,7 @@
    },
    data(){
      return {
-       header: "RMS",
+       header: "Seattle Bouldering Project",
        currentUser: UserModel.currentUser,
        navItems: [],
        currentRoute: this.$route.name,
@@ -146,8 +148,27 @@
      margin-right: auto;
 
      .logo {
-       font-weight: 300;
-       font-size: 30px;
+       display: flex;
+       align-items: center;
+       padding-right: 16px;
+       border-right: 1px solid crimson;
+       padding-right: 16px;
+       img {
+         height: 40px;
+         padding-right: 8px;
+       }
+
+       span {
+         font-family: 'Orbitron', sans-serif;
+         color: azure;
+         font-size: 26px;
+       }
+     }
+
+     .app-name {
+       padding-left: 16px;
+       font-size: 22px;
+       color: azure;
      }
 
      .list {
