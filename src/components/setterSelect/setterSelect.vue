@@ -1,7 +1,7 @@
 <template>
   <div class="setter-select">
     <select v-model="selected">
-      <option value="" class="default">Setter</option>
+      <option value="" class="default"></option>
       <option v-bind:value="setter.id" v-for="setter in setters">{{setter.first_name + " " + setter.last_name}}</option>
     </select>
   </div>
