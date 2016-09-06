@@ -44,6 +44,10 @@
      this.$watch('circuits', () => {
        this.parseGrades(this.circuits);
      });
+     this.$watch('routes', () => {
+       this.parseRoutes(this.routes);
+     });
+
    },
    ready(){
 
@@ -65,7 +69,12 @@
        this.largestGrade++;
      },
      parseRoutes(routes){
+       if(this.circuits.length > 0){
 
+         routes.forEach(route => {
+           console.log(route);
+         });
+       }
      }
    }
  });
