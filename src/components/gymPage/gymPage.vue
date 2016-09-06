@@ -1,14 +1,18 @@
 <template>
   <div class="gym-page">
-
-    <div class="route-pie-chart-container">
-      <!-- <route-pie-chart :routes="routes"></route-pie-chart> -->
+    <secondary-nav :nav-items.sync="navItems"></secondary-nav>
+    <div class="wall-dist-container" v-show="navItems[0].active">
+      <div class="header">
+        <h3>Wall Distribution</h3>
+      </div>
+      <!-- <gym-route-distribution :routes="routes" :ideal-routes="idealRoutes" :circuits="circuits"></gym-route-distribution> -->
     </div>
-
-    <div class="route-dist-container">
-      <!-- <route-dist :routes="routes"></route-dist> -->
+    <div class="ideal-dist-container" v-show="navItems[1].active">
+      <div class="header">
+        <h3>Ideal Distribution</h3>
+      </div>
+      <ideal-route-distribution :routes="routes" :ideal-routes="idealRoutes" :circuits="circuits"></ideal-route-distribution>
     </div>
-
   </div>
 </template>
 
@@ -17,38 +21,63 @@
  import GymModel from 'models/GymModel'
  import RouteModel from 'models/RouteModel'
 
- /* import SecondaryNav from 'components/secondaryNav/secondaryNav' */
-
- /* import RoutePieChart from '../../SBP/src/components/routePieChart/routePieChart.vue'
-    import RouteDist from '../../SBP/src/components/routeDist/routeDist' */
+ import SecondaryNav from 'components/secondaryNav/secondaryNav'
+ import GymRouteDistribution from 'components/gymRouteDistribution/gymRouteDistribution'
+ import IdealRouteDistribution from 'components/idealRouteDistribution/idealRouteDistribution'
 
  export default BaseComponent.extend({
    name: 'GymPage',
    components: {
-     /* RoutePieChart: RoutePieChart,
-        RouteDist: RouteDist */
+     SecondaryNav,
+     GymRouteDistribution,
+     IdealRouteDistribution
    },
    data(){
      return {
-       routes: []
+       routes: [],
+       idealRoutes: [],
+       circuits: [],
+       gym: {},
+       navItems: [
+         {
+           name: "Route distribution",
+           active: false
+         },
+         {
+           name: "Ideal distribution",
+           active: true
+         }
+       ]
      }
    },
    created(){
-     console.log("fuck");
+
    },
 
    ready(){
-     /* this.routes = RouteModel.routes;
-        this.gym = GymModel.currentGym;
-        if(this.gym){
-        this.notifications.notify("Navbar.setHeader", this.gym.name);
-        } */
+     this.gym = GymModel.currentGym;
+     if(this.gym){
+       this.circuits = this.gym.circuits;
+       this.notifications.notify("Navbar.setHeader", this.gym.name);
+     }
+
+     /* if(RouteModel.routes.length > 0){
+        RouteModel.routes.sort(function(a, b){
+        return a.color - b.color;
+        });
+        RouteModel.routes.sort(function(a, b){
+        return parseInt(b.grade) - parseInt(a.grade);
+        });
+        this.routes = RouteModel.routes;
+        }
+      */
+     this.routes = RouteModel.routes;
    },
 
    notifs(){
      return {
-       /* "GymModel.currentGymUpdated": 'onGymUpdated',
-          "RouteModel.routesUpdated": 'onRouteUpdated' */
+       "GymModel.currentGymUpdated": 'onGymUpdated',
+       "RouteModel.routesUpdated": 'onRoutesUpdated'
      }
    },
 
@@ -59,10 +88,17 @@
    methods: {
      onGymUpdated(){
        this.gym = GymModel.currentGym;
+       this.circuits = this.gym.circuits;
        this.notifications.notify("Navbar.setHeader", this.gym.name);
      },
 
      onRoutesUpdated(){
+       /* RouteModel.routes.sort(function(a, b){
+          return  b.color - a.color;
+          });
+          RouteModel.routes.sort(function(a, b){
+          return parseInt(b.grade) - parseInt(a.grade);
+          }); */
        this.routes = RouteModel.routes;
      }
    }
@@ -78,13 +114,76 @@
    display: flex;
    flex-wrap: wrap;
    flex-grow: 1;
-   margin-top: $page-margin-top;
+   margin-bottom: 2rem;
 
-   .btn {
+   .wall-dist-container {
+     display: flex;
+     flex-wrap: wrap;
      margin-left: auto;
-     margin-bottom: 2em;
+     margin-right: auto;
+     margin-top: 2rem;
+     flex-basis: 90%;
+     background-color: rgba(255, 255, 255, 0.98);
+     min-height: 70vh;
+     border: $default-border;
+     justify-content: center;
+
+     .header {
+       display: flex;
+       flex-basis: 100%;
+       border-bottom: $default-border;
+       height: 60px;
+       align-items: center;
+       padding-left: 1rem;
+       flex-grow: 0;
+
+       h3 {
+         font-weight: 400;
+         font-size: 14px;
+         color: $color-text-dark;
+       }
+     }
+
+     .gym-route-distribution {
+       display: flex;
+       flex-grow: 1;
+       flex-basis: 100%;
+     }
    }
 
+
+   .ideal-dist-container {
+     display: flex;
+     flex-wrap: wrap;
+     margin-left: auto;
+     margin-right: auto;
+     margin-top: 2rem;
+     flex-basis: 90%;
+     background-color: rgba(255, 255, 255, 0.98);
+     border: $default-border;
+
+     .header {
+       display: flex;
+       flex-basis: 100%;
+       border-bottom: $default-border;
+       height: 60px;
+       align-items: center;
+       padding-left: 1rem;
+       flex-grow: 0;
+
+       h3 {
+         font-weight: 400;
+         font-size: 14px;
+         color: $color-text-dark;
+       }
+     }
+
+     .gym-route-distribution {
+       display: flex;
+       flex-grow: 1;
+       flex-basis: 100%;
+     }
+   }
  }
 
 </style>

@@ -5,8 +5,8 @@ window.$ = $;
 
 import Vue from 'vue'
 import RouterService from './services/RouterService.js'
-import Filters from './filters/filters.js'
 import SBPFilters from './SBP/src/filters/filters.js'
+import Filters from './filters/filters.js'
 import App from './components/App.vue'
 
 import Chart from 'chart.js'

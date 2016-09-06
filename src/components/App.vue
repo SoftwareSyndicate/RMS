@@ -73,6 +73,7 @@
    font-family: 'Yantramanav', sans-serif;
    font-weight: 300;
    color: $color-text-secondary;
+   height: 100vh;
 
    #wrapper {
      display: flex;

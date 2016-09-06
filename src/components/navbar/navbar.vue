@@ -3,7 +3,7 @@
     <div class="navbar-wrapper">
       <div class="logo">
         <img src="/images/rms-logo.png"/>
-        <span>RMS</span>
+        <div class="brand">RMS</div>
       </div>
       <div class="app-name">{{header}}</div>
       <div class="list">
@@ -151,14 +151,15 @@
        display: flex;
        align-items: center;
        padding-right: 16px;
-       border-right: 1px solid crimson;
+       border-right: 1px solid #bb0225;
        padding-right: 16px;
        img {
          height: 40px;
-         padding-right: 8px;
+         padding-right: 16px;
        }
 
-       span {
+       .brand {
+         padding-top: 7px;
          font-family: 'Orbitron', sans-serif;
          color: azure;
          font-size: 26px;

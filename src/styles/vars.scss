@@ -6,7 +6,7 @@ $medium-screen: 640px !default;
 $large-screen: 860px !default;
 
 // colors
-$color-background:  #f5f6fa;
+$color-background:  rgba(229, 231, 246, 1);
 $color-highlight: #607EEB;
 $color-highlight-background: #fff;
 $color-background-color: #f5f6fa;
@@ -45,7 +45,7 @@ $color-text-primary: rgba(255, 255, 255, .95);
 $color-text-secondary: rgba(0, 0, 0, .95);
 
 //Navbar
-$color-navbar-background: $color-1;
+$color-navbar-background: rgba(226, 58, 39, 1);
 $navbar-height: 60px;
 
 //Buttons
