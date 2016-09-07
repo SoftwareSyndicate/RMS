@@ -3,7 +3,7 @@
     <div class="grades-container">
       <div class="grade" v-for="n in largestGrade" :class="{}">
         <div class="circuit" v-for="(circuitIndex, circuit) in circuits | reverse " :style="{'background-color': circuit.color}">
-          <div class="route" v-for="(routeIndex, route) in routes" v-if="route.grade == n && route.color == circuit.name"></div>
+          <!-- <div class="route" v-for="(routeIndex, route) in routes" v-if="route.grade == n && route.color == circuit.name"></div> -->
         </div>
 
         {{$index}}
@@ -32,22 +32,29 @@
      idealRoutes: {
        type: Array,
        default: () => []
+     },
+     largestGrade: {
+       type: Number,
+       default: 0
      }
    },
    data(){
      return {
-       largestGrade: 0,
-       grades: []
+       grades: [],
+       route_data: {}
      }
    },
    created(){
      this.$watch('circuits', () => {
-       this.parseGrades(this.circuits);
+       if(this.routes.length > 0){
+         this.formatData();
+       }
      });
      this.$watch('routes', () => {
-       this.parseRoutes(this.routes);
+       if(this.circuits.length > 0){
+         this.formatData();
+       }
      });
-
    },
    ready(){
 
@@ -59,21 +66,14 @@
      }
    },
    methods: {
-     parseGrades(circuits){
-       this.largestGrade = 0;
-       circuits.forEach(circuit => {
-         if(circuit.end_range > this.largestGrade){
-           this.largestGrade = circuit.end_range;
-         }
-       });
-       this.largestGrade++;
-     },
-     parseRoutes(routes){
-       if(this.circuits.length > 0){
+     formatData(){
+       this.routeData = {};
+       this.routeData.circuits = {};
+       this.routeData.grades = []
+       for(var i = 0; i < this.largestGrade;  i++){
+         let grade = {};
 
-         routes.forEach(route => {
-           console.log(route);
-         });
+         console.log(i);
        }
      }
    }

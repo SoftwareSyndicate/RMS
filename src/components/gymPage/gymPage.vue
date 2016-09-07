@@ -5,7 +5,7 @@
       <div class="header">
         <h3>Wall Distribution</h3>
       </div>
-      <!-- <gym-route-distribution :routes="routes" :ideal-routes="idealRoutes" :circuits="circuits"></gym-route-distribution> -->
+      <gym-route-distribution :routes="routes" :ideal-routes="idealRoutes" :circuits="circuits" :largest-grade="largestGrade"></gym-route-distribution>
     </div>
     <div class="ideal-dist-container" v-show="navItems[1].active">
       <div class="header">
@@ -42,11 +42,11 @@
        navItems: [
          {
            name: "Route distribution",
-           active: false
+           active: true
          },
          {
            name: "Ideal distribution",
-           active: true
+           active: false
          }
        ]
      }
@@ -103,8 +103,6 @@
            this.idealTotal += parseInt(circuit['ideal_v' + i]);
          }
        });
-
-       console.log(this.idealTotal);
      },
 
      onRoutesUpdated(){
@@ -137,7 +135,6 @@
      margin-top: 2rem;
      flex-basis: 90%;
      background-color: rgba(255, 255, 255, 0.98);
-     min-height: 70vh;
      border: $default-border;
      justify-content: center;
 
