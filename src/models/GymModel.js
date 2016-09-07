@@ -26,6 +26,12 @@ class GymModel {
     });
   }
 
+  updateGym(gym){
+    var updates = {};
+    updates['/gyms/' + gym.id] = gym;
+    return firebase.database().ref().update(updates);
+  }
+
   createGym(name){
     let newGymKey = firebase.database().ref().child('gyms').push().key;
     let now = new Date().getTime();

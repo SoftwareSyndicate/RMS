@@ -9,9 +9,9 @@
     </div>
     <div class="ideal-dist-container" v-show="navItems[1].active">
       <div class="header">
-        <h3>Ideal Distribution</h3>
+        <h3>Ideal Distribution: </h3><span>{{idealTotal}}</span>
       </div>
-      <ideal-route-distribution :routes="routes" :ideal-routes="idealRoutes" :circuits="circuits"></ideal-route-distribution>
+      <ideal-route-distribution :update="updateGym" :circuits.sync="circuits"></ideal-route-distribution>
     </div>
   </div>
 </template>
@@ -35,9 +35,10 @@
    data(){
      return {
        routes: [],
-       idealRoutes: [],
        circuits: [],
        gym: {},
+       idealTotal: 0,
+       largestGrade: 0,
        navItems: [
          {
            name: "Route distribution",
@@ -59,18 +60,10 @@
      if(this.gym){
        this.circuits = this.gym.circuits;
        this.notifications.notify("Navbar.setHeader", this.gym.name);
+       this.calcLargestGrade(this.circuits);
+       this.calcIdealTotals(this.circuits);
      }
 
-     /* if(RouteModel.routes.length > 0){
-        RouteModel.routes.sort(function(a, b){
-        return a.color - b.color;
-        });
-        RouteModel.routes.sort(function(a, b){
-        return parseInt(b.grade) - parseInt(a.grade);
-        });
-        this.routes = RouteModel.routes;
-        }
-      */
      this.routes = RouteModel.routes;
    },
 
@@ -82,7 +75,7 @@
    },
 
    beforeDestroy(){
-
+     this.updateGym();
    },
 
    methods: {
@@ -90,16 +83,36 @@
        this.gym = GymModel.currentGym;
        this.circuits = this.gym.circuits;
        this.notifications.notify("Navbar.setHeader", this.gym.name);
+       this.calcLargestGrade(this.circuits);
+       this.calcIdealTotals(this.circuits);
+     },
+
+     calcLargestGrade(circuits){
+       this.largestGrade = 0;
+       circuits.forEach(circuit => {
+         if(circuit.end_range > this.largestGrade){
+           this.largestGrade = circuit.end_range;
+         }
+       });
+     },
+
+     calcIdealTotals(circuits){
+       this.idealTotal = 0;
+       circuits.forEach(circuit => {
+         for(var i = 0; i <= this.largestGrade; i++){
+           this.idealTotal += parseInt(circuit['ideal_v' + i]);
+         }
+       });
+
+       console.log(this.idealTotal);
      },
 
      onRoutesUpdated(){
-       /* RouteModel.routes.sort(function(a, b){
-          return  b.color - a.color;
-          });
-          RouteModel.routes.sort(function(a, b){
-          return parseInt(b.grade) - parseInt(a.grade);
-          }); */
        this.routes = RouteModel.routes;
+     },
+
+     updateGym(){
+       GymModel.updateGym(this.gym);
      }
    }
  });
@@ -175,6 +188,11 @@
          font-weight: 400;
          font-size: 14px;
          color: $color-text-dark;
+         margin-right: 1rem;
+       }
+
+       span {
+         color: $color-navbar-background;
        }
      }
 

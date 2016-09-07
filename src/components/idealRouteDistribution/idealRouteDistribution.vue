@@ -1,11 +1,15 @@
 <template>
   <div class="ideal-route-distribution">
     <div class="top">
+      <div class="empty">&nbsp</div>
       <div class="grade-headers">
-        <div class="empty">&nbsp</div>
-        <div class="grade" v-for="grade in largestGrade"><span>v{{grade}}</span></div>
-        <div class="empty">&nbsp</div>
+        <div class="grade" v-for="grade in largestGrade">
+          <div class="circle">
+            <span>v{{grade}}</span>
+          </div>
+        </div>
       </div>
+      <div class="empty-last">&nbsp</div>
     </div>
     <div class="main">
       <div class="circuits">
@@ -15,11 +19,13 @@
           </div>
           <div class="grades">
             <div class="grade" v-for="grade in largestGrade">
-              <input type="number" name="quantity" min="0" max="50">
+              <input type="number" name="quantity" min="0" max="50" v-model="circuit['ideal_v' + grade]" v-if="grade >= circuit.start_range && grade <= circuit.end_range" debounce="500">
+              <input type="number" name="quantity" min="0" max="50"  v-else disabled>
+
             </div>
           </div>
           <div class="total">
-            total
+            {{circuitTotals[$index]}}
           </div>
         </div>
       </div>
@@ -28,8 +34,8 @@
           Total Routes
         </div>
         <div class="grades">
-          <div class="grade" v-for="grade in largestGrade">
-            <input type="number" name="quantity" min="0" max="50">
+          <div class="grade" v-for="grade in gradeTotals" track-by="$index">
+            {{grade}}
           </div>
         </div>
         <div class="empty">
@@ -50,24 +56,31 @@
        type: Array,
        default: () => []
      },
-     routes: {
-       type: Array,
-       default: () => []
-     },
-     idealRoutes: {
-       type: Array,
-       default: () => []
-     }
+     update: {}
    },
    data(){
      return {
        largestGrade: 0,
-       grades: []
+       grades: [],
+       gradeTotals: [],
+       circuitTotals: [],
+       updating: false
      }
    },
    created(){
      this.$watch('circuits', () => {
        this.parseGrades(this.circuits);
+       this.calcGradeTotals(this.circuits);
+       this.calcCircuitTotals(this.circuits);
+
+       /* if(!this.updating){
+          setTimeout(function(){
+          this.update();
+          this.updating = false;
+          }.bind(this), 60000);
+          } */
+     }, {
+       deep: true
      });
    },
    ready(){
@@ -89,9 +102,29 @@
        });
        this.largestGrade++;
      },
-     parseRoutes(routes){
 
+     calcGradeTotals(circuits){
+       this.gradeTotals = [];
+       for(var i = 0; i < this.largestGrade; i++){
+         let total = 0;
+         circuits.forEach(circuit => {
+           total += parseInt(circuit['ideal_v' + i]);
+         });
+         this.gradeTotals.push(total);
+       }
+     },
+
+     calcCircuitTotals(circuits){
+       this.circuitTotals = [];
+       circuits.forEach(circuit => {
+         let total = 0;
+         for(var i = 0; i < this.largestGrade; i++){
+           total += parseInt(circuit['ideal_v' + i]);
+         }
+         this.circuitTotals.push(total);
+       });
      }
+
    }
  });
 
@@ -108,15 +141,13 @@
 
    .top {
      display: flex;
-     flex-wrap: wrap;
      flex-basis: 100%;
      height: 60px;
      background-color: #f8f9ff;
 
      .grade-headers {
        display: flex;
-       flex-wrap: wrap;
-       flex-basis: 100%;
+       flex-grow: 1;
        align-items: center;
      }
 
@@ -125,18 +156,34 @@
        padding: 1rem;
      }
 
+     .empty-last {
+       flex-basis: 10%;
+       padding: 0px;
+     }
+
+
      .grade {
        display: flex;
        flex-grow: 1;
        align-items: center;
        justify-content: center;
-       height: 40px;
-       width: 40px;
+       border: 1px rgba(0, 0, 0, 0);
+       flex-basis: 100%;
+       height: 100%;
 
-       span {
-         padding: 5px;
-         /* background-color: darken(#f8f9ff, 8%); */
+       .circle {
+         background-color: darken(#f8f9ff, 4%);
          border-radius: 50%;
+         height: 30px;
+         width: 30px;
+         display: flex;
+         align-items: center;
+         justify-content: center;
+
+         span {
+           padding: 0px;
+           font-size: 12px;
+         }
        }
      }
    }
@@ -182,6 +229,8 @@
                box-shadow: none;
                border: none;
                border: none !important;
+               padding: 0px !important;
+               text-align: center;
              }
            }
          }
@@ -213,6 +262,7 @@
            display: flex;
            flex-grow: 1;
            align-items: center;
+           flex-basis: 100%;
            justify-content: center;
            border: $default-thin-border;
 
