@@ -5,7 +5,7 @@ import UserModel from 'models/UserModel'
 
 //Pages
 import UserPage from 'components/userPage/userPage'
-import UsersPage from 'components/usersPage/usersPage'
+import SettersPage from 'components/settersPage/settersPage'
 import ProfilePage from 'components/profilePage/profilePage'
 import WallsPage from 'components/wallsPage/wallsPage'
 import WallPage from 'components/wallPage/wallPage'
@@ -43,7 +43,7 @@ class RouterService {
       },
       '/setters': {
         name: 'setters',
-        component: UsersPage,
+        component: SettersPage,
         auth: "admin"
       },
       '/users/:id': {

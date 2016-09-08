@@ -1,12 +1,11 @@
 <template>
   <div class="gym-route-distribution">
     <div class="grades-container">
-      <div class="grade" v-for="n in largestGrade" :class="{}">
-        <div class="circuit" v-for="(circuitIndex, circuit) in circuits | reverse " :style="{'background-color': circuit.color}">
-          <!-- <div class="route" v-for="(routeIndex, route) in routes" v-if="route.grade == n && route.color == circuit.name"></div> -->
+      <div class="grade" v-for="(gradeIndex, grade) in gradeData">
+        <div class="circuit" v-for="(circuitIndex, circuit) in grade.circuits | reverse" :style="{'background-color': circuit.color, 'height': (circuit.routes.length * 8) + 'px'}">
+          <span>{{circuit.routes.length}}</span>
         </div>
-
-        {{$index}}
+        <div class="grade-index">v{{gradeIndex}}</div>
       </div>
       <div class="bottom">
 
@@ -40,8 +39,7 @@
    },
    data(){
      return {
-       grades: [],
-       route_data: {}
+       gradeData: {},
      }
    },
    created(){
@@ -67,15 +65,32 @@
    },
    methods: {
      formatData(){
-       this.routeData = {};
-       this.routeData.circuits = {};
-       this.routeData.grades = []
-       for(var i = 0; i < this.largestGrade;  i++){
-         let grade = {};
-
-         console.log(i);
+       this.gradeData = {};
+       for(var i = 0; i <= this.largestGrade;  i++){
+         let grade = {
+           circuits:  []
+         };
+         this.gradeData[i] = grade;
+         this.circuits.forEach(circuit => {
+           if(circuit.start_range <= i && circuit.end_range >= i){
+             let copy = Object.assign({}, circuit);
+             copy.grade = i;
+             copy.routes = [];
+             this.gradeData[i].circuits.push(copy);
+           }
+         });
        }
+
+       this.routes.forEach(route => {
+         let gradeObj = this.gradeData[parseInt(route.grade)];
+         gradeObj.circuits.forEach(circuit => {
+           if(route.color === circuit.name){
+             circuit.routes.push(route);
+           }
+         });
+       });
      }
+
    }
  });
 
@@ -91,6 +106,7 @@
    flex-grow: 1;
    margin-bottom: 2rem;
    border-bottom: $default-border;
+   padding-top: 2rem;
 
    .grades-container {
      display: flex;
@@ -106,22 +122,33 @@
        display: flex;
        flex-wrap: wrap;
        justify-content: center;
-       margin-left: 5px;
-       margin-right: 5px;
+       margin-left: .5rem;
+       margin-right: .5rem;
 
-         .circuit {
+       .circuit {
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         flex-basis: 100%;
+         flex-wrap: wrap;
+
+         &:hover {
+           background-color: rgba(0, 0, 0, .6) !important;
+         }
+
+         .route {
            display: flex;
            flex-basis: 100%;
-           flex-wrap: wrap;
+           height: 10px;
+         }
 
-           &:hover {
-             background-color: rgba(0, 0, 0, .3) !important;
-           }
+         span {
+           display: none;
+           color: azure;
+         }
 
-           .route {
-             display: flex;
-             flex-basis: 100%;
-             height: 10px;
+         &:hover span {
+           display: flex;
          }
        }
      }

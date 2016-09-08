@@ -226,6 +226,7 @@
              border: $default-thin-border;
 
              input {
+               font-size: 14px !important;
                box-shadow: none;
                border: none;
                border: none !important;
@@ -265,11 +266,7 @@
            flex-basis: 100%;
            justify-content: center;
            border: $default-thin-border;
-
-           input {
-             box-shadow: none;
-             border: none !important;
-           }
+           font-size: 14px !important;
          }
        }
        .empty {

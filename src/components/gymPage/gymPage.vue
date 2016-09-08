@@ -3,9 +3,9 @@
     <secondary-nav :nav-items.sync="navItems"></secondary-nav>
     <div class="wall-dist-container" v-show="navItems[0].active">
       <div class="header">
-        <h3>Wall Distribution</h3>
+        <h3>Route Distribution:</h3> </h3><span>{{routes.length}}</span>
       </div>
-      <gym-route-distribution :routes="routes" :ideal-routes="idealRoutes" :circuits="circuits" :largest-grade="largestGrade"></gym-route-distribution>
+      <gym-route-distribution :routes="routes" :ideal-routes="idealRoutes" :circuits.sync="circuits" :largest-grade="largestGrade"></gym-route-distribution>
     </div>
     <div class="ideal-dist-container" v-show="navItems[1].active">
       <div class="header">
@@ -38,6 +38,7 @@
        circuits: [],
        gym: {},
        idealTotal: 0,
+       actualTotal: 0,
        largestGrade: 0,
        navItems: [
          {
@@ -52,7 +53,11 @@
      }
    },
    created(){
-
+     this.$watch('circuits', () => {
+       this.calcIdealTotals(this.circuits);
+     }, {
+       deep: true
+     });
    },
 
    ready(){
@@ -90,7 +95,7 @@
      calcLargestGrade(circuits){
        this.largestGrade = 0;
        circuits.forEach(circuit => {
-         if(circuit.end_range > this.largestGrade){
+         if(circuit.end_range >= this.largestGrade){
            this.largestGrade = circuit.end_range;
          }
        });
@@ -110,6 +115,9 @@
      },
 
      updateGym(){
+       this.gym.circuits.forEach(circuit => {
+         circuit.routes = null;
+       });
        GymModel.updateGym(this.gym);
      }
    }
@@ -151,6 +159,11 @@
          font-weight: 400;
          font-size: 14px;
          color: $color-text-dark;
+         margin-right: 1rem;
+       }
+
+       span {
+         color: $color-navbar-background;
        }
      }
 
