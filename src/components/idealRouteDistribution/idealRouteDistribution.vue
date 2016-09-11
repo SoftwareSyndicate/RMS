@@ -55,16 +55,14 @@
      circuits: {
        type: Array,
        default: () => []
-     },
-     update: {}
+     }
    },
    data(){
      return {
        largestGrade: 0,
        grades: [],
        gradeTotals: [],
-       circuitTotals: [],
-       updating: false
+       circuitTotals: []
      }
    },
    created(){
@@ -72,13 +70,6 @@
        this.parseGrades(this.circuits);
        this.calcGradeTotals(this.circuits);
        this.calcCircuitTotals(this.circuits);
-
-       /* if(!this.updating){
-          setTimeout(function(){
-          this.update();
-          this.updating = false;
-          }.bind(this), 60000);
-          } */
      }, {
        deep: true
      });

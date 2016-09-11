@@ -55,7 +55,6 @@
  @import "../../styles/animation";
 
  .secondaryNav {
-   z-index: 9;
    display: flex;
    flex-grow: 1;
    flex-basis: 100%;

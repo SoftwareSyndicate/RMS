@@ -1,6 +1,6 @@
 <template>
   <div class="navbar" :class="{'shadow': shadow}">
-    <div class="navbar-wrapper">
+    <div class="navbar-wrapper desktop">
       <div class="logo">
         <img src="/images/rms-logo.png"/>
         <div class="brand">RMS</div>
@@ -13,6 +13,21 @@
       </div>
       <div class="user-icon" v-link="{name: 'profile'}" v-bind:class="{'active': 'profile' === currentRoute}" v-if="currentUser">
         <i class="material-icons">person</i>
+      </div>
+    </div>
+
+    <div class="navbar-wrapper mobile">
+      <div class="app-name">{{header}}</div>
+      <div class="menu" @click="showNav = !showNav">
+        <img src="/images/rms-logo.png"/>
+      </div>
+    </div>
+
+    <div class="nav-overlay" v-show="showNav" transition="modal">
+      <div class="list">
+        <div class="item" v-for="item in navItems" v-link="{name: item.route}" v-bind:class="{'active': item.route === currentRoute}" @click="showNav = false">
+          <span>{{item.display}}</span>
+        </div>
       </div>
     </div>
   </div>
@@ -33,7 +48,8 @@
        currentUser: UserModel.currentUser,
        navItems: [],
        currentRoute: this.$route.name,
-       shadow: false
+       shadow: false,
+       showNav: false
      }
    },
    created(){
@@ -147,12 +163,28 @@
      margin-left: auto;
      margin-right: auto;
 
+     &.desktop {
+       display: none;
+     }
+
+     @media (min-width: $medium-screen){
+       justify-content: flex-start;
+
+       &.mobile {
+         display: none;
+       }
+
+       &.desktop {
+         display: flex;
+       }
+     }
+
      .logo {
        display: flex;
        align-items: center;
-       padding-right: 16px;
        border-right: 1px solid #bb0225;
        padding-right: 16px;
+
        img {
          height: 40px;
          padding-right: 16px;
@@ -166,10 +198,25 @@
        }
      }
 
+     .menu {
+       display: flex;
+       align-items: center;
+       margin-left: auto;
+
+       img {
+         height: 40px;
+       }
+     }
+
      .app-name {
-       padding-left: 16px;
        font-size: 22px;
        color: azure;
+       font-family: 'Orbitron', sans-serif;
+
+       @media (min-width: $medium-screen){
+         font-family: 'Yantramanav', sans-serif;
+         padding-left: 16px;
+       }
      }
 
      .list {
@@ -228,6 +275,61 @@
    &:not(.shadow){
      box-shadow: none !important;
    }
+
+
+   .nav-overlay {
+     position: fixed;
+     z-index: 9998;
+     top: $navbar-height;
+     left: 0;
+     width: 100%;
+     height: calc(100vh - 60px);
+     background-color: $color-navbar-background;
+     display: flex;
+     transition: opacity .5s ease;
+
+     .list {
+       display: flex;
+       flex-basis: 100%;
+       flex-wrap: wrap;
+
+       .item {
+         flex-basis: 50%;
+         cursor: pointer;
+         display: flex;
+         align-items: center;
+         justify-content: center;
+
+         span {
+           font-size: 2rem;
+         }
+
+         &.active {
+           background-color: darken($color-navbar-background, 8%);
+         }
+
+         &:hover {
+           background-color: darken($color-navbar-background, 8%);
+         }
+       }
+     }
+
+     .user {
+
+     }
+
+     &.modal-enter, &.modal-leave {
+       opacity: 0;
+     }
+
+     &.modal-enter &.modal-container,
+     &.modal-leave &.modal-container {
+       -webkit-transform: scale(1.1);
+       transform: scale(1.1);
+     }
+   }
+
+
  }
 
 </style>

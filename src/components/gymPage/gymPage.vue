@@ -11,7 +11,7 @@
       <div class="header">
         <h3>Ideal Distribution: </h3><span>{{idealTotal}}</span>
       </div>
-      <ideal-route-distribution :update="updateGym" :circuits.sync="circuits"></ideal-route-distribution>
+      <ideal-route-distribution :circuits.sync="circuits"></ideal-route-distribution>
     </div>
   </div>
 </template>
@@ -40,6 +40,7 @@
        idealTotal: 0,
        actualTotal: 0,
        largestGrade: 0,
+       updating: false,
        navItems: [
          {
            name: "Route distribution",
@@ -55,6 +56,14 @@
    created(){
      this.$watch('circuits', () => {
        this.calcIdealTotals(this.circuits);
+
+       if(this.updateTimeout){
+         window.clearTimeout(this.updateTimeout);
+       }
+
+       this.updateTimeout = setTimeout(() => {
+         this.updateGym();
+       }, 2000);
      }, {
        deep: true
      });

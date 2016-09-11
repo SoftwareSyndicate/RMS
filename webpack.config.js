@@ -91,6 +91,7 @@ if (process.env.NODE_ENV === 'production') {
     }),
     new CopyWebpackPlugin([
       {from: 'images', to: 'images'},
+      {from: 'manifest.json', to: 'manifest.json'},
     ]),
     new webpack.optimize.OccurenceOrderPlugin()
   ]

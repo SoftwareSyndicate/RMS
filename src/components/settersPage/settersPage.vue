@@ -1,6 +1,8 @@
 <template>
   <div class="setters-page">
-    Setters
+    <div class="setter-list-container">
+      <setter-list :setters.sync="setters"></setter-list>
+    </div>
   </div>
 </template>
 
@@ -8,14 +10,16 @@
  import BaseComponent from 'base/baseComponent.vue'
  import UserModel from 'models/UserModel'
 
+ import SetterList from 'components/setterList/setterList'
+
  export default BaseComponent.extend({
    name: 'SettersPage',
    components: {
-
+     SetterList
    },
    data(){
      return {
-       profile: UserModel.currentUser
+       setters: []
      }
    },
    created(){
@@ -24,14 +28,17 @@
 
    ready(){
      this.notifications.notify("Navbar.setHeader", "Setters");
+     this.setters = UserModel.setters;
    },
    notifs(){
      return {
-
+       "UserModel.settersUpdated": "onSettersUpdated"
      }
    },
    methods: {
-
+     onSettersUpdated() {
+       this.setters = UserModel.setters;
+     }
    }
  });
 
