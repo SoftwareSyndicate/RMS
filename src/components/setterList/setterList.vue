@@ -39,7 +39,13 @@
 <style lang="scss">
 
  .setter-list {
+   display: flex;
+   flex-wrap: wrap;
+   flex-basis: 100%;
 
+   .setter-list-item {
+     flex-basis: 100%;
+   }
 
  }
 

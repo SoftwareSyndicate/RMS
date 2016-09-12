@@ -54,7 +54,6 @@ class RouteModel {
     });
   }
 
-
   updateRoute(route){
     var updates = {};
     updates['/routes/' + route.id] = route;

@@ -19,9 +19,12 @@
           </div>
           <div class="grades">
             <div class="grade" v-for="grade in largestGrade">
-              <input type="number" name="quantity" min="0" max="50" v-model="circuit['ideal_v' + grade]" v-if="grade >= circuit.start_range && grade <= circuit.end_range" debounce="500">
-              <input type="number" name="quantity" min="0" max="50"  v-else disabled>
-
+              <div class="input-container"  v-if="grade >= circuit.start_range && grade <= circuit.end_range">
+                <input type="number" name="quantity" min="0" max="50" v-model="circuit['ideal_v' + grade]">
+              </div>
+              <div class="input-container empty" v-else>
+                <input type="number" name="quantity" min="0" max="50" disabled>
+              </div>
             </div>
           </div>
           <div class="total">
@@ -215,6 +218,22 @@
              align-items: center;
              justify-content: center;
              border: $default-thin-border;
+
+             .input-container {
+               height: 100%;
+               display: flex;
+               flex-basis: 100%;
+               align-items: center;
+               justify-content: center;
+
+               &.empty {
+                 background-color: #f8f9ff;
+
+                 input {
+                   background-color: #f8f9ff;
+                 }
+               }
+             }
 
              input {
                font-size: 14px !important;
