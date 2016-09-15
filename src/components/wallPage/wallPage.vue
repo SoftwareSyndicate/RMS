@@ -65,13 +65,29 @@
      this.onWallsUpdated();
      this.gym = GymModel.currentGym;
      this.setters = UserModel.setters;
+
+     this.$watch('routes', () => {
+       if(this.updateTimeout){
+         window.clearTimeout(this.updateTimeout);
+       }
+       this.updateTimeout = setTimeout(() => {
+         this.routes.forEach(route => {
+           // TODO is this handled by firebase? or whut
+           if(route.$dirty){
+             this.updateRoute(route);
+           }
+         });
+       }, 2000);
+     }, {
+       deep: true
+     });
    },
 
    notifs(){
      return {
-       "ColorSelectModal.routeUpdated": "onRouteUpdated",
-       "StatusSelectModal.routeUpdated": "onRouteUpdated",
-       "RiceSelectModal.routeUpdated": "onRouteUpdated",
+       /* "ColorSelectModal.routeUpdated": "onRouteUpdated",
+          "StatusSelectModal.routeUpdated": "onRouteUpdated",
+          "RiceSelectModal.routeUpdated": "onRouteUpdated", */
        "RouteListItem.colorSelected": "onColorSelected",
        "RouteListItem.statusSelected": "onStatusSelected",
        "RouteListItem.riceSelected": "onRiceSelected",
@@ -124,9 +140,13 @@
        RouteModel.deleteRoute(id);
      },
 
-     onRouteUpdated(e, route){
+     updateRoute(){
        RouteModel.updateRoute(route);
      },
+
+     /* onRouteUpdated(e, route){
+        RouteModel.updateRoute(route);
+        }, */
 
      onGymUpdated(){
        this.gym = GymModel.currentGym;

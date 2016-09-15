@@ -1,6 +1,5 @@
 <template>
   <div class="route-list-item component">
-
     <div class="grade-container" @click.stop="colorSelected()">
       <div class="diamond" v-bind:style="{'background-color': route.htmlColor}">
         <div class="diamond-grade" v-bind:class="{'tenner': route.grade > 9}">
@@ -95,7 +94,6 @@
 
 
 <style lang="scss">
- @import '../../styles/vars.scss';
 
  .route-list-item {
    display: flex;
