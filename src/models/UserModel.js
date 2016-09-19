@@ -3,6 +3,8 @@ import Notifications from '../services/NotificationService'
 class UserModel {
   constructor(){
     this.currentUser = null;
+    this.setters = [];
+
     firebase.auth().onAuthStateChanged(user => {
       if(user){
         this.firebaseUser = user;
@@ -50,6 +52,11 @@ class UserModel {
       for(var key in data.val()){
         let setter = data.val()[key];
         setter.setRoutes = [];
+        setter.routes = [];
+        setter.favoriteColors = {};
+        setter.favoriteColor = {};
+        setter.avgGrade = null;
+        setter.lastSet = null;
         this.setters.push(setter);
       }
       Notifications.notify("UserModel.settersUpdated");

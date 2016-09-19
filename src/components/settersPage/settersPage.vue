@@ -1,5 +1,10 @@
 <template>
   <div class="setters-page">
+    <div class="secondary-nav">
+      <div class="container">
+        <span>Route Setters</span>
+      </div>
+    </div>
     <div class="setter-list-container">
       <setter-list :setters.sync="setters"></setter-list>
     </div>
@@ -33,7 +38,11 @@
    ready(){
      this.notifications.notify("Navbar.setHeader", "Setters");
      this.setters = UserModel.setters;
+     this.setters.forEach(setter => {
+       setter.routes = [];
+     });
      this.routes = RouteModel.routes;
+     $("#wrapper").css("width", "100%");
    },
    notifs(){
      return {
@@ -46,36 +55,87 @@
      RouteModel.routesRef.off();
      RouteModel.routes = [];
      RouteModel.watchAllRoutes();
+     $("#wrapper").css("width", "90%");
    },
    methods: {
      onSettersUpdated(){
+       console.log("setters updated");
        this.setters = UserModel.setters;
-       if(this.routes.length > 0){
+       if(this.routes.length > 0 && this.setters.length > 0){
          this.parseRoutes();
        }
      },
 
      onRoutesUpdated(){
+       console.log("routes updated");
        this.routes = RouteModel.routes;
-       if(this.setters.length > 0){
+       if(this.setters.length > 0 && this.routes.length > 0){
          this.parseRoutes();
        }
      },
 
      parseRoutes(){
-       console.log(this.routes);
        this.routes.forEach(route => {
          this.setters.forEach(setter => {
-           if(!setter.routes){
-             setter.routes = [];
-           }
            if(setter.id === route.set_by){
              setter.routes.push(route);
            }
          });
        });
 
-       console.log(this.setters);
+       this.calcAvgGrade();
+       this.favoriteColor();
+       this.lastSet();
+     },
+
+     calcAvgGrade(){
+       this.setters.forEach(setter => {
+         let gradeTotal = 0;
+         setter.routes.forEach(route => {
+           gradeTotal += parseInt(route.grade);
+         });
+         setter.avgGrade = (gradeTotal / setter.routes.length).toString().substr(0, 3);
+       });
+     },
+
+     favoriteColor(){
+       this.setters.forEach(setter => {
+         setter.routes.forEach(route => {
+           if(setter.favoriteColors[route.color]){
+             setter.favoriteColors[route.color].total++;
+           } else {
+             setter.favoriteColors[route.color] = {
+               color: route.color.charAt(0).toUpperCase() + route.color.slice(1),
+               hex: route.htmlColor,
+               total: 1
+             }
+           }
+         });
+
+         let favoriteColor = {
+           total: 0
+         };
+
+         for(let color in setter.favoriteColors){
+           if(setter.favoriteColors[color].total > favoriteColor.total){
+             favoriteColor = setter.favoriteColors[color];
+           }
+         }
+
+         setter.favoriteColor = favoriteColor;
+       });
+     },
+
+     lastSet(){
+       this.setters.forEach(setter => {
+         setter.lastSet = setter.routes[0].created_at;
+         setter.routes.forEach(route => {
+           if(route.created_at > setter.lastSet){
+             setter.lastSet = route.created_at;
+           }
+         });
+         setter.lastSet = new Date(setter.lastSet);
+       });
      }
    }
  });
@@ -90,7 +150,41 @@
    display: flex;
    flex-wrap: wrap;
    flex-grow: 1;
-   margin-top: $page-margin-top;
+
+   .secondary-nav {
+     display: flex;
+     flex-grow: 1;
+     flex-basis: 100%;
+     position: fixed;
+     width: 100%;
+     height: 60px;
+     background-color: rgba(248, 249, 255, 1);
+     align-items: center;
+     transition: all 300ms;
+     box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
+     margin-bottom: $page-margin-top;
+
+
+     .container {
+       width: 90%;
+       margin-right: auto;
+       margin-left: auto;
+
+       span {
+         color: $color-text-normal;
+         margin-left: 1rem;
+         font-size: 1.1rem;
+         font-weight: 400;
+       }
+     }
+   }
+
+   .setter-list-container {
+     margin-top: 6rem;
+     width: 90%;
+     margin-right: auto;
+     margin-left: auto;
+   }
 
  }
 

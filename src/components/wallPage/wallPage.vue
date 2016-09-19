@@ -66,13 +66,14 @@
      this.gym = GymModel.currentGym;
      this.setters = UserModel.setters;
 
-     this.$watch('routes', () => {
+     this.$watch('wall.routes', () => {
        if(this.updateTimeout){
          window.clearTimeout(this.updateTimeout);
        }
        this.updateTimeout = setTimeout(() => {
-         this.routes.forEach(route => {
+         this.wall.routes.forEach(route => {
            // TODO is this handled by firebase? or whut
+           console.log(route.$dirty);
            if(route.$dirty){
              this.updateRoute(route);
            }
@@ -85,9 +86,9 @@
 
    notifs(){
      return {
-       /* "ColorSelectModal.routeUpdated": "onRouteUpdated",
-          "StatusSelectModal.routeUpdated": "onRouteUpdated",
-          "RiceSelectModal.routeUpdated": "onRouteUpdated", */
+       "ColorSelectModal.routeUpdated": "onRouteUpdated",
+       "StatusSelectModal.routeUpdated": "onRouteUpdated",
+       "RiceSelectModal.routeUpdated": "onRouteUpdated",
        "RouteListItem.colorSelected": "onColorSelected",
        "RouteListItem.statusSelected": "onStatusSelected",
        "RouteListItem.riceSelected": "onRiceSelected",
@@ -141,12 +142,14 @@
      },
 
      updateRoute(){
+       console.log("updating route");
        RouteModel.updateRoute(route);
+       route.$dirty = false;
      },
 
-     /* onRouteUpdated(e, route){
-        RouteModel.updateRoute(route);
-        }, */
+     onRouteUpdated(e, route){
+       route.$dirty = true;
+     },
 
      onGymUpdated(){
        this.gym = GymModel.currentGym;

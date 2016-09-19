@@ -1,6 +1,8 @@
 <template>
   <div class="setter-list">
-    <setter-list-item :setter.sync="route" v-for="setter in setters"></setter-list-item>
+    <div class="container" v-for="setter in setters">
+      <setter-list-item :setter.sync="setter"></setter-list-item>
+    </div>
   </div>
 </template>
 
@@ -37,14 +39,27 @@
 </script>
 
 <style lang="scss">
+ @import '../../styles/vars.scss';
 
  .setter-list {
    display: flex;
    flex-wrap: wrap;
    flex-basis: 100%;
 
-   .setter-list-item {
-     flex-basis: 100%;
+   .container {
+     display: flex;
+     flex-wrap: wrap;
+     flex-grow: 1;
+
+     @media (min-width: $medium-screen){
+       flex-basis: 33%;
+     }
+
+     .setter-list-item {
+       margin: 1rem;
+       display: flex;
+       flex-basis: 100%;
+     }
    }
 
  }

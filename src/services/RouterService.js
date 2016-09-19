@@ -46,6 +46,11 @@ class RouterService {
         component: SettersPage,
         auth: "admin"
       },
+      '/setters/:id': {
+        name: 'setter',
+        component: SettersPage,
+        auth: "admin"
+      },
       '/users/:id': {
         name: 'profile',
         component: UserPage,
