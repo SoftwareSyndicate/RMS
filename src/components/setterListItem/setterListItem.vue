@@ -17,7 +17,7 @@
         <span>Date Last Set: </span><span class="number">{{setter.lastSet | dateSet}}</span>
       </div>
       <div class="setter-stat">
-        <span>Routes Set: </span><span class="number">{{setter.routes.length}}</span>
+        <span>Routes Set: </span><span class="number">{{setter.routes.length + setter.previous_routes}}</span>
       </div>
       <div class="setter-stat">
         <span>Avg Grade: </span><span class="number">{{setter.avgGrade}}</span>

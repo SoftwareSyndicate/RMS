@@ -57,6 +57,7 @@ class UserModel {
         setter.favoriteColor = {};
         setter.avgGrade = null;
         setter.lastSet = null;
+        !setter.previous_routes ? setter.previous_routes = 0 : void 0;
         this.setters.push(setter);
       }
       Notifications.notify("UserModel.settersUpdated");

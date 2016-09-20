@@ -59,7 +59,6 @@
    },
    methods: {
      onSettersUpdated(){
-       console.log("setters updated");
        this.setters = UserModel.setters;
        if(this.routes.length > 0 && this.setters.length > 0){
          this.parseRoutes();
@@ -67,7 +66,6 @@
      },
 
      onRoutesUpdated(){
-       console.log("routes updated");
        this.routes = RouteModel.routes;
        if(this.setters.length > 0 && this.routes.length > 0){
          this.parseRoutes();
