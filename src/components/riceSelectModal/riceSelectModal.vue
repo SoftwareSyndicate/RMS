@@ -11,13 +11,13 @@
             <div class="rice">Exposure<span>{{route.exposure}}</span></div>
           </div>
           <div class="right">
-            <input max="5" min="1" step="1" type="range" v-model="route.risk">
-            <input max="5" min="1" step="1" type="range" v-model="route.intensity">
-            <input max="5" min="1" step="1" type="range" v-model="route.complexity">
-            <input max="5" min="1" step="1" type="range" v-model="route.exposure">
+            <input max="5" min="0" step="1" type="range" v-model="route.risk">
+            <input max="5" min="0" step="1" type="range" v-model="route.intensity">
+            <input max="5" min="0" step="1" type="range" v-model="route.complexity">
+            <input max="5" min="0" step="1" type="range" v-model="route.exposure">
           </div>
         </div>
-        <div class="btn btn-primary" @click="save()">Save</div>
+        <div class="btn btn-primary" @click="show = false">Done</div>
       </div>
     </div>
   </div>
@@ -54,7 +54,6 @@
    methods: {
      save(){
        this.show = false;
-       this.notifications.notify("StatusSelectModal.routeUpdated", this.route);
      }
    }
  });
@@ -183,17 +182,17 @@
      width: 100%;
      height: 8.4px;
      cursor: pointer;
-     box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
-     background: $color-3;
+     box-shadow: 1px 1px 1px rgba(0, 0, 0, .2), 0px 0px 1px rgba(0, 0, 0, .2);
+     background-color: #FA7535;
      border-radius: 1.3px;
-     border: 0.2px solid #010101;
+     border: 1px solid rgba(0, 0, 0, .2);
    }
    input[type=range]::-webkit-slider-thumb {
-     box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
-     border: 1px solid #000000;
+     box-shadow: 1px 1px 1px rgba(0, 0, 0, .2), 0px 0px 1px rgba(0, 0, 0, .2);
+     border: 1px solid rgba(0, 0, 0, .2);
      height: 36px;
-     width: 16px;
-     border-radius: 3px;
+     width: 36px;
+     border-radius: 50%;
      background: #ffffff;
      cursor: pointer;
      -webkit-appearance: none;

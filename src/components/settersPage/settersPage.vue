@@ -180,10 +180,11 @@
    }
 
    .setter-list-container {
-     margin-top: 6rem;
      width: 90%;
+     margin-top: 6rem;
      margin-right: auto;
      margin-left: auto;
+     margin-bottom: 2rem;
    }
 
  }

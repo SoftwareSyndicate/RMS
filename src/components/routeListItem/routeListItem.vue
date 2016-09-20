@@ -73,7 +73,11 @@
      }
    },
    created(){
-
+     this.$watch('route', () => {
+       this.route.$dirty = true;
+     }, {
+       deep: true
+     });
    },
 
    methods: {
