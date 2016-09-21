@@ -58,7 +58,8 @@
        showStatusModal: false,
        showRiceModal: false,
        showConfirmResetModal: false,
-       gym: {}
+       gym: {},
+       oldRoutes: []
      }
    },
    created(){
@@ -96,6 +97,7 @@
    },
    methods: {
      parseRoutes(){
+       console.log("parse routes");
        this.wall.routes = [];
        this.totalGrade = 0;
        RouteModel.routes.forEach(route => {
@@ -109,6 +111,7 @@
          }
        });
        this.wall.routes = this.sortRoutes(this.wall.routes);
+       console.log("wall.routes: ", this.wall.routes);
      },
 
      onColorSelected(e, route){
@@ -167,22 +170,26 @@
      resetWall(confirm){
        if(confirm){
          this.showLoadingAnimation();
-         let newRoutes = WallModel.resetWall(this.wall);
-         let now = new Date();
-         this.wall.routes.forEach(route => {
-           route.taken_down = now;
-           RouteModel.updateRoute(route);
-         });
+         setTimeout(() => {
+           let newRoutes = WallModel.resetWall(this.wall);
+           let now = new Date();
+           this.wall.routes.forEach(route => {
+             route.taken_down = now;
+             RouteModel.updateRoute(route);
+           });
 
-         this.wall.routes = [];
-
-         newRoutes.forEach(route => {
-           RouteModel.createRoute(route.gym_id, route.wall_id, route.color, route.grade, 0, 0, 0, 0, route.htmlColor);
-         });
-
+           newRoutes.forEach(route => {
+             RouteModel.createRoute(route.gym_id, route.wall_id, route.color, route.grade, 0, 0, 0, 0, route.htmlColor);
+           });
+         }, 50);
          setTimeout(()=> {
+           for(let i = 0; i < this.wall.routes.length; i++){
+             if(this.wall.routes[i].status != 0){
+               this.wall.routes.splice(i, 1);
+             }
+           }
            this.hideLoadingAnimation();
-         }, 5000);
+         }, 1000);
        }
      },
 
