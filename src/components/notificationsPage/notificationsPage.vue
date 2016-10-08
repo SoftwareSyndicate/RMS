@@ -41,11 +41,10 @@
    },
 
    ready(){
-     $("#wrapper").width("100%");
      this.notifications.notify("Navbar.setHeader", "Notifications");
    },
    beforeDestroy(){
-     $("#wrapper").width("90%");
+
    },
    notifs(){
      return {

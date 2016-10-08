@@ -260,8 +260,9 @@
    display: flex;
    flex-wrap: wrap;
    flex-grow: 1;
+   margin: auto;
    margin-top: $page-margin-top;
-
+   max-width: 90%;
 
    .route-list-container {
      flex-basis: 100%;

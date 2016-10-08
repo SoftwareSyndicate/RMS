@@ -58,8 +58,8 @@
 
    ready(){
      this.initNavItems();
-     $('body').on('wheel.navbar touchmove.navbar', this.onScroll());
-     this.onScroll()();
+     /* $('body').on('wheel.navbar touchmove.navbar', this.onScroll());
+        this.onScroll()(); */
    },
    notifs(){
      return {

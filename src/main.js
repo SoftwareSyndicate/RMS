@@ -1,7 +1,4 @@
-require('file?name=[name].[ext]!../index.html'); // copy the index.html file
-
-import $ from 'jquery'
-window.$ = $;
+require('file?name=[name].[ext]!../index.html');
 
 import Vue from 'vue'
 import RouterService from './services/RouterService.js'
@@ -12,6 +9,8 @@ import App from './components/App.vue'
 import Chart from 'chart.js'
 import chartConfig from './libs/chartConfig.js'
 import Notifications from './services/NotificationService.js'
+
+import store from './store'
 
 Vue.config.warnExpressionErrors = false
 Vue.config.debug = false

@@ -42,7 +42,6 @@
        setter.routes = [];
      });
      this.routes = RouteModel.routes;
-     $("#wrapper").css("width", "100%");
    },
    notifs(){
      return {
@@ -55,7 +54,6 @@
      RouteModel.routesRef.off();
      RouteModel.routes = [];
      RouteModel.watchAllRoutes();
-     $("#wrapper").css("width", "90%");
    },
    methods: {
      onSettersUpdated(){

@@ -61,7 +61,9 @@
    display: flex;
    flex-wrap: wrap;
    flex-grow: 1;
+   margin: auto;
    margin-top: $page-margin-top;
+   max-width: 90%;
 
    .person {
      display: flex;

@@ -15,11 +15,10 @@
  import RouteModel from 'models/RouteModel'
  import NotificationModel from 'models/NotificationModel'
 
- import BaseComponent from 'base/baseComponent.vue'
  import Navbar from 'components/navbar/navbar'
  import Overlay from 'components/overlay/overlay'
 
- var App = BaseComponent.extend({
+export default {
    name: 'App',
    components: {
      Navbar,
@@ -58,9 +57,8 @@
        }
      }
    }
- });
+ };
 
- export default App;
 </script>
 
 
@@ -78,7 +76,7 @@
    #wrapper {
      display: flex;
      padding-top: $navbar-height;
-     width: $max-width;
+     /* width: $max-width; */
      margin: auto;
    }
  }

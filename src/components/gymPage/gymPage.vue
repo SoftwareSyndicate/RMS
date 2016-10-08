@@ -149,7 +149,7 @@
      flex-wrap: wrap;
      margin-left: auto;
      margin-right: auto;
-     margin-top: 2rem;
+     margin-top: 6rem;
      flex-basis: 90%;
      background-color: rgba(255, 255, 255, 0.98);
      border: $default-border;
@@ -189,7 +189,7 @@
      flex-wrap: wrap;
      margin-left: auto;
      margin-right: auto;
-     margin-top: 2rem;
+     margin-top: 6rem;
      flex-basis: 90%;
      background-color: rgba(255, 255, 255, 0.98);
      border: $default-border;

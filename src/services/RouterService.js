@@ -94,7 +94,6 @@ class RouterService {
       Notifications.notify('Router.afterTransition', transition);
     });
 
-
     router.redirect({
       '*': '/walls'
     });

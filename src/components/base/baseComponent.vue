@@ -2,13 +2,6 @@
 import Vue from 'vue'
 import Notifications from '../../services/NotificationService.js'
 
-let createOverlay = function(){
-  let overlay = $('<div class="overlay-container local-overlay" v-show="visible"></div>');
-  overlay.append('<div class="loader"></div>');
-  overlay.append('<img src="/images/gamesight_icon.svg">');
-  return overlay;
-}
-
 var BaseComponent = Vue.extend({
   name: 'BaseComponent',
   props:['autoLoad'],
@@ -25,7 +18,6 @@ var BaseComponent = Vue.extend({
 
   ready(){
     // make all components have a jquery wrapped version of their element
-    this.$$el = $(this.$el);
 
     // start the component with the local loading animation
     // if hide has not yet been called
