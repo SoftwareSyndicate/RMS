@@ -1,11 +1,11 @@
-/* Routes Module */
+/* Users Module */
 
 import * as types from '../mutation-types'
 
 // initial state
 const state = {
   all: [],
-  sent: []
+  active: null
 }
 
 // mutations

@@ -12,6 +12,8 @@ import Notifications from './services/NotificationService.js'
 
 import store from './store'
 
+console.log("store: ", store);
+
 Vue.config.warnExpressionErrors = false
 Vue.config.debug = false
 
