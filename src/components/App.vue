@@ -47,6 +47,7 @@ export default {
    },
    methods: {
      getResources(){
+       console.log("store: ", this.$store);
        if(!this.resourcesLoaded){
          WallModel.watchAllWalls();
          RouteModel.watchAllRoutes();

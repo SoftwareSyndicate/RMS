@@ -12,8 +12,6 @@ import Notifications from './services/NotificationService.js'
 
 import store from './store'
 
-console.log("store: ", store);
-
 Vue.config.warnExpressionErrors = false
 Vue.config.debug = false
 
@@ -24,7 +22,7 @@ var router = RouterService.initRoutes();
 let loaded = false;
 Notifications.listenFor("UserModel.userUpdated", () => {
   if(!loaded){
-    router.start(App, '#app');
+    router.start(App,'#app');
     loaded = true;
   }
 });
